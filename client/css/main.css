@@ -55,6 +55,10 @@ h1 {
   font-weight: bold;
 }
 
+.tel,
+.tel:hover {
+  color: black;
+}
 /*
  * Affix and center
  */
