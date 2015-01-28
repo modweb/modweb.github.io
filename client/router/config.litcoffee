@@ -2,6 +2,7 @@
 
     Router.configure
       layoutTemplate: 'layout'
+      trackPageView: yes
       #loadingTemplate: 'loading'
 
 ## Filters

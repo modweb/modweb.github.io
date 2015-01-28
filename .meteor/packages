@@ -12,3 +12,5 @@ coffeescript
 fortawesome:fontawesome
 iron:router
 fezvrasta:bootstrap-material-design
+reywood:iron-router-ga
+spiderable
