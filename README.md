@@ -1,5 +1,3 @@
-# Modweb.io
+# modweb.io
 
-Source code for [http://modweb.io](http://modweb.io).
-
-Build with [Meteor](http://meteor.com).
+Source for [http://modweb.io](http://modweb.io).
