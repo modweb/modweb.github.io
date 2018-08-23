@@ -1,0 +1,57 @@
+form {
+
+}
+form section {
+    padding: 0 20px;
+}
+form .row {
+    padding: 3px 10px;
+}
+form input:focus, form select:focus {
+    box-shadow: none;
+    border-radius: 0;
+}
+form .input {
+    cursor: pointer;
+    width: 100%;
+}
+form .input input[type=text] {
+    border-radius: 0;
+    box-shadow: none;
+    width: 100%;
+}
+form .label {
+    color: #000;
+    display: block;
+    text-align: left;
+    text-transform: uppercase;
+    margin-left: -5px;
+}
+form .input select {
+    background: white;
+    border-radius: 0;
+    box-shadow: none;
+    height: 35px;
+    width: 100%;
+}
+
+form .col-6 {
+    float: left;
+    width: 50%;
+}
+.invalid {
+    color: #D14;
+}
+.header-search {
+    margin-top: 15px;
+}
+
+form .bold {
+    text-transform: uppercase;      
+    font-weight: 700;
+    padding-left: 2px;
+}
+
+form .text {
+    font-size: .75em;
+}

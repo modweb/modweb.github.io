@@ -1,0 +1,29 @@
+.icon-spacer::before,
+.icon-blank::before {
+	width: 1em;
+	content: ' ';
+}
+
+.shape { vertical-align: top; display: inline-block; width: 30px; height: 30px; } 
+.shape.circle { border-radius: 50%}
+.shape.circle-sm { margin: 3px; height: 24px; width: 24px;}
+.shape.circle-tiny { margin: 5px; height: 20px; width: 20px;}
+.shape.shape-gray { background-color: #bcbec0; }
+.shape.shape-red { background-color: #ff3f46; }
+
+.status-indicator {
+	-webkit-border-radius:8px;
+	-moz-border-radius:8px;
+	border:1px solid #ccc;
+	border-radius:8px;
+	display: inline-block;
+	height:8px;
+	position: relative;
+	top: -6px;
+	width:8px;
+}
+.status-ACTIVE { background-color: green; border-color: green; }
+.status-INACTIVE { background-color: red; border-color: red; }
+.status-LOCKED { background-color: blue; border-color: blue; }
+.status-SUSPENDED { background-color: #cc00cc; border-color: #cc00cc; }
+.status-PENDING { background-color: #33ffcc; border-color: #33ffcc; }

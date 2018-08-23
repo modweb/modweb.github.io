@@ -1,0 +1,26 @@
+body {
+	overflow: hidden;
+}
+.terminal {
+    border: #000 solid 5px;
+    font-family: "Monaco", "DejaVu Sans Mono", "Liberation Mono", monospace;
+    font-size: 11px;
+    color: #f0f0f0;
+    background: #000;
+    height: 100%;
+	width: 100%;
+}
+
+.reverse-video {
+    color: #000;
+    background: #f0f0f0;
+}
+
+h2 {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+h4 {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}

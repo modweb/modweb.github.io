@@ -1,0 +1,63 @@
+.tokenahead {
+	cursor: text;
+	overflow: hidden;
+	height: auto;
+	padding-bottom: 0;
+	border-color:#ccc;
+	background-color:white;
+}
+.focus{
+	border-color: rgba(82, 168, 236, 0.8);
+	outline: 0;
+	outline: thin dotted 9;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),0 0 8px rgba(82, 168, 236, 0.6);
+	-moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.6);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),0 0 8px rgba(82, 168, 236, 0.6);
+}
+.tokenahead a.tag {
+	color: #333;
+	cursor: default;
+	float: left;
+	display: inline-block;
+	border: 1px solid #ccc;
+	text-decoration: none;
+	padding: 0 4px;
+	margin: 0 3px 3px 0;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.tokenahead a:hover {
+	color: #333;
+}
+
+.tokenahead span.close {
+	font-size: 14px;
+	line-height: 14px;
+	margin-left: 4px;
+}
+
+.tokenahead .measurer {
+	position: absolute;
+	top: -1000px;
+}
+
+.tokenahead input {
+	border: none;
+	box-shadow: none;
+	outline : none;
+	float: left;
+	margin: 0 0 5px;
+	padding: 0;
+	width: 100px;
+}
+
+.tokenahead input:focus {
+	border-color: none;
+	outline: 0;
+	outline: thin dotted 9;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+}

@@ -1,0 +1,21 @@
+.favorites-dropdown .favorites a
+{
+	padding-right: 66px;
+	position: relative;
+	width: 210px;
+}
+.favorites-dropdown .favorites a .actions {
+	position: absolute;
+	right: 20px;
+	top: 3px;
+}
+
+.favorites-dropdown .favorites .popover-content
+{
+	padding-left: 25px;
+	text-indent: -16px;
+	white-space: normal;
+}
+.favorites-dropdown .favorites .popover-content p {
+
+}

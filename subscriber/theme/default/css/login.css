@@ -1,0 +1,88 @@
+#login-block {
+    font-size: 1.5vmax;
+}
+#login-block header {
+    font-size: 1.5em;
+}
+#login-block .links {
+    margin: 0;
+    padding: 0;
+}
+#login-block .link {
+    font-size: 1.1vmax;
+    margin: 5px 0;
+    white-space: nowrap;
+    cursor: pointer;        
+}
+#login-block a:hover {
+    text-decoration: none;
+}
+#login-block .label {
+    color: black;
+    font-size: .55em;
+    text-transform: uppercase;
+}
+#login-block button {
+    font-family: source_sans_proregular, "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: bold;
+}
+#login-block label input {
+    clear: both;
+    font-size: 16px;
+}
+#login-block label {
+    clear: both;
+    float: left;
+}
+#login-block section {
+    padding: 20px 0;
+    clear: both;
+}
+#login-block button[type=submit] {
+    float: left;
+}
+#login-block label.checkbox-round {
+    clear: none;
+    font-size: 1.1vmax;
+    line-height: 1.1vmax;
+    margin: 10px 0 0 25px;
+    cursor: pointer;        
+}
+#login-block {
+    background-color: #fff;
+    border-radius: 3px;
+    padding: 40px;
+    position: absolute;
+    right: 5%;
+    top : 10%;
+}
+#login-block .input input {
+    background-color: white;
+    border-top: none;
+    border-left : none;
+    border-right: none;
+    font-size: 20px;		    
+}
+
+#login-block .add-on {
+    background-color: transparent;
+    border: none;
+    border-bottom: solid 1px #d1d3d4;
+    border-radius: 0;
+}
+@media screen and (min-width: 1400px) and (max-width: 1500px) {
+    #login-block {
+        padding: 25px;
+    }
+}
+@media screen and (min-width: 768px) and (max-width: 1400px) {
+    #login-block {
+        padding: 15px;
+    }
+    #login-block label.checkbox-round { margin: 10px 0 0 15px; }
+    #login-block label.checkbox-round img { height: 17px; }
+    #login-block .row { margin: 0px; }
+    #login-block section {
+        padding: 5px 0;
+    }
+}

@@ -1,0 +1,45 @@
+#divSmallBoxes{
+    position:fixed;
+    right:0;
+    top:0;
+    z-index:9999
+}
+.SmallBox{
+    position:absolute;
+    right:5px;
+    top:20px;
+    width:420px;
+    color:#fff;
+    z-index:9999;
+    overflow:hidden;
+    border:1px solid transparent
+}
+.SmallBox:hover{border:1px solid #fff;cursor:pointer}
+.SmallBox .foto{font-size:50px;position:absolute;left:17px}
+.SmallBox .textoFull{width:93%;float:left;padding-left:20px}
+.SmallBox .textoFoto{width:78%;margin:3px 20px 3px 80px;float:left}
+.miniPic{position:absolute;bottom:8px;right:9px}
+.miniIcono{height:100%;font-size:20px}
+.SmallBox span{font-size:17px;font-weight:300;letter-spacing:-1px;display:block;margin:4px 0}
+.SmallBox p{font-size:13px;margin-top:2px}
+#pageslide{display:none;position:absolute;position:fixed;top:0;height:100%;z-index:999999;width:305px;padding:20px;background-color:#004d60;color:#FFF;-webkit-box-shadow:inset 0 0 5px 5px #222;-moz-shadow:inset 0 0 0 0 #222;box-shadow:inset 0 0 0 0 #222}
+.purehtml{color:#fff;font-size:16px}
+
+@media screen and (max-width:450px) and (max-width:767px){
+    #divSmallBoxes{position:fixed;width:90%;right:0;top:0}
+    .SmallBox{width:95%}
+    .SmallBox:hover{box-shadow:0 0 10px #888;cursor:pointer}
+    .SmallBox span{font-size:16px}
+    .SmallBox p{font-size:12px;margin-top:2px}
+    .SmallBox .textoFull{width:93%;float:left;padding-left:20px}
+    .SmallBox .textoFoto{width:55%;margin:3px 20px 3px 80px;float:left}
+    .bigBox{position:fixed;right:10px;bottom:10px;background-color:#004d60;padding-left:10px;padding-top:10px;padding-right:10px;padding-bottom:5px;width:88%;height:150px;color:#fff;z-index:99999}
+    .divMessageBox{width:100%;height:100%;position:fixed;top:0;left:0;background:rgba(0,0,0,.6);z-index:100000}
+    .MessageBoxContainer{top:25%;color:#fff;position:relative;width:100%;background-color:#232323}
+    .MessageBoxMiddle{position:relative;left:0;width:100%;padding:3px}
+    .MessageBoxMiddle .MsgTitle{font-size:22px}
+    .MessageBoxMiddle .pText{font-style:10px}
+    .MessageBoxContainer input,.MessageBoxContainer select{width:50%;padding:5px}
+    .MessageBoxButtonSection{width:100%;height:30px}
+    .MessageBoxButtonSection button{float:right;margin-right:5px;padding-left:15px;padding-right:15px}
+}

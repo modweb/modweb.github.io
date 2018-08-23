@@ -1,0 +1,39 @@
+.logo
+{
+  display:block;
+  width:50vh;
+  margin-left:auto;
+  margin-right:auto;
+  padding-top:36px;
+}
+
+.hide
+{
+  display:none;
+}
+
+.freshFonts
+{
+  font-family: 'Roboto', sans-serif;
+}
+
+.noBorders
+{
+  border-radius:0px !important;
+}
+
+.center
+{
+  text-align:center;
+}
+
+.gray
+{
+  padding-top:18px;
+  color:gray !important;
+}
+
+.buffer
+{
+  padding-bottom:18px;
+}

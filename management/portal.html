@@ -1,0 +1,4188 @@
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>
+		Management Portal
+</title>
+
+
+
+<link rel="shortcut icon" href="favicon/favicon.ico" type="image/x-icon">
+<link rel="icon" href="favicon/favicon.ico" type="image/x-icon">
+	<!-- GLOBAL CSS LINKS -->
+			<link rel="stylesheet" href="css/bootstrap.min.css?x=1" type="text/css" media="all" charset="utf-8" />
+			<link rel="stylesheet" href="css/jquery-ui.min.css?x=1" type="text/css" media="all" charset="utf-8" />
+			<link rel="stylesheet" href="css/jquery-ui.theme.min.css?x=1" type="text/css" media="all" charset="utf-8" />
+			<link rel="stylesheet" href="css/jquery-ui.structure.min.css?x=1" type="text/css" media="all" charset="utf-8" />
+			<link rel="stylesheet" href="css/font-awesome.min.css?x=1" type="text/css" media="all" charset="utf-8" />
+			<link rel="stylesheet" href="css/notification.css?x=1" type="text/css" media="all" charset="utf-8" />
+			<link rel="stylesheet" href="css/icons.css?x=1" type="text/css" media="all" charset="utf-8" />
+			<link rel="stylesheet" href="css/../addons/bootstrap-toggle/css/bootstrap-toggle.min.css?x=1" type="text/css" media="all" charset="utf-8" />
+			<link rel="stylesheet" href="css/buttons.dataTables.min.css?x=1" type="text/css" media="all" charset="utf-8" />
+			<link rel="stylesheet" href="css/dataTables.bootstrap.min.css?x=1" type="text/css" media="all" charset="utf-8" />
+			<link rel="stylesheet" href="css/bootstrap-select.min.css?x=1" type="text/css" media="all" charset="utf-8" />
+			<link rel="stylesheet" href="css/jquery-ui-timepicker.css?x=1" type="text/css" media="all" charset="utf-8" />
+			<link rel="stylesheet" href="css/../theme/default/css/global.css?x=1" type="text/css" media="all" charset="utf-8" />
+			<link rel="stylesheet" href="css/../theme/default/css/forms.css?x=1" type="text/css" media="all" charset="utf-8" />
+			<link rel="stylesheet" href="css/../theme/default/css/widget.css?x=1" type="text/css" media="all" charset="utf-8" />
+		<!-- GLOBAL JS SCRIPTS -->
+			<script type="text/javascript" charset="utf-8" src="js/jquery.min.js?x=1"></script>
+			<script type="text/javascript" charset="utf-8" src="js/jquery-ui.min.js?x=1"></script>
+			<script type="text/javascript" charset="utf-8" src="js/bootstrap.min.js?x=1"></script>
+			<script type="text/javascript" charset="utf-8" src="js/global.js?x=1"></script>
+			<script type="text/javascript" charset="utf-8" src="js/global_vars.js?x=1"></script>
+			<script type="text/javascript" charset="utf-8" src="js/notification.min.js?x=1"></script>
+			<script type="text/javascript" charset="utf-8" src="js/plugin/jquery-paginate/jquery.paginate.min.js?x=1"></script>
+			<script type="text/javascript" charset="utf-8" src="js/plugin/jquery-validate/jquery.validate.min.js?x=1"></script>
+			<script type="text/javascript" charset="utf-8" src="js/plugin/jquery-ui-timepicker/jquery-ui-timepicker.js?x=1"></script>
+			<script type="text/javascript" charset="utf-8" src="js/plugin/jquery-datatables/jquery.dataTables.min.js?x=1"></script>
+			<script type="text/javascript" charset="utf-8" src="js/plugin/jquery-datatables/dataTables.bootstrap.min.js?x=1"></script>
+			<script type="text/javascript" charset="utf-8" src="js/plugin/jquery-datatables/dataTables.buttons.min.js?x=1"></script>
+			<script type="text/javascript" charset="utf-8" src="js/plugin/jquery-datatables/buttons.html5.min.js?x=1"></script>
+			<script type="text/javascript" charset="utf-8" src="js/plugin/jquery-pdfmake/pdfmake.min.js?x=1"></script>
+			<script type="text/javascript" charset="utf-8" src="js/plugin/jquery-pdfmake/vfs_fonts.js?x=1"></script>
+			<script type="text/javascript" charset="utf-8" src="js/plugin/jszip/jszip.min.js?x=1"></script>
+			<script type="text/javascript" charset="utf-8" src="js/plugin/jquery-datatables/buttons.bootstrap.min.js?x=1"></script>
+			<script type="text/javascript" charset="utf-8" src="js/plugin/jquery-select-chain/jquery.chained.min.js?x=1"></script>
+			<script type="text/javascript" charset="utf-8" src="js/plugin/clipboard/clipboard.js?x=1"></script>
+			<script type="text/javascript" charset="utf-8" src="js/bootstrap-select.js?x=1"></script>
+			<script type="text/javascript" charset="utf-8" src="js/prettyprint.js?x=1"></script>
+			<script type="text/javascript" charset="utf-8" src="js/../addons/websockets/websockets.js?x=1"></script>
+			<script type="text/javascript" charset="utf-8" src="js/../addons/bootstrap-toggle/js/bootstrap-toggle.min.js?x=1"></script>
+			<script type="text/javascript" charset="utf-8" src="js/../theme/default/js/global.js?x=1"></script>
+	    </head>
+    <body>
+        <script type="text/javascript">
+	var conn = null;
+	var id = 'a0a3adc0-8f5a-11e8-abd0-4e3042455958';
+	
+		$(document).ready(function () {
+			//load menu
+			$('.dropdown-toggle').dropdown();
+
+			$(document).off('hidden.bs.modal', '.modal').on('hidden.bs.modal', '.modal', function (event) {
+				clearModal($(this));
+			});
+
+			$(document).off('shown.bs.modal', '.modal').on('shown.bs.modal', '.modal', function (event) {
+				// set variables that will be used below (save on performance so look up only happens once)
+				var $this = $(this);
+
+				// if the z-index of this modal has been set, ignore.
+				if ($this.hasClass('fv-modal-stack')) {
+					return;
+				}
+
+				var $backdrop = $('.modal-backdrop').not('.fv-modal-stack');
+				var $body = $('body');
+
+				// keep track of the number of open modals
+				if (typeof ($body.data('fv_open_modals')) == 'undefined') {
+					$body.data('fv_open_modals', 0);
+				}
+
+
+				// update how many modals are open
+				$body.data('fv_open_modals', $body.data('fv_open_modals') + 1);
+
+				// update the z index and mark that the modal has been accounted for
+				$this.addClass('fv-modal-stack');
+				$this.css('z-index', 1040 + (10 * $body.data('fv_open_modals')));
+
+				// update the z index and mark that the modal backdrop has been accounted for
+				$backdrop.addClass('fv-modal-stack');
+				$backdrop.css('z-index', 1039 + (10 * $body.data('fv_open_modals')));
+
+			});
+
+			// Code to handle live communication with server to receive messages via pushes from server
+			var onopen_function = function (e) {
+				socketfuncs.subscribe('subscription_operator', function (data) {
+					var parent_selector = '#account-container';
+					if (typeof(messagehistory) !== 'undefined' && $(parent_selector).length) {
+						socketfuncs.log('subscribe function fired');
+						socketfuncs.log(data);
+						messagehistory.addMessagehistoryRow(data.payload, 'top', true);
+						socketfuncs.log('Subscription channel recieved a message', true);
+					}
+				});
+				socketfuncs.subscribe('device_operator', function (data) {
+					var parent_selector = '#device-container';
+					if (typeof(messagehistory) !== 'undefined' && $(parent_selector).length) {
+						socketfuncs.log('device function fired');
+						socketfuncs.log(data);
+						messagehistory.addMessagehistoryRow(data.payload, 'top', true);
+						socketfuncs.log('Device channel recieved a message', true);
+					}
+				});
+			};
+			var onmessage_function = function (e) {
+				if (entrypoint.tool.isJson(e.data)) {
+					var data = JSON.parse(e.data);
+					var channel = data.channel;
+					if (socketfuncs.channels[channel] !== undefined && entrypoint.tool.isFunction(socketfuncs.channels[channel])) {
+						socketfuncs.channels[channel](data);
+					}
+				} else {
+					socketfuncs.log(e.data);
+				}
+			};
+			socketfuncs.init(globals.BASE_URL.replace('http://', '').replace('https://', ''), '8888', onopen_function, onmessage_function);
+		});
+		function clearModal($modal) {
+			$modal.removeClass('fv-modal-stack');
+			$('body').data('fv_open_modals', $('body').data('fv_open_modals') - 1);
+			if ($('.fv-modal-stack').length) {
+				$('body').addClass('modal-open');
+			}
+		}
+	</script>
+<nav class="navbar navbar-default navbar-fixed-top">
+	<!-- Brand and toggle get grouped for better mobile display -->
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" id="home_link" href="/">Westerville Portal</a>
+	</div>
+
+	<!-- Collect the nav links, forms, and other content for toggling -->
+	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		<ul class="nav navbar-nav navbar-right">
+							<li>
+                                                                                                                                                                                    					                                                                        					                                                                        					                                                                        					                                    										<a href="http://osticket.entpnt?email=operator@test.com&name=Operator+Accouunt&phone=123.123.1234" target="_blank" rel="noopener noreferrer">
+						<span class="fa fa-support" title="Click here to submit a support ticket." alt="Click here to submit a support ticket."></span>
+						<span class="support">Support</span>
+					</a>
+				</li>                               
+						<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown">operator <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a class="nav" href="/user/profile" title="User Profile"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+						<li><a class="nav" href="/user/settings" title="Account Settings"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
+						<li><a id="logout" class="nav" href="/user/logout" title="Logout" target="_top"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+					</ul>
+							</li>
+		</ul>
+		<!-- Sidebar -->
+<div class="nav nav-sidebar">
+            <div id="accordian"><ul><li class="level1 dropdown-submenu"><a href="/account/list"><span class="fa fa-fw fa-group"></span><span>Accounts</span></a></li><li class="level1 dropdown-submenu"><a href="/device/list"><span class="fa fa-fw fa-desktop"></span><span>Devices</span></a></li><li class="level1 dropdown-submenu"><a href="/provider/list"><span class="fa fa-fw fa-cubes"></span><span>Providers</span></a></li><li class="level1 dropdown-submenu"><span class="fa fa-fw fa-wrench"></span><span>Manage</span><ul style="display:none;"><li class="level2 dropdown-submenu"><span class="fa fa-fw fa-map-marker"></span><span>Locations</span><ul style="display:none;"><li class="level3 dropdown-submenu"><a href="/centraloffice/list"><span>Central Office</span></a></li><li class="level3 dropdown-submenu"><a href="/rack/list"><span>Rack</span></a></li></ul></li><li class="level2 dropdown-submenu"><span class="fa fa-fw fa-exchange"></span><span>Network</span><ul style="display:none;"><li class="level3 dropdown-submenu"><a href="/patch/list"><span>Patch</span></a></li></ul></li><li class="level2 dropdown-submenu"><a href="/virtualsystem/list"><span>Virtual Systems</span></a></li></ul></li><li class="level1 dropdown-submenu"><span class="fa fa-fw fa-list-alt"></span><span>Reports</span><ul style="display:none;"><li class="level2 dropdown-submenu"><a href="/reports/accounts"><span>Accounts</span></a></li><li class="level2 dropdown-submenu"><a href="/reports/deviceStatus"><span>Device Status</span></a></li><li class="level2 dropdown-submenu"><a href="/reports/subscriptionHistory"><span>Subscription History</span></a></li><li class="level2 dropdown-submenu"><a href="/reports/webhookHistory"><span>Webhook History</span></a></li></ul></li><li class="level1 dropdown-submenu"><a href="/user/list"><span class="fa fa-fw fa-users"></span><span>Users</span></a></li></ul></div>
+                  
+</div>
+<!-- /#sidebar-wrapper -->
+<script>
+$(document).ready(function(){
+    $("#accordian li span").click(function(){
+        //find children ul to for the parent li and slide them up
+        $(this).parent().find('ul').slideUp();
+        //slide down the link list below the span clicked - only if its closed
+        if(!$(this).next().is(":visible")) {
+            $(this).next().slideDown();
+        }
+    })
+})
+</script>	</div><!-- /.navbar-collapse -->
+</nav>
+
+<style>
+		.dropdown-menu{
+		display: none !important;
+	}
+	.open>.dropdown-menu{
+		display: block !important;
+	}
+</style>>
+<script>
+	$(document).ready(function () {
+		$('#home_link').on('click', function () {
+			document.location.href = $(this).attr('href');
+				return false;
+		});
+	});
+</script>        
+        <!-- MAIN PANEL -->
+        <div class="nav-container">
+            <div id="content_hold" class="container-fluid">
+<div class="row" style="padding-bottom:10px;">
+    <div class="col-lg-8 col-md-8">
+        <h3 class=""><i class="fa fa-folder-cubes"></i> Providers</h3>
+    </div>
+    <div class="col-lg-4 col-md-4">   
+        <div class="header-search input-group pull-right">            
+            <input type="text" placeholder="Provider Search" id="header-search-input" class="pull-right form-control">
+            <span class="input-group-addon">
+                <i class="fa fa-search"></i>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div class="alert alert-blank alert-dismissible">Search for a provider by providing a name, description, or other identifying details.</div>
+
+<div id="provider-container">
+    <div id="search-list">
+<div class="table-responsive bordered">
+    <table class="table table-striped table-hover table-condensed">
+                    <thead>
+                <tr>
+                    <th>Name</th>
+                    <th class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody class="provider-body">
+                <tr class="provider-no-record" style="display:none;"><td colspan="2">No records found</td></tr>
+                                                                                                <tr id="provider-9d831120-8f5a-11e8-a880-484a35433051">
+                        <td class="provider-name">
+                            <span class="status-indicator status-ACTIVE" title="ACTIVE" alt="ACTIVE"></span>
+                            <span class="span-name">ATC Communications</span>
+                        </td>
+                        <td class="text-center" style="white-space: nowrap">                            
+                            <button class="btn btn-success btn-xs provider-button" data-id="9d831120-8f5a-11e8-a880-484a35433051" data-class="provider" data-event="edit" data-toggle="tooltip" data-placement="top" title="View Provider Details"><i class='fa fa-edit'></i></button>
+                            <button class="btn btn-success btn-xs provider-button clipboard" data-clipboard-text="9d831120-8f5a-11e8-a880-484a35433051" data-toggle="tooltip" data-placement="top" title="Copy ID to Clipboard"><i class='fa fa-clipboard'></i></button>
+                            <button class="btn btn-success btn-xs provider-button" data-id="9d831120-8f5a-11e8-a880-484a35433051" data-class="provider" data-event="modal" data-toggle="tooltip" data-placement="top" title="Disable Provider"><i class='fa fa-times'></i></button>
+                            <span class="provider-json" id="provider-json-9d831120-8f5a-11e8-a880-484a35433051" style="display:none;">{"id":"9d831120-8f5a-11e8-a880-484a35433051","description":"Albion Telephone Company","entrypoint_communicator_port":null,"entrypoint_communicator_uri":null,"image":"atc.png","name":"ATC Communications","parent_id":"052c6794-3ff5-11e7-a622-543537493032","status":"ACTIVE","type":"SERVICE","created_at":"2018-07-24 09:59:58","updated_at":"2018-07-24 09:59:58","level":"1","Services":[{"id":"04e99fe0-8f69-11e8-99eb-543856374e4c","access_code":"HJGAJ141","account_types":"[\"RESIDENTIAL\"]","description":"Stuff","display_type":"PUBLIC","image":"atc.png","ip_range":"","marketing_url":"","name":"Service","network_operator_label":"60","provider_id":"9d831120-8f5a-11e8-a880-484a35433051","servicetype_id":"a02b2cb0-8f5a-11e8-aad1-37304e535947","standby_settings":{"enabled":"0","on_initially":"1"},"status":"ACTIVE","subscription_redirect_url":"","support_url":"","virtual_system_id":null,"walled_garden_label":"","created_at":"2018-07-24 11:43:05","updated_at":"2018-08-07 13:25:56"}]}</span>
+                        </td>
+                    </tr>
+                                                                                                <tr id="provider-9d86d710-8f5a-11e8-b285-364d33514d51">
+                        <td class="provider-name">
+                            <span class="status-indicator status-ACTIVE" title="ACTIVE" alt="ACTIVE"></span>
+                            <span class="span-name">Bonneville District 93</span>
+                        </td>
+                        <td class="text-center" style="white-space: nowrap">                            
+                            <button class="btn btn-success btn-xs provider-button" data-id="9d86d710-8f5a-11e8-b285-364d33514d51" data-class="provider" data-event="edit" data-toggle="tooltip" data-placement="top" title="View Provider Details"><i class='fa fa-edit'></i></button>
+                            <button class="btn btn-success btn-xs provider-button clipboard" data-clipboard-text="9d86d710-8f5a-11e8-b285-364d33514d51" data-toggle="tooltip" data-placement="top" title="Copy ID to Clipboard"><i class='fa fa-clipboard'></i></button>
+                            <button class="btn btn-success btn-xs provider-button" data-id="9d86d710-8f5a-11e8-b285-364d33514d51" data-class="provider" data-event="modal" data-toggle="tooltip" data-placement="top" title="Disable Provider"><i class='fa fa-times'></i></button>
+                            <span class="provider-json" id="provider-json-9d86d710-8f5a-11e8-b285-364d33514d51" style="display:none;">{"id":"9d86d710-8f5a-11e8-b285-364d33514d51","description":"Bonneville District 93","entrypoint_communicator_port":null,"entrypoint_communicator_uri":null,"image":"bonneville.png","name":"Bonneville District 93","parent_id":"052c6794-3ff5-11e7-a622-543537493032","status":"ACTIVE","type":"SERVICE","created_at":"2018-07-24 09:59:58","updated_at":"2018-07-24 09:59:58","level":"1","Services":[]}</span>
+                        </td>
+                    </tr>
+                                                                                                <tr id="provider-9d8aa9f0-8f5a-11e8-9a7f-48534f38324e">
+                        <td class="provider-name">
+                            <span class="status-indicator status-ACTIVE" title="ACTIVE" alt="ACTIVE"></span>
+                            <span class="span-name">Fybercom</span>
+                        </td>
+                        <td class="text-center" style="white-space: nowrap">                            
+                            <button class="btn btn-success btn-xs provider-button" data-id="9d8aa9f0-8f5a-11e8-9a7f-48534f38324e" data-class="provider" data-event="edit" data-toggle="tooltip" data-placement="top" title="View Provider Details"><i class='fa fa-edit'></i></button>
+                            <button class="btn btn-success btn-xs provider-button clipboard" data-clipboard-text="9d8aa9f0-8f5a-11e8-9a7f-48534f38324e" data-toggle="tooltip" data-placement="top" title="Copy ID to Clipboard"><i class='fa fa-clipboard'></i></button>
+                            <button class="btn btn-success btn-xs provider-button" data-id="9d8aa9f0-8f5a-11e8-9a7f-48534f38324e" data-class="provider" data-event="modal" data-toggle="tooltip" data-placement="top" title="Disable Provider"><i class='fa fa-times'></i></button>
+                            <span class="provider-json" id="provider-json-9d8aa9f0-8f5a-11e8-9a7f-48534f38324e" style="display:none;">{"id":"9d8aa9f0-8f5a-11e8-9a7f-48534f38324e","description":"Fybercom","entrypoint_communicator_port":null,"entrypoint_communicator_uri":null,"image":"fybercom.png","name":"Fybercom","parent_id":"052c6794-3ff5-11e7-a622-543537493032","status":"ACTIVE","type":"SERVICE","created_at":"2018-07-24 09:59:58","updated_at":"2018-07-24 09:59:58","level":"1","Services":[]}</span>
+                        </td>
+                    </tr>
+                                                                                                <tr id="provider-9d7b5840-8f5a-11e8-a637-504753564148">
+                        <td class="provider-name">
+                            <span class="status-indicator status-ACTIVE" title="ACTIVE" alt="ACTIVE"></span>
+                            <span class="span-name">Generic Provider Co.</span>
+                        </td>
+                        <td class="text-center" style="white-space: nowrap">                            
+                            <button class="btn btn-success btn-xs provider-button" data-id="9d7b5840-8f5a-11e8-a637-504753564148" data-class="provider" data-event="edit" data-toggle="tooltip" data-placement="top" title="View Provider Details"><i class='fa fa-edit'></i></button>
+                            <button class="btn btn-success btn-xs provider-button clipboard" data-clipboard-text="9d7b5840-8f5a-11e8-a637-504753564148" data-toggle="tooltip" data-placement="top" title="Copy ID to Clipboard"><i class='fa fa-clipboard'></i></button>
+                            <button class="btn btn-success btn-xs provider-button" data-id="9d7b5840-8f5a-11e8-a637-504753564148" data-class="provider" data-event="modal" data-toggle="tooltip" data-placement="top" title="Disable Provider"><i class='fa fa-times'></i></button>
+                            <span class="provider-json" id="provider-json-9d7b5840-8f5a-11e8-a637-504753564148" style="display:none;">{"id":"9d7b5840-8f5a-11e8-a637-504753564148","description":"Generic Provider","entrypoint_communicator_port":null,"entrypoint_communicator_uri":null,"image":"sampleco.png","name":"Generic Provider Co.","parent_id":"052c6794-3ff5-11e7-a622-543537493032","status":"ACTIVE","type":"SERVICE","created_at":"2018-07-24 09:59:58","updated_at":"2018-07-24 09:59:58","level":"1","Services":[]}</span>
+                        </td>
+                    </tr>
+                                                                                                <tr id="provider-9d7f3510-8f5a-11e8-a0e0-544751423739">
+                        <td class="provider-name">
+                            <span class="status-indicator status-ACTIVE" title="ACTIVE" alt="ACTIVE"></span>
+                            <span class="span-name">Silver Star Communications</span>
+                        </td>
+                        <td class="text-center" style="white-space: nowrap">                            
+                            <button class="btn btn-success btn-xs provider-button" data-id="9d7f3510-8f5a-11e8-a0e0-544751423739" data-class="provider" data-event="edit" data-toggle="tooltip" data-placement="top" title="View Provider Details"><i class='fa fa-edit'></i></button>
+                            <button class="btn btn-success btn-xs provider-button clipboard" data-clipboard-text="9d7f3510-8f5a-11e8-a0e0-544751423739" data-toggle="tooltip" data-placement="top" title="Copy ID to Clipboard"><i class='fa fa-clipboard'></i></button>
+                            <button class="btn btn-success btn-xs provider-button" data-id="9d7f3510-8f5a-11e8-a0e0-544751423739" data-class="provider" data-event="modal" data-toggle="tooltip" data-placement="top" title="Disable Provider"><i class='fa fa-times'></i></button>
+                            <span class="provider-json" id="provider-json-9d7f3510-8f5a-11e8-a0e0-544751423739" style="display:none;">{"id":"9d7f3510-8f5a-11e8-a0e0-544751423739","description":"Silver Star Communications","entrypoint_communicator_port":null,"entrypoint_communicator_uri":null,"image":"silverstar.png","name":"Silver Star Communications","parent_id":"052c6794-3ff5-11e7-a622-543537493032","status":"ACTIVE","type":"SERVICE","created_at":"2018-07-24 09:59:58","updated_at":"2018-07-24 09:59:58","level":"1","Services":[]}</span>
+                        </td>
+                    </tr>
+                                                                                                <tr id="provider-9d909960-8f5a-11e8-b07f-423659394836">
+                        <td class="provider-name">
+                            <span class="status-indicator status-ACTIVE" title="ACTIVE" alt="ACTIVE"></span>
+                            <span class="span-name">Syringa Networks</span>
+                        </td>
+                        <td class="text-center" style="white-space: nowrap">                            
+                            <button class="btn btn-success btn-xs provider-button" data-id="9d909960-8f5a-11e8-b07f-423659394836" data-class="provider" data-event="edit" data-toggle="tooltip" data-placement="top" title="View Provider Details"><i class='fa fa-edit'></i></button>
+                            <button class="btn btn-success btn-xs provider-button clipboard" data-clipboard-text="9d909960-8f5a-11e8-b07f-423659394836" data-toggle="tooltip" data-placement="top" title="Copy ID to Clipboard"><i class='fa fa-clipboard'></i></button>
+                            <button class="btn btn-success btn-xs provider-button" data-id="9d909960-8f5a-11e8-b07f-423659394836" data-class="provider" data-event="modal" data-toggle="tooltip" data-placement="top" title="Disable Provider"><i class='fa fa-times'></i></button>
+                            <span class="provider-json" id="provider-json-9d909960-8f5a-11e8-b07f-423659394836" style="display:none;">{"id":"9d909960-8f5a-11e8-b07f-423659394836","description":"Syringa Networks, Idaho\u2019s leading fiber optic network provider, was created in 2002 by 12 rural Idaho telephone companies with a determination to improve telecommunication and rural broadband services in Idaho. These companies have a combined 800 year history of doing business in Idaho. With this foundation, Syringa Networks provides advanced telecommunication and rural broadband solutions that enable customers to compete in the global economy.","entrypoint_communicator_port":null,"entrypoint_communicator_uri":null,"image":"syringa.png","name":"Syringa Networks","parent_id":"052c6794-3ff5-11e7-a622-543537493032","status":"ACTIVE","type":"SERVICE","created_at":"2018-07-24 09:59:58","updated_at":"2018-07-24 09:59:58","level":"1","Services":[]}</span>
+                        </td>
+                    </tr>
+                                    </tbody>
+    </table>
+</div>
+<style>
+    .provider-name {
+        width: 90%;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $('.clipboard').OneClickSelect();
+        $('[data-toggle="tooltip"]').tooltip({
+			trigger: 'hover'
+		});    
+    });
+</script>	
+	</div>
+    <a id="anchorModal" data-target="#providerModal" data-toggle="modal" type="button" class="btn btn-xs btn-primary provider-button" data-class="provider" data-event="add" data-id="">Add Provider</a>
+    <div class="modal fade" id="providerModal" role="dialog" aria-labelledby="remoteModalLabel" aria-hidden="true" style="display: none;">  
+        <div class="modal-dialog modal-lg" role="document">  
+            <div class="modal-content">
+                <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Close">×</button>
+    <h4 class="modal-title" id="myModalLabel">Manage <span id="provider-modal-title"></span></h4>
+    <span class="alert alert-success" id="saving-status">Status...</span>
+</div>
+<div class="modal-body provider-modal">
+    <form class="smart-form" id='provider-form' novalidate="novalidate" autocomplete="off">
+        <input type="hidden" id="provider-id" name="provider[id]" value=""/>
+        <div class="tabs-stacked">
+            <ul class="nav nav-tabs tabs-left" id="provider_tabs">
+                <li class="active" role="presentation" id="provider-detail-li">
+                    <a href="#tab-provider-details" id="provider-details" data-toggle="tab">Details</a>
+                </li>
+                </li>
+                <li role="presentation" id="provider-apis-tab">
+                    <a href="#tab-provider-apis" data-toggle="tab">API</a>
+                </li>                
+                <li role="presentation" id="provider-contacts-tab">
+                    <a href="#tab-provider-contacts" data-toggle="tab">Contacts</a>
+                </li>                 
+                <li role="presentation" id="provider-services-tab">
+                    <a href="#tab-provider-services" data-toggle="tab">Services</a>
+                </li>
+                <li role="presentation" id="provider-plans-tab">
+                    <a href="#tab-provider-plans" data-toggle="tab">Plans</a>
+                </li>
+                <li role="presentation" id="provider-webhooks-tab">
+                    <a href="#tab-provider-webhooks" data-toggle="tab">Webhooks</a>
+                </li>                
+            </ul>
+            <div class="tab-content">
+                <div class="provider-pane tab-pane active" data-type="provider" id="tab-provider-details">
+                    <div id="provider-details-container">
+                        <fieldset class="form-provider">
+    <input type="hidden" id="provider-id" name="provider[id]" value="" />
+    <input type="hidden" id="provider-parent_id" name="provider[parent_id]" value="052c6794-3ff5-11e7-a622-543537493032" />
+    <div class="row">
+        <section class="col-md-4">
+            <span class='bold text'>Created:</span> <span class='text' id="provider-created_span"></span>
+        </section>
+        <section class="col-md-4 form-inline">
+            <span class='bold text'>Updated:</span> <span class='text' id="provider-updated_span"></span>
+        </section>
+    </div>
+    <div class="row">
+        <section class="col-md-4">
+            <label class="label" for="provider-name">Name</label>
+            <label class="input">
+                <input type="text" class="form-control" id="provider-name" name="provider[name]" placeholder="Provider Name" value="" required >
+            </label>
+        </section>
+        <section class="col-md-6">
+            <label class="label" for="provider-id">ID</label>
+            <label class="input">
+                <span id="provider-guid" class="form-control"></span>
+            </label>
+        </section>  
+    </div>
+    <div class="row">
+        <section class="col-md-4">
+            <label class="label" for="provider-status">Status</label>
+            <label class="input">
+                <select class="form-control " id="provider-status" name="provider[status]" required >
+                    <option value="">Select a status</option>
+                    													<option value="ACTIVE">Active</option>
+						                    													<option value="LOCKED">Locked</option>
+						                    													<option value="PENDING">Pending Activation</option>
+						                    													<option value="STANDBY">Standby</option>
+						                    													<option value="SUSPENDED">Suspended</option>
+						                                    </select>
+            </label>
+        </section>    
+        <section class="col-md-4">
+            <label class="label" for="provider-type">Type</label>
+            <label class="input">
+                <select class="form-control " id="provider-type" name="provider[type]" required >
+                    <option value="">Select a type</option>
+                                            <option value="SERVICE">Service</option>
+                                            <option value="TRANSPORT">Transport</option>
+                                    </select>
+            </label>
+        </section>              
+    </div>
+    <div class="row">
+        <section class="col-md-12">
+            <label class="label" for="provider-description">Description</label>
+            <label class="input">
+                <textarea class="form-control " id="provider-description" name="provider[description]" placeholder="Brief Description" rows="3"></textarea>
+            </label>
+        </section>
+    </div>
+    <div class="row">   
+        <section class="col-md-4">
+            <label class="label" for="provider-image">Image</label>
+            <label class="input">
+                <input type="text" class="form-control" id="provider-image" name="provider[image]" placeholder="File Name" value="" >
+            </label>
+        </section>        
+        <section class="col-md-4">
+            <img src="" width="200px;" id="provider-img"/>
+            <span id="provider-image-path" style="display:none;"></span>
+        </section>
+    </div>
+</fieldset>                        <button class="pull-right btn btn-xs btn-primary provider-button" id="provider-save" data-class="provider" type="button" data-event="save" data-id="" style="display:none;" data-toggle="tooltip" data-placement="top" title="Save">Save</button>
+                        <div class="clearfix"></div> 
+                    </div>
+                </div>
+                <div class="provider-pane tab-pane" data-type="api" id="tab-provider-apis">
+                    <div id="provider-api-container">
+                        <div class="table-responsive bordered">
+    <table class="table table-striped table-hover table-condensed">
+        <thead>
+            <tr>
+                <th>Key</th>
+                <th>Access Type</th>
+                <th class="text-center">Action</th>
+            </tr>
+        </thead>
+        <tbody class="api-body">
+            <tr class="api-no-record"><td colspan="4">No records found</td></tr>
+            <tr class="api-empty" id="api-0" style="display:none;">
+                <td class="api-key" id="api-key-0">
+                    <span class="status-indicator" title="STATUS" alt="STATUS"></span>
+                    <span class="api-key-span"></span>                    
+                </td>
+                <td class="api-access_type" id="api-access_type-0"></td>
+                <td class="text-center" style="white-space: nowrap">
+                    <button class="btn btn-success btn-xs provider-button api-edit" data-id="" data-class="api" data-event="edit" data-toggle="tooltip" type="button" data-placement="top" title="View API Details"><i class='fa fa-edit'></i></button>
+                    <button class="btn btn-success btn-xs provider-button api-delete" data-id="" data-class="api" data-event="modal" data-toggle="tooltip" type="button" data-placement="top" title="Delete API"><i class='fa fa-times'></i></button>
+                    <span class="api-json" id="api-json-0" style="display:none;"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<script>
+    $(document).ready(function () {
+    });
+</script>                        
+                        <div id="provider-api-edit" class="provider-class-edit">
+                            <h4>API - <span id="api-name-title"></span></h4>
+<hr/>
+<fieldset class="form-api">
+    <input type="hidden" id="api-id" name="api[id]" value=""/>
+    <input type="hidden" id="api-provider_id" name="api[provider_id]" value=""/>
+    <div class="row">
+        <section class="col-md-6">
+            <span class='bold text'>Created:</span> <span class='text' id="api-created_at"></span>
+        </section>
+        <section class="col-md-6">
+            <span class='bold text'>Updated:</span> <span class='text' id="api-updated_at"></span>
+        </section>
+    </div>    
+    <div class="row">
+        <section class="col-md-6">
+            <label class="label" for="api-key">Key</label>
+            <label class="input">
+                <input type="text" class="form-control" id="api-key" name="api[key]" placeholder="API Key" value=""  >
+            </label>
+        </section>
+        <section class="col-md-6">
+            <label class="label" for="api-secret">Secret</label>
+            <label class="input">
+                <input type="text" class="form-control" id="api-secret" name="api[secret]" placeholder="Secret" value="">
+            </label>
+        </section>
+    </div>
+    <div class="row">
+        <section class="col-md-6">
+            <label class="label" for="api-uri">URI</label>
+            <label class="input">
+                <input type="text" class="form-control" id="api-uri" name="api[uri]" placeholder="URI" value=""  >
+            </label>
+        </section>
+        <section class="col-md-6">
+            <label class="label" for="api-token">Token</label>
+            <label class="input">
+                <input type="text" class="form-control" id="api-token" name="api[token]" placeholder="Token" value="" disabled>
+            </label>
+        </section>
+    </div>
+    <div class="row">
+        <section class="col-md-4">
+            <label class="label" for="api-status">Status</label>
+            <label class="input">
+                <select class="form-control " id="api-status" name="api[status]"  >
+                    <option value="">Select a status</option>
+                                            <option value="ACTIVE">Active</option>
+                                            <option value="LOCKED">Locked</option>
+                                            <option value="PENDING">Pending Activation</option>
+                                            <option value="STANDBY">Standby</option>
+                                            <option value="SUSPENDED">Suspended</option>
+                                    </select>
+            </label>
+        </section>        
+                <section class="col-md-4">
+            <label class="label" for="api-access_type">Access Type</label>
+            <label class="input">
+                <select class="form-control " id="api-access_type" name="api[access_type]"  >
+                    <option value="">Select an Access Type</option>
+                                            <option value="all">All</option>
+                                            <option value="read_only">Read Only</option>
+                                            <option value="service">Service</option>
+                                    </select>
+            </label>
+        </section>        
+    </div>
+</fieldset>                        </div>
+                        <button class="pull-right btn btn-xs btn-primary provider-button" id="provider-api-add" data-class="api" type="button" data-event="add" data-toggle="tooltip" data-placement="top" title="Add">Add</button>
+                        <button class="pull-right btn btn-xs btn-info provider-button" id="provider-api-cancel" data-class="api" type="button" data-event="cancel" style="display:none;" data-toggle="tooltip" data-placement="top" title="Cancel">Cancel</button>
+                        <button class="pull-right btn btn-xs btn-primary provider-button" id="provider-api-save" data-class="api" type="button" data-event="save" data-id="" style="display:none;" data-toggle="tooltip" data-placement="top" title="Save">Save</button>                        
+                        <div class="clearfix"></div>                
+                    </div>
+                </div>
+                <div class="provider-pane tab-pane" data-type="contact" id="tab-provider-contacts">
+                    <div id="provider-contact-container">
+                        <div class="table-responsive bordered">
+    <table class="table table-striped table-hover table-condensed">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Type</th>
+                <th class="text-center">Action</th>
+            </tr>
+        </thead>
+        <tbody class="contact-body">
+            <tr class="contact-no-record"><td colspan="5">No records found</td></tr>
+            <tr class="contact-empty" id="contact-0" style="display:none;">
+                <td class="contact-name" id="contact-name-0">
+                    <span class="status-indicator" title="STATUS" alt="STATUS"></span>
+                    <span class="contact-name-span"></span>                                        
+                </td>
+                <td class="contact-location" id="contact-location-0">Location</td>
+                <td class="contact-type" id="contact-type-0">Type</td>
+                <td class="text-center text-nowrap">                    
+                    <button class="btn btn-success btn-xs provider-button contact-edit" type="button" data-id="" data-class="contact" data-event="edit" data-toggle="tooltip" data-placement="top" title="View Contact Details"><i class='fa fa-edit'></i></button>
+                    <button class="btn btn-success btn-xs provider-button contact-delete" type="button" data-id="" data-class="contact" data-event="modal" data-toggle="tooltip" data-placement="top" title="Delete Contact"><i class='fa fa-times'></i></button>
+                    <span class="contact-json" id="contact-json-0" style="display:none;">JSON</span>
+                </td>
+            </tr>                    
+        </tbody>
+    </table>  
+</div>
+<script>
+    $(document).ready(function () {
+    });
+</script>                        <div id="provider-contact-edit" class="provider-class-edit">
+                           <fieldset class="form-contact"> 
+    <input type="hidden" name="contact[id]" id='contact-id' value=""/>
+    <input type="hidden" name="contact[provider_id]" id='contact-provider_id' value=""/>
+    <div class="tabs-stacked">
+        <ul class="nav nav-tabs tabs-left" id="contact_tabs">
+            <li class="active" role="presentation" id="contact-detail-li">
+                <a href="#tab-contact-details" id="contact-details" data-toggle="tab">Contact</a>
+            </li>    
+            <li role="presentation" id="location-detail-li">
+                <a href="#tab-location-details" id="location-details" data-toggle="tab">Location</a>
+            </li>
+        </ul>
+        <div class="tab-content" style="min-height: 230px;">
+            <div class="contact-pane tab-pane active" data-type="provider" id="tab-contact-details">
+                <div id="provider-contact-container">
+                    <div class="row">
+                        <section class="col-md-6">
+                            <label class="label" for="contact-first_name">First Name *</label>
+                            <label class="input">
+                                <input type="text" class="form-control " id="contact-first_name" name="contact[first_name]" placeholder="First Name" value="" required >
+                            </label>
+                        </section>                             
+                        <section class="col-md-6">
+                            <label class="label" for="contact-last_name">Last Name *</label>
+                            <label class="input">
+                                <input type="text" class="form-control " id="contact-last_name" name="contact[last_name]" placeholder="Last Name" value="" required >
+                            </label>
+                        </section>
+                    </div>
+                    <div class="row">
+                        <section class="col-md-6">
+                            <label class="label" for="contact-email">Email *</label>
+                            <label class="input">
+                                <input data-type="email" type="text" class="form-control " id="contact-email" name="contact[email]" placeholder="Email Address" value="" required >
+                            </label>
+                        </section>                             
+                        <section class="col-md-6">
+                            <label class="label" for="contact-phone">Phone *</label>
+                            <label class="input">
+                                <input data-type="phone" type="text" class="form-control " id="contact-phone" name="contact[phone]" placeholder="Phone Number" value="" required>
+                            </label>
+                        </section>
+                    </div>   
+                    <div class="row">
+                        <section class="col-md-6">
+                            <label class="label" for="contact-status">Status *</label>
+                            <label class="input">
+                                <select class="form-control " id="contact-status" name="contact[status]" required >
+                                    <option value="">Select a status</option>
+                                                                                                                        <option value="ACTIVE">Active</option>
+                                                                                                                                                                <option value="LOCKED">Locked</option>
+                                                                                                                                                                <option value="PENDING">Pending Activation</option>
+                                                                                                                                                                <option value="STANDBY">Standby</option>
+                                                                                                                                                                <option value="SUSPENDED">Suspended</option>
+                                                                                                            </select>
+                            </label>
+                        </section>                             
+                        <section class="col-md-6">
+                            <label class="label" for="contact-type">Type *</label>
+                            <label class="input">
+                                <select class="form-control " id="contact-type" name="contact[type]" required >
+                                    <option value="">Select a type</option>
+                                                                            <option value="BILLING">Billing</option>
+                                                                            <option value="SALES">Sales</option>
+                                                                            <option value="SHIPPING">Shipping</option>
+                                                                            <option value="SUPPORT">Support</option>
+                                                                    </select>
+                            </label>
+                        </section>
+                    </div>                   
+                </div>
+            </div>        
+            <div class="contact-pane tab-pane" data-type="location" id="tab-location-details">
+                <div id="provider-location-container">
+                    <fieldset class="form-location">
+    <div class="row">
+        <input type="hidden" id="location-id" name="location[id]" value=""/>
+        <section class="col-md-6 col-lg-6">
+            <label class="label" for="location-address1">Address 1 *</label>
+            <label class="input">
+                <input type="text" class="form-control" id="location-address1" name="location[address1]" placeholder="Address" value="" required>
+            </label>
+        </section>
+        <section class="col-md-6 col-lg-6">
+            <label class="label" for="location-address2">Address 2</label>
+            <label class="input">
+                <input type="text" class="form-control" id="location-address2" name="location[address2]" placeholder="Address" value="">
+            </label>
+        </section>        
+    </div>                            
+    <div class="row">
+        <section class="col-md-4">
+            <label class="label" for="location-city">City *</label>
+            <label class="input">
+                <input type="text" class="form-control" id="location-city" name="location[city]" placeholder="City" value="" required>
+            </label>
+        </section>        
+        <section class="col-md-3">
+            <label class="label" for="location-state">State *</label>
+            <label class="input">
+                <select class="form-control " id="location-state" name="location[state]" required>
+                    <option value="">Select a State</option>
+                                    <option value="AL">Alabama</option>
+                                    <option value="AK">Alaska</option>
+                                    <option value="AZ">Arizona</option>
+                                    <option value="AR">Arkansas</option>
+                                    <option value="CA">California</option>
+                                    <option value="CO">Colorado</option>
+                                    <option value="CT">Connecticut</option>
+                                    <option value="DE">Delaware</option>
+                                    <option value="DC">District Of Columbia</option>
+                                    <option value="FL">Florida</option>
+                                    <option value="GA">Georgia</option>
+                                    <option value="HI">Hawaii</option>
+                                    <option value="ID">Idaho</option>
+                                    <option value="IL">Illinois</option>
+                                    <option value="IN">Indiana</option>
+                                    <option value="IA">Iowa</option>
+                                    <option value="KS">Kansas</option>
+                                    <option value="KY">Kentucky</option>
+                                    <option value="LA">Louisiana</option>
+                                    <option value="ME">Maine</option>
+                                    <option value="MD">Maryland</option>
+                                    <option value="MA">Massachusetts</option>
+                                    <option value="MI">Michigan</option>
+                                    <option value="MN">Minnesota</option>
+                                    <option value="MS">Mississippi</option>
+                                    <option value="MO">Missouri</option>
+                                    <option value="MT">Montana</option>
+                                    <option value="NE">Nebraska</option>
+                                    <option value="NV">Nevada</option>
+                                    <option value="NH">New Hampshire</option>
+                                    <option value="NJ">New Jersey</option>
+                                    <option value="NM">New Mexico</option>
+                                    <option value="NY">New York</option>
+                                    <option value="NC">North Carolina</option>
+                                    <option value="ND">North Dakota</option>
+                                    <option value="OH">Ohio</option>
+                                    <option value="OK">Oklahoma</option>
+                                    <option value="ORE">Oregon</option>
+                                    <option value="PA">Pennsylvania</option>
+                                    <option value="RI">Rhode Island</option>
+                                    <option value="SC">South Carolina</option>
+                                    <option value="SD">South Dakota</option>
+                                    <option value="TN">Tennessee</option>
+                                    <option value="TX">Texas</option>
+                                    <option value="UT">Utah</option>
+                                    <option value="VT">Vermont</option>
+                                    <option value="VA">Virginia</option>
+                                    <option value="WA">Washington</option>
+                                    <option value="WV">West Virginia</option>
+                                    <option value="WI">Wisconsin</option>
+                                    <option value="WY">Wyoming</option>
+                                </select>                  
+            </label>
+        </section>                       
+        <section class="col-md-2">
+            <label class="label" for="location-zip">Postal Code *</label>
+            <label class="input">
+                <input type="text" class="form-control" id="location-zip" name="location[zip]" placeholder="" value="" maxlength="5" required>
+            </label>
+        </section>
+        <section class="col-md-3">
+            <label class="label" for="location-country">Country</label>
+            <label class="input">
+                <select class="form-control " id="location-country" name="location[country]" required>
+                    <option value="">Select a Country</option>
+                                    <option value="CA">Canada</option>
+                                    <option value="US">United States</option>
+                                </select>
+            </label>
+        </section>                               
+    </div>
+    <hr style="border-bottom: 1px solid #ccc;"/>
+    <div class="row location-coordinates-row">
+        <section class="col-md-4 col-lg-4">
+            <label class="label" for="location-lat">Latitude</label>
+            <label class="input">
+                <input type="text" class="form-control" id="location-lat" name="location[lat]" placeholder="Latitude" value="">
+            </label>
+        </section>
+        <section class="col-md-4 col-lg-4">
+            <label class="label" for="location-lon">Longitude</label>
+            <label class="input">
+                <input type="text" class="form-control" id="location-lon" name="location[lon]" placeholder="Longitude" value="">
+            </label>
+        </section>
+        <section class="col-md-4 col-lg-4">
+            <label class="label" for="location-elevation">Elevation</label>
+            <label class="input">
+                <input type="text" class="form-control" id="location-elevation" name="location[elevation]" placeholder="Elevation" value="">
+            </label>
+        </section>                                    
+    </div>                                    
+    <div class="row location-uri-row">
+        <section class="col-md-12 col-lg-12">
+            <label class="label" for="location-uri">URI</label>
+            <label class="input">
+                <input data-type="url" type="text" class="form-control" id="location-uri" name="location[uri]" placeholder="URI" value="">
+            </label>
+            <a style="display:none" href="" id="a-location-uri" target="_blank" rel="noopener noreferrer">View URI</a>
+        </section>                                    
+    </div>
+</fieldset>                </div>
+            </div>
+        </div>
+    </div>
+</fieldset>                        </div>
+                        <button class="pull-right btn btn-xs btn-primary provider-button" id="provider-contact-add" type="button" data-class="contact" data-event="add" data-toggle="tooltip" data-placement="top" title="Add">Add</button>                    
+                        <button class="pull-right btn btn-xs btn-info provider-button" id="provider-contact-cancel" type="button" data-class="contact" data-event="cancel" style="display:none;" data-toggle="tooltip" data-placement="top" title="Cancel">Cancel</button>
+                        <button class="pull-right btn btn-xs btn-primary provider-button" id="provider-contact-save" type="button" data-class="contact" data-event="save" data-id="" style="display:none;" data-toggle="tooltip" data-placement="top" title="Save">Save</button>
+                        <div class="clearfix"></div> 
+                    </div>
+                </div>                        
+                <div class="provider-pane tab-pane" data-type="service" id="tab-provider-services">
+                    <div id="provider-service-container">
+                        <div class="table-responsive bordered">
+    <table class="table table-striped table-hover table-condensed">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Service Type</th>
+                <th>Display Type</th>
+                <th>Account Types</th>
+                <th class="text-center">Action</th>
+            </tr>
+        </thead>
+        <tbody class="service-body">
+            <tr class="service-no-record"><td colspan="4">No records found</td></tr>
+            <tr class="service-empty" id="service-0" style="display:none;">
+                <td class="service-name" id="service-name-0">
+                    <span class="status-indicator" title="STATUS" alt="STATUS"></span>
+                    <span class="service-name-span"></span>
+                </td>
+                <td class="service-servicetype_name" id="service-servicetype_name-0" style="white-space: nowrap;">Service Type</td>
+                <td class="service-display_type" id="service-display_type-0"></td>
+                <td class="service-account_types" id="service-account_types-0"></td>
+                <td class="text-center" style="white-space: nowrap">                    
+                    <button class="btn btn-success btn-xs provider-button service-edit" type="button" data-id="" data-class="service" data-event="edit" data-toggle="tooltip" data-placement="top" title="View Service Details"><i class='fa fa-edit'></i></button>
+                    <button class="btn btn-success btn-xs provider-button clipboard" type="button" data-toggle="tooltip" data-placement="top" title="Copy ID to Clipboard"><i class='fa fa-clipboard'></i></button>                    
+                    <button class="btn btn-success btn-xs provider-button service-delete" type="button" data-id="" data-class="service" data-event="modal" data-toggle="tooltip" data-placement="top" title="Delete Service"><i class='fa fa-times'></i></button>                    
+                    <span class="service-json" id="service-json-0" style="display:none;"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<script>
+    $(document).ready(function () {
+    });
+</script>                        <div id="provider-service-edit" class="provider-class-edit">
+                            <h4>Service - <span id="service-name-title"></span></h4>
+<hr/>
+<fieldset class="form-service">
+    <input type='hidden' name="service[provider_id]" id="service-provider_id">
+    <input type='hidden' name="service[id]" id="service-id">
+
+    <div class="tabs-stacked">
+        <ul class="nav nav-tabs tabs-left" id="rule_tabs">
+            <li class="active">
+                <a href="#tab-service-details" id="service-details" data-toggle="tab">Details</a>
+            </li>
+            <li>
+                <a href="#tab-service-urls" data-toggle="tab">URLs</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="tab-service-details">
+                <div class="row">
+	<section class="col-md-6">
+		<span class='bold text'>Created:</span> <span class='text' id="service-created_at"></span>
+	</section>
+	<section class="col-md-6">
+		<span class='bold text'>Updated:</span> <span class='text' id="service-updated_at"></span>
+	</section>
+</div>
+<div class="row">
+	<section class="col-md-3">
+		<label class="label" for="service-name">Name</label>
+		<label class="input">
+			<input type="text" class="form-control" id="service-name" name="service[name]" placeholder="Service Name" value="" required>
+		</label>
+	</section>
+	<section class="col-md-3">
+		<label class="label" for="service-status">Status</label>
+		<label class="input">
+			<select class="form-control " id="service-status" name="service[status]" required>
+				<option value="">Select a status</option>
+												<option value="ACTIVE">Active</option>
+																<option value="LOCKED">Locked</option>
+																<option value="PENDING">Pending Activation</option>
+																<option value="STANDBY">Standby</option>
+																<option value="SUSPENDED">Suspended</option>
+										</select>
+		</label>
+	</section>
+	<section class="col-md-6">
+		<label class="label" for="service-id">ID</label>
+		<label class="input">
+			<span id="service-guid" class="form-control"></span>
+		</label>
+	</section>
+</div>
+<div class="row">
+	<section class="col-md-12">
+		<label class="label" for="service-description">Description *</label>
+		<label class="input">
+			<textarea class="form-control " id="service-description" name="service[description]" placeholder="Brief Description" required></textarea>
+		</label>
+	</section>
+</div>
+<div class="row">
+	<section class="col-md-6">
+		<label class="label" for="service-display_type">Display Type</label>
+		<label class="input">
+			<select class="form-control " id="service-display_type" name="service[display_type]" required>
+				<option value="">Select a display type</option>
+							<option value="PRIVATE">PRIVATE</option>
+							<option value="PUBLIC">PUBLIC</option>
+						</select>
+		</label>
+	</section>    
+	<section class="col-md-5">
+		<label class="label" for="service-access_code">Access Code</label>
+		<label class="input">
+			<input type="text" id="service-access_code" name="service[access_code]" class="form-control" disabled />
+		</label>
+	</section>
+	<section class="col-md-1">
+		<label class="label">&nbsp;</label>
+		<label class="input">
+			<button class="btn btn-success btn-xs" id="service-get-code" data-id="" data-toggle="tooltip" data-placement="top" title="Generate New Access Code"><i class='fa fa-refresh'></i></button>
+		</label>
+	</section>
+</div>
+<div class="row">
+	<section class="col-md-6">
+		<label class="label" for="service-account_types">Account Types</label>
+		<label class="input">
+			<select data-none-selected-text='Select account types' class="form-control selectpicker" id="service-account_types" name="service[account_types]" multiple required>
+							<option value="COMMERCIAL">Commercial</option>
+							<option value="COMMERCIAL_MULTI">Commercial Multi Tenant</option>
+							<option value="DEMO">Demo</option>
+							<option value="RESELLER">Reseller</option>
+							<option value="RESIDENTIAL">Residential</option>
+							<option value="RESIDENTIAL_MULTI">Residential Multi Tenant</option>
+						</select>
+		</label>
+	</section>      
+	<section class="col-md-6">
+		<label class="label" for="service-servicetype_id">Service Category</label>
+		<label class="input">
+			<select class="form-control " id="service-servicetype_id" name="service[servicetype_id]" required>
+				<option value="">Select a service type</option>
+							<option value="a0552ad0-8f5a-11e8-8d5c-5432374c4e56">Distance Learning</option>
+							<option value="a0392820-8f5a-11e8-9360-53564a493832">Emergency Services</option>
+							<option value="a04d8aa0-8f5a-11e8-9d8f-574c4b385939">Home Security</option>
+							<option value="a049b180-8f5a-11e8-a178-543455544551">IP TV</option>
+							<option value="a02b2cb0-8f5a-11e8-aad1-37304e535947">Internet Service</option>
+							<option value="a05779a0-8f5a-11e8-b35e-493645483252">Lifeline Services</option>
+							<option value="a05f55b0-8f5a-11e8-b30c-5751414a3353">Management</option>
+							<option value="a02f0fc0-8f5a-11e8-8609-514231445241">Private Network</option>
+							<option value="a0341360-8f5a-11e8-a261-455943455939">Smart Grid</option>
+							<option value="a05b7f20-8f5a-11e8-bbee-3749444b5542">Standard Telephone</option>
+							<option value="a0515b30-8f5a-11e8-a04b-4d34474e4547">TeleMedicine</option>
+							<option value="a045e0e0-8f5a-11e8-867f-47354a355159">Voice Over IP (VOIP)</option>
+						</select>
+		</label>
+	</section>
+</div>
+<div class="row">
+	<section class="col-md-4">
+		<label class="label" for="service-network_operator_label">Network Operator Label</label>
+		<label class="input">
+			<input type="text" class="form-control" id="service-network_operator_label" name="service[network_operator_label]" placeholder="Network Label" required/>
+		</label>
+	</section>
+	<section class="col-md-4">
+		<label class="label" for="service-walled_garden_label">Service Provider Label</label>
+		<label class="input">
+			<input type="text" class="form-control" id="service-walled_garden_label" name="service[walled_garden_label]" placeholder="Provider Label" />
+		</label>
+	</section>
+	<section class="col-md-4">
+		<label class="label" for="service-ip_range">IP / Range</label>
+		<label class="input">
+			<input type="text" class="form-control" id="service-ip_range" name="service[ip_range]" placeholder="IPV4 / IPV6 Range" />
+		</label>
+	</section>
+</div>
+<div class="row">
+	<section class="col-md-3">
+		<label class="label" for="service-standby-enabled">Stand By Enabled</label>
+		<label class="input">
+			<select class="form-control " id="service-standby-enabled" name="service[standby_settings][enabled]" required>
+				<option value="">Select a Stand By</option>
+					<option value="1">Yes</option>
+					<option value="0">No</option>
+			</select>
+		</label>
+	</section>
+	<section class="col-md-3">
+		<label class="label" for="service-standby-provider">Stand By - Initially On</label>
+		<label class="input">
+			<select class="form-control " id="service-standby-on_initially" name="service[standby_settings][on_initially]" required>
+				<option value="">Select</option>
+					<option value="1">Initially On</option>
+					<option value="0">Initially Off</option>
+			</select>
+		</label>
+	</section>
+</div>
+<div class="row">
+	<section class="col-md-4">
+		<label class="label" for="service-image">Image</label>
+		<label class="input">
+			<input type="text" class="form-control" id="service-image" name="service[image]" placeholder="Image" value="">
+		</label>
+	</section>
+	<section class="col-md-4">
+		<img src="" width="200px;" id="service-img"/>
+		<span id="service-image-path" style="display:none;"></span>
+	</section>
+</div>
+            </div>
+            <div class="tab-pane" id="tab-service-urls">
+                <div class="row">
+    <section class="col-md-12">
+        <label class="label" for="service-marketing_url">Marketing URL</label>
+        <label class="input">
+            <input data-type="url" type="text" class="form-control " id="service-marketing_url" name="service[marketing_url]" placeholder="http://marketing.domain.com/page" />
+        </label>
+    </section>
+</div>
+<div class="row">
+    <section class="col-md-12">
+        <label class="label" for="service-subscription_redirect_url">Subscription Redirect URL</label>
+        <label class="input">
+            <input data-type="url" type="text" class="form-control " id="service-subscription_redirect_url" name="service[subscription_redirect_url]" placeholder="http://redirect.domain.com/page" />
+        </label>
+    </section>
+</div>
+<div class="row">
+    <section class="col-md-12">
+        <label class="label" for="service-support_url">Support URL</label>
+        <label class="input">
+            <input data-type="url" type="text" class="form-control " id="service-support_url" name="service[support_url]" placeholder="http://support.domain.com/page" />
+        </label>
+    </section>
+</div>            </div>
+        </div>
+    </div>
+</fieldset>
+<script>
+    $(document).ready(function () {
+        entrypoint.deleteModal.deleteOnClick("service", function () {            
+            var id = $(this).data('id');
+            service.delete(id);
+            var provider_id = $(this).data('provider_id');
+            
+            $.ajax({
+                url: '/service/delete',
+                type: 'POST',
+                data: {
+                    'id': id,
+                    'provider_id': provider_id
+                }
+            }).done(function (response) {
+                clearServiceRow(id);
+                notify.successBox(response.message);
+                if ($("#provider-services-" + provider_id + " tr.service-container-" + provider_id).length === 0) {
+                    $(".service-no-record-" + provider_id).show();
+                }
+            }).fail(function (json, error) {
+                if (json.message) {
+                    message = json.message;
+                } else {
+                    message = 'An unknown issue occurred. ' + error;
+                }
+                notify.errorBox(message, json.code);
+            }).always(function () {
+				entrypoint.deleteModal.hide();
+            });
+            clearServiceForm();
+        });
+        $(document).on('click', "#service-get-code", function (e) {
+            e.preventDefault();
+            service.getCode();
+        });
+    });
+    </script>                        </div>
+                        <button class="pull-right btn btn-xs btn-primary provider-button" id="provider-service-add" type="button" data-class="service" data-event="add" data-toggle="tooltip" data-placement="top" title="Add">Add</button>                        
+                        <button class="pull-right btn btn-xs btn-info provider-button" id="provider-service-cancel" type="button" data-class="service" data-event="cancel" style="display:none;" data-toggle="tooltip" data-placement="top" title="Cancel">Cancel</button>
+                        <button class="pull-right btn btn-xs btn-primary provider-button" id="provider-service-save" type="button" data-class="service" data-event="save" data-id="" style="display:none;" data-toggle="tooltip" data-placement="top" title="Save">Save</button>
+                        <div class="clearfix"></div> 
+                    </div>
+                </div>
+                <div class="provider-pane tab-pane" data-type="serviceplan" id="tab-provider-plans">
+                    <div id="provider-plan-container">
+                        <div class="table-responsive bordered">
+    <table class="table table-striped table-hover table-condensed">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Service > Type</th>
+                <th class="text-center">Action</th>
+            </tr>
+        </thead>
+        <tbody class="serviceplan-body">
+            <tr class="serviceplan-no-record"><td colspan="4">No records found</td></tr>
+            <tr class="serviceplan-empty" id="serviceplan-0" style="display:none;">
+                <td class="serviceplan-name" id="serviceplan-name-0">
+                    <span class="status-indicator" title="STATUS" alt="STATUS"></span>
+                    <span class="serviceplan-name-span"></span>
+                </td>
+                <td class="serviceplan-service_name" id="serviceplan-service_name-0"></td>
+                <td class="text-center" style="white-space: nowrap">                    
+                    <button class="btn btn-success btn-xs provider-button serviceplan-edit" data-id="" data-class="plan" data-event="edit" data-toggle="tooltip" data-placement="top" title="View Plan Details"><i class='fa fa-edit'></i></button>
+                    <button class="btn btn-success btn-xs provider-button clipboard" data-toggle="tooltip" data-placement="top" title="Copy ID to Clipboard"><i class='fa fa-clipboard'></i></button>
+                    <button class="btn btn-success btn-xs provider-button serviceplan-delete" data-id="" data-class="plan" data-event="modal" data-toggle="tooltip" data-placement="top" title="Delete Plan"><i class='fa fa-times'></i></button>                    
+                    <span class="serviceplan-json" id="serviceplan-json-0" style="display:none;"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<script>
+    $(document).ready(function () {
+    });
+</script>                        <div id="provider-plan-edit" class="provider-class-edit">
+                            <h4><span id="serviceplan-name-title"></span> Plan</h4>
+<hr/>
+<fieldset class="form-plan">
+    <input type='hidden' name="serviceplan[id]" id="serviceplan-id">
+    <div class="tabs-stacked">
+        <ul class="nav nav-tabs tabs-left" id="serviceplan_tabs">
+            <li class="active">
+                <a href="#tab-plan-details" id="serviceplan-details" data-toggle="tab">Details</a>
+            </li>
+            <li>
+                <a href="#tab-plan-fields" id="serviceplan-fields" data-toggle="tab">Fields</a>
+            </li>  
+							<li>
+					<a href="#tab-plan-reviews" id="serviceplan-reviews" data-toggle="tab">Reviews</a>
+				</li>             
+			        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="tab-plan-details">
+                <div class="row">
+    <section class="col-md-6">
+        <span class='bold text'>Created:</span> <span class='text' id="serviceplan-created_at"></span>
+    </section>
+    <section class="col-md-6">
+        <span class='bold text'>Updated:</span> <span class='text' id="serviceplan-updated_at"></span>
+    </section>
+</div>
+<div class="row">
+    <section class="col-md-12">
+        <label class="label" for="serviceplan-description">Description *</label>
+        <label class="input">
+            <textarea class="form-control " id="serviceplan-description" name="serviceplan[description]" placeholder="Brief Description" required></textarea>
+        </label>
+    </section>
+</div>
+<div class="row">
+    <section class="col-md-4">
+        <label class="label" for="serviceplan-service_id">Service</label>
+        <label class="input">
+            <select class="form-control " id="serviceplan-service_id" name="serviceplan[service_id]" required>
+                <option value="">Select a Service</option>
+            </select>            
+        </label>
+    </section>    
+    <section class="col-md-4">
+        <label class="label" for="serviceplan-expire_time">Expire Time</label>
+        <label class="input">
+            <input type="text" class="form-control" id="serviceplan-expire_time" name="serviceplan[expire_time]" placeholder="Expire Time (minutes)" value="" >
+        </label>
+    </section>     
+</div>
+<div class="row">
+    <section class="col-md-6">
+        <label class="label" for="serviceplan-guid">ID</label>
+        <label class="input">
+            <span id="serviceplan-guid" class="form-control"></span>
+        </label>
+    </section>     
+    <section class="col-md-4">
+        <label class="label" for="serviceplan-status">Status</label>
+        <label class="input">
+            <select class="form-control " id="serviceplan-status" name="serviceplan[status]" required>
+                <option value="">Select a status</option>
+            									<option value="ACTIVE">Active</option>
+				            									<option value="LOCKED">Locked</option>
+				            									<option value="PENDING">Pending Activation</option>
+				            									<option value="STANDBY">Standby</option>
+				            									<option value="SUSPENDED">Suspended</option>
+				                        </select>
+        </label>
+    </section>
+</div>
+<div class="row">   
+    <section class="col-md-4">
+        <label class="label" for="serviceplan-image">Image</label>
+        <label class="input">
+            <input type="text" class="form-control" id="serviceplan-image" name="serviceplan[image]" placeholder="Image" value="">
+        </label>
+    </section>
+    <section class="col-md-4">
+        <img src="" width="200px;" id="serviceplan-img"/>
+        <span id="serviceplan-image-path" style="display:none;"></span>
+    </section>      
+</div>                     </div>
+            <div class="tab-pane" id="tab-plan-fields">
+                                <div class="row serviceplan-fields-0" style="display:none;">
+                    <section class="col-md-6 col1" style="display:none;">
+                        <label class="label" for="serviceplan-fields-key">Name</label>
+                        <label class="input">
+                            <input type="text" class="form-control" id="serviceplan-fields-key" name="serviceplan[fields][key]" placeholder="Key" value="">
+                        </label>
+                    </section>
+                    <section class="col-md-6 col2" style="display:none;">
+                        <label class="label" for="serviceplan-fields-key">Name</label>
+                        <label class="input">
+                            <input type="text" class="form-control" id="serviceplan-fields-key" name="serviceplan[fields][key]" placeholder="Key" value="">
+                        </label>
+                    </section>    
+                </div>                   
+            </div>
+							<div class="tab-pane" id="tab-plan-reviews">
+					<h4>Rating Summary</h4>
+					<hr/>
+					<script src="/js/plugin/jquery-jrate/jquery.jrate.js"/>
+<link rel="stylesheet" href="/js/plugin/jquery-simplechart/simple-chart.css"></link>
+<script src="/js/plugin/jquery-simplechart/simple-chart.js"></script>
+<div class="row" id="plan_rating_data_section_row">
+		<section class="col-md-6 plan_rating_section">
+				<div class='plan_rating'></div>
+			<div class='plan_rating_stars'></div>
+			<div class='plan_total_reviews text'></div>
+		</section>
+		<section class="col-md-6 form-inline plan_rating_statistics_section">
+			<div class="plan_rating_chart_container"></div>
+		</section>
+</div>
+<style>	
+	.link {
+		color: #337ab7;
+	}
+	.link:hover{
+		text-decoration: underline;
+		cursor: pointer;
+	}
+	.plan_rating{
+		font-size: 30pt;
+		text-align: center;
+		width: 45%;
+	}	
+	.plan_no_reviews{
+		font-size: 12pt;
+	}
+	.plan_rating_section{
+		padding-left: 30px !important;
+	}
+	.plan_total_reviews{
+		text-align: center;
+		width: 45%;
+	}	
+	.blank_row{
+		margin-top: 30pt;
+	}	
+	.sc-bar { 
+		padding: 0px 60px 0px 50px; 
+	}	
+	.sc-title{
+		display: none;
+	}	
+	.sc-canvas{
+		margin: 0px !important;
+	}	
+	.sc-label{
+		color: black;
+	}	
+	.sc-bar .sc-item:hover { 
+		margin-left:0px; 
+	}	
+	.sc-item:hover .sc-tooltip { 
+		display:none;  
+	}
+</style>  
+
+<script type="text/javascript">	   
+</script>					<h4>Comments</h4>
+<div class="table-responsive bordered">
+    <table class="table table-striped table-hover table-condensed" id="review-table" style="margin-bottom: 0px;">
+        <thead>
+            <tr>                
+                <th>Rating</th>
+                <th class="text-center">Review</th>
+                <th>User</th>
+                <th class="text-center">Created</th>
+                <th class="text-center">Action</th>
+            </tr>
+        </thead>
+    </table>
+	<div class="review-body-container">
+		<table class="table table-striped table-hover table-condensed" id="review-table">
+			<tbody class="review-body"></tbody>
+		</table>
+	</div>
+</div>
+
+<script id="review-table-empty" type="text/x-jsmart-tmpl">
+    <tr class="review-no-record"><td colspan="5">No records found</td></tr>
+</script>
+<script id="review-table-row" type="text/x-jsmart-tmpl">    
+    <tr class="review-container" id="review-0" style="display:none;">
+        <td class="review-rating"></td>
+        <td class="review-comment">            
+            <i class="fa fa-info-circle fa-light popover-cursor" id="" title="Review Text" data-content="" data-html="true" data-placement="auto" data-toggle="popover" data-trigger="hover"></i>
+        </td>
+        <td class="review-user"></td>
+        <td class="review-created_at"></td>
+        <td class="text-center" style="white-space: nowrap">
+            <button class="btn btn-success btn-xs provider-button review-delete" data-id="" data-class="review" data-event="modal" data-toggle="tooltip" data-placement="top" title="Delete Rating / Review"><i class='fa fa-times'></i></button>
+            <button class="btn btn-success btn-xs provider-button review-publish" data-id="" data-class="review" data-event="publish" data-toggle="tooltip" data-placement="top" title="Publish Rating / Review"><i class='fa fa-comment-o'></i></button>
+            <button class="btn btn-success btn-xs provider-button review-unpublish" data-id="" data-class="review" data-event="unpublish" data-toggle="tooltip" data-placement="top" title="Unpublish Rating / Review"><i class='fa fa-ban'></i></button>
+            <span class="review-json" id="review-json-0" style="display:none;"></span>
+        </td>
+    </tr>
+</script>
+
+<style>
+    .popover {
+        min-width: 300px !important;
+    }
+    .popover-content {
+        word-wrap: break-word;
+    }
+    .popover-title, .popover span.bold {
+        font-weight: bold !important;
+    }
+	.review-body-container{
+		max-height: 150px;
+		overflow: auto;
+	}
+    h3.popover-title {
+        padding-top: 10px !important;
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+        
+    });
+</script>
+				</div>           
+			        </div>
+    </div>
+</fieldset>
+<script>
+    $(document).ready(function () {
+
+    });
+</script>                        </div>
+                        <button class="pull-right btn btn-xs btn-primary provider-button" id="provider-plan-add" type="button" data-class="plan" data-event="add" data-toggle="tooltip" data-placement="top" title="Add">Add</button>
+                        <button class="pull-right btn btn-xs btn-info provider-button" id="provider-plan-cancel" type="button" data-class="plan" data-event="cancel" style="display:none;" data-toggle="tooltip" data-placement="top" title="Cancel">Cancel</button>
+                        <button class="pull-right btn btn-xs btn-primary provider-button" id="provider-plan-save" type="button" data-class="plan" data-event="save" data-id="" style="display:none;" data-toggle="tooltip" data-placement="top" title="Save">Save</button>
+                        <div class="clearfix"></div>                        
+                    </div>
+                </div>
+                <div class="provider-pane tab-pane" data-type="webhook" id="tab-provider-webhooks">
+                    <div id="provider-webhook-container">
+                        <div class="table-responsive">
+    <table class="table table-striped table-hover table-condensed">
+        <thead>
+            <tr>
+                <th>Provider > Service > Plan</th>
+                <th>Method</th>
+                <th>Type</th>
+                <th>Created</th>
+                <th class="text-center">Action</th>
+            </tr>
+        </thead>
+        <tbody class="webhook-body">
+            <tr class="webhook-no-record"><td colspan="6">No records found</td></tr>
+            <tr class="webhook-empty" id="webhook-0" style="display:none;">    
+                <td class="webhook-name" id="webhook-name-0">
+                    <span class="status-indicator" title="STATUS" alt="STATUS"></span>
+                    <span class="webhook-name-span"></span>                        
+                </td>
+                <td class="webhook-method" id="webhook-method-0"></td>
+                <td class="webhook-type" id="webhook-type-0"></td>
+                <td class="webhook-created_at" id="webhook-created_at-0"></td>
+                <td class="text-center" style="white-space: nowrap">
+                    <button class="btn btn-success btn-xs provider-button webhook-edit" data-id="" data-class="webhook" data-event="edit" data-toggle="tooltip" data-placement="top" title="View Webhook Details"><i class='fa fa-edit'></i></button>
+                    <button class="btn btn-success btn-xs provider-button clipboard" data-toggle="tooltip" data-placement="top" title="Copy ID to Clipboard"><i class='fa fa-clipboard'></i></button>
+                    <button class="btn btn-success btn-xs provider-button webhook-delete" data-id="" data-class="webhook" data-event="modal" data-toggle="tooltip" data-placement="top" title="Delete Webhook"><i class='fa fa-times'></i></button>                    
+                    <span class="webhook-json" id="webhook-json-0" style="display:none;"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<script>
+    $(document).ready(function () {
+    });
+</script>                        <div id="provider-webhook-edit" class="provider-class-edit">
+                            <h4><span id="webhook-name-title"></span> Webhook</h4>
+<hr/>
+<fieldset class='form-webhook'>
+	<input type="hidden" id="webhook-provider_id" name="webhook[provider_id]" value=""/>
+	<input type="hidden" id="webhook-id" name="webhook[id]" value=""/>
+	<div class="row">
+		<section class="col-md-4">
+			<span class='bold text'>Created:</span> <span class='text' id="webhook-created_at"></span>
+		</section>
+		<section class="col-md-4">
+			<span class='bold text'>Updated:</span> <span class='text' id="webhook-updated_at"></span>
+		</section>
+	</div>
+	<div class="row">
+		<section class="col-md-4">
+			<label class="label" for="webhook-service">Services</label>
+			<label class="input">
+				<select class="form-control " id="webhook-service_id" name="webhook[service_id]">
+					<option value="">All Services</option>
+				</select>
+			</label>
+		</section>
+		<section class="col-md-4">
+			<label class="label" for="webhook-serviceplan">Service Plans</label>
+			<label class="input">
+				<select class="form-control " id="webhook-serviceplan_id" name="webhook[serviceplan_id]">
+					<option value="">All Service Plans</option>
+				</select>
+			</label>
+		</section>
+	</div>
+	<div class="row">
+		<section class="col-md-6">
+			<label class="label" for="webhook-method">Method *</label>
+			<label class="input">
+				<select class="form-control " id="webhook-method" name="webhook[method]" required>
+					<option value="">Select a method</option>
+											<option value="auth">AUTH</option>
+											<option value="connect">CONNECT</option>
+											<option value="delete">DELETE</option>
+											<option value="get">GET</option>
+											<option value="patch">PATCH</option>
+											<option value="post">POST</option>
+											<option value="purge">PURGE</option>
+											<option value="put">PUT</option>
+											<option value="view">VIEW</option>
+									</select>
+			</label>
+		</section>
+		<section class="col-md-6">
+			<label class="label" for="webhook-type">Webhook Type *</label>
+			<label class="input">
+				<select class="form-control " id="webhook-type" name="webhook[type]" required>
+					<option value="">Select a type</option>
+											<option value="plan_change">PLAN_CHANGE</option>
+											<option value="pre_plan_change">PRE_PLAN_CHANGE</option>
+											<option value="pre_subscribe">PRE_SUBSCRIBE</option>
+											<option value="subscribe">SUBSCRIBE</option>
+											<option value="unsubscribe">UNSUBSCRIBE</option>
+									</select>
+			</label>
+		</section>
+	</div>
+	<div class="row">
+		<section class="col-md-6">
+			<label class="label" for="webhook-return_type">Return Type *</label>
+			<label class="input">
+				<select class="form-control " id="webhook-return_type" name="webhook[return_type]" required>
+					<option value="">Select a type</option>
+											<option value="html">HTML</option>
+											<option value="json">JSON</option>
+											<option value="object">OBJECT</option>
+											<option value="string">STRING</option>
+											<option value="xml">XML</option>
+									</select>
+			</label>
+		</section>
+		<section class="col-md-6">
+			<label class="label" for="webhook-status">Status *</label>
+			<label class="input">
+				<select class="form-control " id="webhook-status" name="webhook[status]" required>
+					<option value="">Select a status</option>
+																		<option value="ACTIVE">Active</option>
+																								<option value="LOCKED">Locked</option>
+																								<option value="PENDING">Pending Activation</option>
+																								<option value="STANDBY">Standby</option>
+																								<option value="SUSPENDED">Suspended</option>
+															</select>
+			</label>
+		</section>
+	</div>
+	<div class="row">
+		<section class="col-md-6">
+			<label class="label" for="webhook-username">User Name</label>
+			<label class="input">
+				<input type="text" class="form-control" id="webhook-username" name="webhook[username]" placeholder="User Name" value="">
+			</label>
+		</section>
+		<section class="col-md-6">
+			<label class="label" for="webhook-password">Password</label>
+			<label class="input">
+				<input type="text" class="form-control" id="webhook-password" name="webhook[password]" placeholder="Password" value="">
+			</label>
+		</section>
+	</div>
+	<div class="row">
+		<section class="col-md-12">
+			<label class="label" for="webhook-url">URL</label>
+			<label class="input">
+				<input type="text" data-type="url" class="form-control " id="webhook-url" name="webhook[url]" placeholder="URL" value="" required>
+			</label>
+		</section>
+	</div>
+		<div class="row">
+		<section class="col col-6">
+			<div class="note">* Represents a required field.</div>
+		</section>
+	</div>
+</fieldset>                        </div>
+                        <button class="pull-right btn btn-xs btn-primary provider-button" id="provider-webhook-add" type="button" data-class="webhook" data-event="add" data-toggle="tooltip" data-placement="top" title="Add">Add</button>
+                        <button class="pull-right btn btn-xs btn-info provider-button" id="provider-webhook-cancel" type="button" data-class="webhook" data-event="cancel" style="display:none;" data-toggle="tooltip" data-placement="top" title="Cancel">Cancel</button>
+                        <button class="pull-right btn btn-xs btn-primary provider-button" id="provider-webhook-save" type="button" data-class="webhook" data-event="save" data-id="" style="display:none;" data-toggle="tooltip" data-placement="top" title="Save">Save</button>
+                        <div class="clearfix"></div>                         
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer" style="text-align: right">
+    <button type="button" class="pull-left btn btn-default btn-xs" data-dismiss="modal" id="provider-close">Close</button>
+</div>
+<style>
+    .provider-class-edit {
+        display: none;
+        padding-bottom: 10px;
+    }
+    button.pull-right {
+        margin-right:5px;
+    }
+    .tab-content {
+        border-left: solid 1px #ddd;
+        border-bottom:solid 1px #ddd;
+        border-right:solid 1px #ddd;
+        padding:10px;
+    }
+    .modal-header .alert {
+        padding: 4px;
+    }
+    #saving-status {
+        float: right;
+        top: -130px;
+        margin-top: -27px;
+        margin-right: 20px;
+    }
+    .provider-modal hr {
+        margin-top: 0px !important;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $(document).on('click', '#provider-close', function () {
+            //do this to update the screen with any changes that may have been made
+            $('#header-search-input').trigger('keyup');
+            $('providerModal').modal('hide');
+            return false;
+        });
+        $(".location-uri-row").hide();
+        $(".location-coordinates-row").hide();
+    });
+</script>            </div>  
+        </div>  
+    </div>
+</div>
+
+<style>
+    .row .label, span.bold {
+        font-weight: bold !important;
+        font-size: 75%;
+    }
+</style>            
+<script>
+    var api = class {
+    static addRow(data) {
+        //get table row, clone it, add values, append it
+        var id = data.id;
+        var tr = $('#api-0').clone();
+
+        tr.attr('id','api-'+id);
+        tr.attr('style','');
+        tr.addClass('api-container');
+        $.each(data, function(key,val) {
+            $.each(tr.find('td'), function(k,v) {
+                var elem = $(v);
+                if(elem.attr('class') === 'api-'+key) {
+                    switch(key) {
+                        case 'key':
+                            var status = $(tr.find('.status-indicator'));
+                            status.attr('title',data.status);
+                            status.attr('alt',data.status);
+                            status.attr('title',data.status);
+                            status.removeClass();
+                            status.addClass('status-indicator')
+                            status.addClass('status-'+data.status);
+                            elem.attr('id','api-key-'+id);
+                            tr.find('.api-key-span').text(val);
+                            break;                        
+                        default:
+                            elem.text(val);
+                            elem.attr('id','api-'+key+'-'+id);
+                            break;
+                    }
+                }
+            });
+        });
+        tr.find('.api-access_type').addClass('text-uppercase');
+        tr.find('.api-version').addClass('text-uppercase');
+        
+        tr.find('.api-json').attr('id','api-json-'+id);
+        tr.find('.api-json').text(JSON.stringify(data));
+        
+        tr.find('.api-delete').data('id',id);
+        tr.find('.api-edit').data('id',id);
+        tr.show();
+        $('.api-body').append(tr);
+        $('.api-no-record').hide();
+        $('[data-toggle="tooltip"]').tooltip({
+			trigger: 'hover'
+		});
+    }  
+    static clearForm() {
+        var skip_fields = ['api-provider_id'];
+        entrypoint.form.clear(".form-api",skip_fields);
+    }
+    static clearTable() {
+        $('.api-body .api-container').remove();
+        $('.api-no-record').show();        
+    }
+    static delete(id) {
+        var provider_id = $("#provider-id").val();
+        $.ajax({
+            url: '/api/delete',
+            type: 'POST',
+            data: {
+                'id': id
+            }
+        }).done(function(response) {
+            if(response.error) {
+                notify.errorBox(response.message, response.code);
+            } else {
+                $("#api-" + id).remove();
+                if($(".api-body tr").length <= 2) {
+                    $(".no-record").show();                                    
+                }
+                notify.successBox(response.message);
+            }
+        }).fail(function(json, error) {
+            if(json.message) {
+                message = json.message;
+            } else {
+                message = 'An unknown issue occurred. '+error;
+            }
+            notify.errorBox(message, json.code);
+        }).always(function() {
+            entrypoint.deleteModal.hide();
+        });
+        api.clearForm();
+    }    
+    static edit(id) {
+        
+        api.clearForm();
+        
+        var r = jQuery.parseJSON($('#api-json-' + id).text());
+
+        //load form with values from json
+        $.each(r, function (k, v) {
+            switch (k) {
+                case 'created_at':
+                    $("#api-created_at").text(v);
+                    break;
+                case 'updated_at':
+                    $("#api-updated_at").text(v);
+                    break;                
+                case 'secret':
+                    //do nothing
+                    break;
+                case 'access_type':
+                    $('#api-' + k).val(v);
+                    break;
+                default:
+                    $("#api-" + k).val(v);
+                    break;               
+            }
+        });  
+        $("#api-name-title").text(r.key);
+    }
+    static load() {
+        entrypoint.wait.show('Loading...');
+        api.clearForm();
+        api.clearTable();
+        var fields = new Object;
+        fields['id'] = $("#provider-id").val();
+
+        $.ajax({
+            url: '/provider/apis',
+            type: 'POST',
+            dataType: 'json',
+            data: fields
+        }).done(function(resp) {
+            if (resp.error) {
+                notify.errorBox(resp.message, resp.code);
+                return;
+            }
+            
+            $('.api-no-record').show();
+            $.each(resp, function(key,row) {
+                api.addRow(row);
+            });            
+            return;
+        }).fail(function(json, error) {
+            var message = '';
+            if (json.code) {
+                message = json.message;;
+            } else {
+                message =  'An unknown issue occurred. ' + error;
+            }
+            notify.errorBox(message, json.code);
+        }).always(function() {
+            entrypoint.wait.hide();
+        });
+        return false;        
+    }
+    static providerView(event, id) {
+        $("#provider-api-save").hide(); 
+        switch(event) {
+            case "add":
+                api.clearForm();
+                $("#api-name-title").text('New');
+                $("#api-provider_id").val($("#provider-id").val());
+                $("#provider-api-add").hide();
+                $("#provider-api-cancel").show();
+                $("#provider-api-edit").show();
+                $("#provider-api-save").show();                
+                break;
+            case "cancel":
+                api.clearForm();
+                $("#provider-api-add").show();
+                $("#provider-api-cancel").hide();
+                $("#provider-api-edit").hide();
+                break;
+            case "delete":
+                api.delete(id);
+                api.clearForm();
+                $("#provider-api-add").show();
+                $("#provider-api-cancel").hide();
+                $("#provider-api-edit").hide();
+                $("#provider-api-save").hide();
+                break;
+            case "edit":
+                api.edit(id);
+                $("#provider-api-add").hide();
+                $("#provider-api-cancel").show();
+                $("#provider-api-edit").show();
+                break;
+            case "save":
+                if(api.save()) {
+                    $("#provider-api-add").hide();
+                    $("#provider-api-cancel").show();                     
+                }
+                break;
+            default:
+                break;
+        }
+    }
+    static save(id) {
+
+        if(entrypoint.form.validate('.form-api')) {
+            notify.errorBox(entrypoint.form.message);
+            return false;
+        }   
+        
+        var status = true;
+        $.ajax({
+            url: '/api/save',
+            type: 'POST',
+            dataType: 'json',
+            data: entrypoint.form.fields,
+        }).done(function(resp) {
+            if(resp.error) {
+                notify.errorBox(resp.message, resp.code);
+                status = false;
+                return false;
+            }
+            //update values on the page
+            var data = resp.data;
+            
+            if (id === '' || id === undefined) {
+                api.addRow(data);                
+            } else {                
+                api.updateRow(data);
+            }
+            if(resp.message) {
+                notify.successBox(resp.message);
+            }           
+            return true
+        }).fail(function(json, error) {
+            if(json.message) {
+                message = json.message;;
+            } else {
+                message = 'An unknown issue occurred. ' + error;
+            }
+            notify.errorBox(message, json.codede);
+            status = false;
+            return false;
+        }).always(function() {
+        });   
+        return status;
+    }
+    
+    static updateRow(api) {
+        var id = api.id
+        $('#api-key-'+id).find('.api-key-span').text(api.key);
+
+        var status = $('#api-'+ id).find('.status-indicator');
+        status.attr('alt', api.status);
+        status.attr('title', api.status);
+        status.attr('class', 'status-indicator');
+        status.addClass('status-' + api.status);
+        
+        $('#api-version-'+id).text(api.version);
+        $('#api-access_type-'+id).text(api.access_type);
+        $("#api-json-" + id).text(JSON.stringify(api));
+    }       
+};    var contact = class {
+    static addRow(data) {
+        var id = data.id; 
+        var tr = $("#contact-0").clone();
+        
+        tr.attr('id','contact-'+id);
+        tr.attr('style','');
+        tr.addClass('contact-container');
+        $.each(tr.find('td'), function(k,v) {            
+            var elem = $(v);
+            var clss = elem.attr('class');
+            var key = clss.split("-")[1];
+            
+            elem.attr('id','contact-'+key+'-'+id);
+            switch(key) {
+                case 'name':                            
+                    var status = $(tr.find('.status-indicator'));
+                    status.attr('title',data.status);
+                    status.attr('alt',data.status);
+                    status.attr('title',data.status);
+                    status.removeClass();
+                    status.addClass('status-indicator')
+                    status.addClass('status-'+data.status);                            
+                    var name = data.first_name + " " + data.last_name;
+                    $(tr.find('.contact-name-span')).html(name);                    
+                    break; 
+                case 'location':
+                    var loc = address.format(data.Location);                    
+                    elem.text(loc);
+                    break;
+                case 'type': 
+                    elem.text(contact_type_display[data.type]);
+                    break;
+                default:
+                    //no match to process
+                    break;
+            }
+        });
+        
+        tr.find(".contact-edit").attr('data-id', id);
+        tr.find(".contact-delete").attr('data-id', id);
+        tr.find(".contact-json").attr('id', 'contact-json-' + id);
+        tr.find(".contact-json").text(JSON.stringify(data));
+        
+        tr.find('.contact-delete').data('id',id);
+        tr.find('.contact-edit').data('id',id);
+        tr.show();
+        $('.contact-body').append(tr);
+        $('.contact-no-record').hide(); 
+        $('[data-toggle="tooltip"]').tooltip({
+			trigger: 'hover'
+		});
+    }
+    static enable(id) {
+        $.ajax({
+            url: '/contact/enable',
+            type: 'POST',
+            data: {
+                'id': id
+            }
+        }).done(function (response) {
+            if (response.error) {
+                notify.errorBox(response.message, response.code);
+            } else {
+                //$("#account-" + id).find(".account-disable").show();
+                //$("#account-" + id).find(".account-enable").hide();
+                notify.successBox(response.message);
+            }
+        }).fail(function (json, error) {
+            if (json.message) {
+                message = json.message;
+            } else {
+                message = 'An unknown issue occurred. ' + error;
+            }
+            notify.errorBox(message, json.code);
+        }).always(function () {
+        });
+    }
+    static clearForm() {
+        var skip_fields = ['contact-provider_id'];
+        entrypoint.form.clear(".form-contact", skip_fields);
+        
+        address.clearForm();
+    }    
+    static clearTable() {
+        $('.contact-body .contact-container').remove();
+        $('.contact-no-record').show();        
+    }    
+    static delete(id) {
+        $.ajax({
+            url: '/contact/delete',
+            type: 'POST',
+            data: {
+                'id': id
+            }
+        }).done(function(response) {
+            if(response.error) {
+                notify.errorBox(response.message, response.code);
+            } else {
+                $("#contact-" + id).remove();
+                if($(".contact-body tr").length <= 2) {
+                    $(".no-record").show();                                    
+                }
+                notify.successBox(response.message);
+            }
+        }).fail(function(json, error) {
+            if(json.message) {
+                message = json.message;
+            } else {
+                message = 'An unknown issue occurred. '+error;
+            }
+            notify.errorBox(message, json.code);
+        }).always(function() {
+            entrypoint.deleteModal.hide();
+        });
+        contact.clearForm();        
+    }
+    static edit(id) {
+        contact.clearForm();
+
+        //get the data from the json and push it into the form.
+        var d = jQuery.parseJSON($('#contact-json-' + id).text());
+        contact.loadForm(d);
+        
+        $("#contact-name-title").text(d.first_name + " " + d.last_name);
+    }  
+    static load() {
+        entrypoint.wait.show('Loading...');
+        contact.clearTable();
+        
+        var fields = new Object;
+        var id = $("#provider-id").val();
+        
+        fields['id'] = id;      
+        
+        $.ajax({
+            url: '/provider/contacts',
+            type: 'POST',
+            dataType: 'json',
+            data: fields
+        }).done(function(resp) {
+            if (resp.error) {
+                notify.errorBox(resp.message, resp.code);
+                return;
+            }
+            
+            $('.contact-no-record').show();
+            $.each(resp, function(key,row) {
+                contact.addRow(row);
+            });
+            return;
+        }).fail(function(json, error) {
+            var message = '';
+            if (json.code) {
+                message = json.message;;
+            } else {
+                message =  'An unknown issue occurred. ' + error;
+            }
+            notify.errorBox(message, json.code);
+        }).always(function() {
+            entrypoint.wait.hide();
+        });
+        return false;        
+    }    
+    static loadForm(object) {
+        $.each(object, function(k, v) {
+            switch(k) {
+                case 'created_at':
+                    $("#reated_span").text(v);
+                    break;
+                case 'updated_at':
+                    $("#updated_span").text(v);
+                    break;  
+                case 'Location':
+                    address.loadForm(v);
+                    break;
+                case 'id':
+                    $("#contact-id").val(v);
+                    break;
+                default:
+                    $("#contact-"+k).val(v);
+            }
+        });        
+    }
+    static providerView(event, id) {
+        switch(event) {
+            case "add":
+                contact.clearForm();
+                $("#contact-name-title").text('New');
+                $("#contact-provider_id").val($("#provider-id").val());
+                $("#provider-contact-add").hide();
+                $("#provider-contact-cancel").show();
+                $("#provider-contact-edit").show();
+                $("#provider-contact-save").show();                
+                break;
+            case "cancel":
+                contact.clearForm();
+                $("#provider-contact-add").show();
+                $("#provider-contact-cancel").hide();
+                $("#provider-contact-edit").hide();
+                $("#provider-contact-save").hide();
+                break;
+            case "delete":
+                contact.delete(id);
+                contact.clearForm();
+                $("#provider-contact-add").show();
+                $("#provider-contact-cancel").hide();                
+                $("#provider-contact-edit").hide();
+                $("#provider-contact-save").hide();
+                break;
+            case "edit":
+                contact.edit(id);
+                $("#provider-contact-add").hide();
+                $("#provider-contact-cancel").show();
+                $("#provider-contact-edit").show();
+                $("#provider-contact-save").hide();
+                break;                
+            case "save":
+                if(contact.save()) {
+                    $("#provider-contact-add").hide();
+                    $("#provider-contact-cancel").show();  
+                    $("#provider-contact-save").hide();
+                }
+                break;
+            default:
+                break;
+        }
+    }    
+    static save(id) {
+
+        if(entrypoint.form.validate('.form-contact')) {
+            notify.errorBox(entrypoint.form.message);
+            return false;
+        }   
+
+        var status = true;
+        $.ajax({
+            url: '/contact/save',
+            type: 'POST',
+            dataType: 'json',
+            data: entrypoint.form.fields,
+        }).done(function(resp) {
+            if(resp.error) {
+                notify.errorBox(resp.message, resp.code);
+                status = false;
+                return false;
+            }
+
+            //update values on the page
+            var data = resp.data;
+            if (id === '' || id === undefined) {
+                contact.addRow(data);
+                $("#contact-name-title").text(data.first_name + " " + data.last_name);
+            } else {                
+                contact.updateRow(data);
+            }
+            if(resp.message) {
+                notify.successBox(resp.message);
+            }
+            return true;
+        }).fail(function(json, error) {
+            if(json.message) {
+                message = json.message;;
+            } else {
+                message = 'An unknown issue occurred. ' + error;
+            }
+            notify.errorBox(message, json.code);
+            status = false;
+            return false;
+        }).always(function() {
+        });
+        return status;
+    }
+    static updateRow(obj) {
+        var id = obj.id;        
+        
+        if(obj.first_name) {
+            //update from a contact object
+            $('#contact-name-'+id).find('.contact-name-span').text(obj.first_name+" "+obj.last_name);
+            var status = $('#contact-'+ id).find('.status-indicator');
+            status.attr('alt', obj.status);
+            status.attr('title', obj.status);
+            status.attr('class', 'status-indicator');
+            status.addClass('status-' + obj.status);        
+            $("#contact-location-" + id).text(address.format(obj.Location));
+            $("#contact-type-" + id).text(contact_type_display[obj.type]);
+            $("#contact-json-" + id).text(JSON.stringify(obj));
+        } else {
+            //update from a location object
+            var contact_id = $("#contact-id").val();
+            var contact_json = jQuery.parseJSON($('#contact-json-' + contact_id).text());
+            contact_json.Location = obj;
+            $("#contact-json-" + contact_id).text(JSON.stringify(contact_json));
+            $("#contact-location-" + contact_id).text(address.format(obj));
+        }        
+    }
+};    var address = {
+    addRow: function (loc) {
+        var id = loc.id;
+        var html = $("#location-id-0").clone();
+        $.each(loc, function (k, v) {
+            if (html.find(".location-" + k)) {
+                html.find(".location-" + k).attr('id', 'location-' + k + '-' + id);
+                html.find(".location-" + k).html(v);
+            }
+        });
+        html.attr('id', 'location-id-' + id);
+
+        html.find(".location-edit").attr('data-id', id);
+        html.find(".location-delete").attr('data-id', id);
+        html.find(".location-json").attr('id', 'prod-json-' + id);
+        html.find(".location-json").html(JSON.stringify(prod));
+        $("#location-id-0").before(html);
+        html.toggle();
+    },
+    clearForm: function () {
+        entrypoint.form.clear(".fieldset-location");
+        $("#a-location-uri").attr('href', '');
+        $("#a-location-uri").hide();
+    },
+    clearPhysicallocationForm: function () {
+        entrypoint.form.clear(".fieldset-physical_location");
+        $("#a-physical_location-uri").attr('href', '');
+        $("#a-physical_location-uri").hide();
+    },
+    delete: function (id) {
+        $.ajax({
+            url: '/location/delete',
+            type: 'POST',
+            data: {
+                'id': id
+            }
+        }).done(function (response) {
+            if (response.message) {
+                notify.errorBox(response.message, response.code);
+            } else {
+                $("#location-id-" + id).remove();
+                if ($(".location-body tr").length <= 2) {
+                    $(".no-record").show();
+                }
+                notify.successBox('Location deleted.');
+            }
+        }).fail(function (json, error) {
+            if (json.message) {
+                message = json.message;
+            } else {
+                message = 'An unknown issue occurred. ' + error;
+            }
+            notify.errorBox(message, json.code);
+        }).always(function () {
+            entrypoint.deleteModal.hide();
+        });
+        address.clearForm();
+    },
+    edit: function (id) {
+        $("#locationModal").modal('show');
+        address.clearForm();
+
+        //get the data from the json and push it into the form.
+        var d = jQuery.parseJSON($('#location-json-' + id).text());
+        address.loadForm(d)
+    },
+    format: function (obj) {
+        var text = '';
+
+        //return if object is empty
+        if (obj === null) {
+            return text;
+        }
+        if (obj.address1 != '') {
+            text = obj.address1;
+        }
+        if (obj.address2 != '') {
+            text = text + " " + obj.address2;
+        }
+        if (text != '') {
+            text = text + ",";
+        }
+        if (obj.city != '') {
+            text = text + " " + obj.city;
+        }
+        if (obj.state != '') {
+            text = text + " " + obj.state;
+        }
+        if (obj.zip != '') {
+            text = text + " " + obj.zip;
+        }
+        return text;
+    },
+    loadForm: function (object) {
+        $.each(object, function (k, v) {
+            switch (k) {
+                case 'id':
+                    $("#location-id").val(v);
+                    break;
+                case 'uri':
+                    $("#a-location-uri").attr('href', v);
+                    if (v !== null && v !== '') {
+                        $("#a-location-uri").show();
+                    }
+                default:
+                    $("#location-" + k).val(v);
+            }
+        });
+    },
+    loadPhysicallocationForm(location) {
+        $.each(location, function (k, v) {
+            switch (k) {
+                case 'uri':
+                    $("#a-physical_location-uri").attr('href', v);
+                    if (v !== null && v !== '') {
+                        $("#a-physical_location-uri").show();
+                    }
+                default:
+                    $("#physical_location-" + k).val(v);
+            }
+        });
+    },
+    save: function (id) {
+        var fields = new Object;
+        $('.form-location').find('input,textarea,select').each(function () {
+            var name = $(this).attr('name');
+            fields[name] = $(this).val();
+        });
+
+        $.ajax({
+            url: '/location/save',
+            type: 'POST',
+            dataType: 'json',
+            data: fields
+        }).done(function (resp) {
+            if (resp.message) {
+                notify.errorBox(resp.message, resp.code);
+                return;
+            }
+            var l = resp;
+            $("#location-json-" + l.id).text(JSON.stringify(l));
+            $("#location-details-" + l.id).text(l.address1 + ' ' + l.address2 + ' ' + l.city + ', ' + l.state + ' ' + l.zip);
+            $("#location-type-" + l.id).text(location_types[l.type]);
+            $("#locationModal").modal('hide');
+            notify.successBox('The save request completed successfully!');
+            return;
+        }).fail(function (json, error) {
+            if (json.message) {
+                message = json.message;
+            } else {
+                message = 'An unknown issue occurred. ' + error;
+            }
+            notify.errorBox(message, json.code);
+        }).always(function () {
+        });
+        return false;
+
+    },
+    updateRow: function (loc) {
+        var id = loc.id;
+
+        $("#location-json-" + id).text(JSON.stringify(prod));
+    },
+};    var plan = class {
+    static addFields(fields) {
+        //get row / clone it       
+        var $div = $('.serviceplan-fields-0').clone();
+        var $parent = $($('.serviceplan-fields-0')).parent();
+
+        $div.removeClass('serviceplan-fields-0');
+        $div.addClass('serviceplan-fields');
+
+        var counter = 0;
+        var $section = '';
+        var finish = 0;
+        $.each(fields, function (key, field) {
+            var key_id = key.replace(" ", "_");
+            counter++;
+            if (counter % 2 === 1) {
+                $section = $div.find('.col1');
+
+                $section.find(".label").attr("for", "serviceplan-fields-" + key_id);
+                $section.find(".label").text(key);
+
+                $section.find(".form-control").attr("id", "serviceplan-fields-" + key_id);
+                $section.find(".form-control").attr("name", "serviceplan[fields][" + key + "]");
+                $section.find(".form-control").attr("placeholder", key);
+
+                $section.find("#serviceplan-fields-" + key_id).val(field);
+
+                $section.show();
+
+                finish = 1;
+            } else {
+                $section = $div.find('.col2');
+
+                $section.find(".label").attr("for", "serviceplan-fields-" + key);
+                $section.find(".label").text(key);
+
+                $section.find(".form-control").attr("id", "serviceplan-fields-" + key);
+                $section.find(".form-control").attr("name", "serviceplan[fields][" + key + "]");
+                $section.find(".form-control").attr("placeholder", key);
+
+                $section.find("#serviceplan-fields-" + key).val(field);
+
+                $section.show();
+
+                //create a new div for the next row
+                $parent.append($div);
+                $div = $('.serviceplan-fields-0').clone();
+                $div.removeClass('serviceplan-fields-0');
+                $div.addClass('serviceplan-fields');
+
+                finish = 2;
+            }
+        });
+
+        if (finish === 1) {
+            $parent.append($div);
+        }
+
+        $(".serviceplan-fields").each(function () {
+            $(this).show();
+        });
+    }
+    static addRow(data) {
+        //get table row, clone it, add values, append it
+        var id = data.id;
+        var tr = $('#serviceplan-0').clone();
+
+        tr.attr('id', 'serviceplan-' + id);
+        tr.attr('style', '');
+        tr.addClass('serviceplan-container');
+        $.each(data, function (key, val) {
+            $.each(tr.find('td'), function (k, v) {
+                var elem = $(v);
+                if (elem.attr('class') === 'serviceplan-' + key) {
+                    switch (key) {
+                        case 'name':
+                            var status = $(tr.find('.status-indicator'));
+                            status.attr('title', data.status);
+                            status.attr('alt', data.status);
+                            status.attr('title', data.status);
+                            status.removeClass();
+                            status.addClass('status-indicator')
+                            status.addClass('status-' + data.status);
+                            $(tr.find('.serviceplan-name-span')).text(data.fields.Name);
+                            break;
+                        default:
+                            elem.text(val);
+                            elem.attr('id', 'serviceplan-' + key + '-' + id);
+                            break;
+                    }
+                }
+            });
+        });
+
+        var button = $(tr.find('button.clipboard'));
+        button.data('clipboard-text', id);
+
+        var service = data.Service;
+        tr.find(".serviceplan-service_name").attr('id', 'serviceplan-service_name-' + id);
+        tr.find(".serviceplan-service_name").text(service.name + " > " + service.Servicetype.name);
+
+        tr.find('.serviceplan-json').attr('id', 'serviceplan-json-' + id);
+        tr.find('.serviceplan-json').text(JSON.stringify(data));
+
+        tr.find('.serviceplan-delete').data('id', id);
+        tr.find('.serviceplan-delete').data('service_id', service.id);
+        tr.find('.serviceplan-edit').data('id', id);
+        tr.show();
+        $('.serviceplan-body').append(tr);
+        $('.serviceplan-no-record').hide();
+    }
+    static clearForm() {
+        entrypoint.form.clear(".form-plan");
+        $(".serviceplan-fields").remove();
+        $("#serviceplan-img").attr('src', '');
+    }
+    static clearTable() {
+        $('.serviceplan-body .serviceplan-container').remove();
+        $('.serviceplan-no-record').show();
+    }
+    static delete(id) {
+        //get service id
+        var service_id = $("#serviceplan-" + id).find('.serviceplan-delete').data('service_id');
+
+        $.ajax({
+            url: '/serviceplan/delete',
+            type: 'POST',
+            data: {
+                'id': id,
+                'service_id': service_id
+            }
+        }).done(function (response) {
+            if (response.error) {
+                notify.errorBox(response.message, response.code);
+            } else {
+                $("#serviceplan-" + id).remove();
+                if ($(".serviceplan-body tr").length <= 2) {
+                    $(".serviceplan-no-record").show();
+                }
+                notify.successBox(response.message);
+            }
+        }).fail(function (json, error) {
+            if (json.message) {
+                message = json.message;
+            } else {
+                message = 'An unknown issue occurred. ' + error;
+            }
+            notify.errorBox(message, json.code);
+        }).always(function () {
+            entrypoint.deleteModal.hide();
+        });
+        plan.clearForm();
+    }
+    static edit(id) {
+        plan.clearForm();
+        var r = jQuery.parseJSON($('#serviceplan-json-' + id).text());
+
+        if (r.name) {
+            $("#serviceplan-name-title").text(r.name);
+        }
+
+        var fields = r.fields;
+        plan.addFields(fields);
+
+        //load form with values from json
+        $.each(r, function (k, v) {
+            switch (k) {
+                case 'created_at':
+                    $("#serviceplan-created_at").text(v);
+                    break;
+                case 'id':
+                    $("#serviceplan-guid").text(v);
+                    $('#serviceplan-guid').OneClickSelect();
+                    $("#serviceplan-" + k).val(v);
+                    break;
+                case 'image':
+                    if (v == '' || v == null) {
+                        var file = globals.MEDIA_URL + "/img/noimage.jpg";
+                    } else {
+                        var file = globals.MEDIA_URL + "/img/plan/" + v;
+                    }
+                    $("#serviceplan-" + k).val(v);
+                    $("#serviceplan-img").attr('src', file);
+                    break;
+                case 'updated_at':
+                    $("#serviceplan-updated_at").text(v);
+                    break;
+                case 'service_id':
+                    //build drop down based on services for the selected provider.
+                    $("#serviceplan-service_id").val(v);
+                    break;
+                default:
+                    $("#serviceplan-" + k).val(v);
+                    break;
+            }
+        });
+    }
+    static load() {
+        entrypoint.wait.show('Loading...');
+        plan.clearTable();
+
+        var fields = new Object;
+        fields['id'] = $("#provider-id").val();
+
+        $.ajax({
+            url: '/provider/plans',
+            type: 'POST',
+            dataType: 'json',
+            data: fields
+        }).done(function (resp) {
+            if (resp.error) {
+                notify.errorBox(resp.message, resp.code);
+                return;
+            }
+
+            $('.serviceplan-no-record').show();
+            $.each(resp, function (key, row) {
+                plan.addRow(row);
+            });
+            $('.clipboard').OneClickSelect();
+            $('[data-toggle="tooltip"]').tooltip({
+                trigger: 'hover'
+            });
+            $('[data-toggle="tooltip"]').click(function () {
+                $('.tooltip').fadeOut('fast', function () {
+                    $('.tooltip').remove();
+                });
+            });
+            return;
+        }).fail(function (json, error) {
+            var message = '';
+            if (json.code) {
+                message = json.message;
+            } else {
+                message = 'An unknown issue occurred. ' + error;
+            }
+            notify.errorBox(message, json.code);
+        }).always(function () {
+            entrypoint.wait.hide();
+        });
+
+        fields['list'] = 1;
+        $.ajax({
+            url: '/provider/services',
+            type: 'POST',
+            dataType: 'json',
+            data: fields
+        }).done(function (resp) {
+            if (resp.error) {
+                notify.errorBox(resp.message, resp.code);
+                return;
+            }
+            var services = resp.services;
+
+            //remove all the "old" options to be replaced with the "new"
+            $("#serviceplan-service_id option[value!='']").each(function () {
+                $(this).remove();
+            });
+            $.each(services, function (i, el) {
+                $("#serviceplan-service_id").append("<option value='" + i + "' data-fields='" + el.fields + "'>" + el.name + "</option>");
+            });
+            return;
+        }).fail(function (json, error) {
+            var message = '';
+            if (json.code) {
+                message = json.message;
+            } else {
+                message = 'An unknown issue occurred. ' + error;
+            }
+            notify.errorBox(message, json.code);
+        }).always(function () {
+            entrypoint.wait.hide();
+        });
+        return false;
+    }
+    static providerView(event, id) {
+        try {
+            switch (event) {
+                case "add":
+                    plan.clearForm();
+
+                    //move to the details tab
+                    $("#serviceplan-details").trigger('click');
+
+                    //disable the tab options so the user can't move around
+                    $("#serviceplan_tabs li").each(function (k, v) {
+                        $(this).addClass('disabled');
+                    });
+
+                    $("#serviceplan-name-title").text('New');
+                    $("#provider-plan-add").hide();
+                    $("#provider-plan-cancel").show();
+                    $("#provider-plan-edit").show();
+                    $("#provider-plan-save").show();
+                    break;
+                case "edit":
+                    plan.edit(id);
+
+                    //move to the details tab
+                    $("#serviceplan-details").trigger('click');
+
+                    //disable the tab options so the user can't move around
+                    $("#serviceplan_tabs li").each(function (k, v) {
+                        $(this).removeClass('disabled');
+                    });
+
+                    $("#provider-plan-add").hide();
+                    $("#provider-plan-cancel").show();
+                    $("#provider-plan-edit").show();
+                    $("#provider-plan-save").hide();
+                    break;
+                case "cancel":
+                    plan.clearForm();
+                    $("#provider-plan-add").show();
+                    $("#provider-plan-cancel").hide();
+                    $("#provider-plan-edit").hide();
+                    $("#provider-plan-save").hide();
+                    break;
+                case "delete":
+                    plan.delete(id);
+                    plan.clearForm();
+                    $("#provider-plan-add").show();
+                    $("#provider-plan-cancel").hide();
+                    $("#provider-plan-edit").hide();
+                    $("#provider-plan-save").hide();
+                    break;
+                case "save":
+                    var after_function = function (service_plan) {
+                        $("#provider-plan-add").show();
+                        $("#provider-plan-cancel").hide();
+                        $("#provider-plan-save").hide();
+
+                        var fields = $('option:selected', $("#serviceplan-service_id")).data('fields');
+                        plan.addFields(fields);
+
+                        $("#serviceplan_tabs li").each(function (k, v) {
+                            $(this).removeClass('disabled');
+                        });
+
+                        //move to the fields tab
+                        $("#serviceplan-fields").trigger('click');
+
+                        var r = jQuery.parseJSON($('#serviceplan-json-' + service_plan.id).text());
+                        plan.updateRow(r);
+
+                        //turn this on so that the fields can be added.
+                        entrypoint.provider.enableAutoSave();
+
+                    }
+
+                    plan.save(undefined, after_function);
+                    break;
+                default:
+                    break;
+            }
+        } catch (err) {
+            notify.errorBox('An error occured while executing the ' + event + ' action.' + err.message);
+        }
+    }
+    static save(id, after_function) {
+        if (entrypoint.form.validate('.form-plan')) {
+            notify.errorBox(entrypoint.form.message);
+            return false;
+        }
+
+        var status = true;
+        $.ajax({
+            url: '/serviceplan/save',
+            type: 'POST',
+            dataType: 'json',
+            data: entrypoint.form.fields
+        }).done(function (resp) {
+            if (resp.error) {
+                notify.errorBox(resp.message, resp.code);
+                return false;
+            }
+            //update values on the page
+            var data = resp.data;
+            if (id === '' || id === undefined) {
+                $("#serviceplan-id").val(data.id);
+                plan.addRow(data);
+            } else {
+                plan.updateRow(data);
+            }
+            if (resp.message) {
+                notify.successBox(resp.message);
+            }
+            if (after_function !== undefined && typeof after_function === "function") {
+                after_function(data);
+            }
+        }).fail(function (json, error) {
+            if (json.message) {
+                message = json.message;
+            } else {
+                message = 'An unknown issue occurred. ' + error;
+            }
+            notify.errorBox(message, json.code);
+            status = false;
+        }).always(function () {
+        });
+        return status;
+    }
+    static updateRow(service_plan) {
+        var id = service_plan.id;
+        $("#serviceplan-" + id).find('.serviceplan-name-span').text(service_plan.name);
+        var service = service_plan.Service;
+        $("#serviceplan-service_name-" + id).text(service.name + " > " + service.Servicetype.name);
+        $("#serviceplan-json-" + id).text(JSON.stringify(service_plan));
+
+        var status = $("#serviceplan-" + id).find('.status-indicator');
+        entrypoint.status.build(status.parent(), service_plan.status);
+    }
+};    var provider = {
+    addRow : function(data) {
+        var id = data.id;
+        var tr = $("#provider-id-0").clone();
+        
+        tr.attr('id','provider-'+id);
+        tr.attr('style','');
+        tr.addClass('provider-container');
+        $.each(data, function(key,val) {
+            $.each(tr.find('td'), function(k,v) {
+                var elem = $(v);
+                if(elem.attr('class') === 'provider-'+key) {
+                    switch (k) {
+                        default:
+                            tr.find(".provider-" + k).html(v);
+                            break;
+                    }                    
+                }
+            });        
+        });
+        
+        tr.find(".provider-edit").attr('data-id', id);
+        tr.find(".provider-delete").attr('data-id', id);
+        tr.find(".provider-json").attr('id', 'provider-json-' + id);
+        tr.find(".provider-json").text(JSON.stringify(data));
+        
+        var status = tr.find('.status-indicator');
+        status.attr('alt', data.status);
+        status.attr('title', data.status);
+        status.addClass('status-' + data.status);     
+        
+        $("#provider-id").val(id);
+        $("#provider-guid").text(id);
+        $('#provider-guid').OneClickSelect();
+        $("#provider-modal-title").text(data.name);
+                
+        tr.find('.provider-delete').data('id',id);
+        tr.find('.provider-edit').data('id',id);
+        tr.show();
+        $('.provider-body').append(tr);
+        $('.provider-no-record').hide();       
+    },
+    clearForm : function() {
+        var skip_fields = ['provider-parent_id','provider_id'];
+        entrypoint.form.clear(".form-provider", skip_fields);
+        
+        $("#provider-img").attr('src','');
+        $("#provider-guid").text('');
+        $("#provider-modal-title").text('');
+    },
+    delete : function(id) {
+        $.ajax({
+            url: '/provider/delete',
+            type: 'POST',
+            data: {
+                'id': id
+            }
+        }).done(function(response) {
+            if(response.code) {
+                notify.errorBox(response.message, response.code);
+            } else {
+                $("#provider-" + id).remove();
+                if($(".provider-body tr").length <= 1) {
+                    $(".provider-no-record").show();                                    
+                }
+                notify.successBox(response.message);
+            }
+        }).fail(function(json, error) {
+            if(json.message) {
+                message = json.message;
+            } else {
+                message = 'An unknown issue occurred. '+error;
+            }
+            notify.errorBox(message, json.code);
+        }).always(function() {
+            entrypoint.deleteModal.hide();
+        });
+        contact.clearForm();        
+    },
+    edit : function(id) {
+
+        provider.clearForm();
+
+        var obj = jQuery.parseJSON($('#provider-json-' + id).text());
+        
+        $("#provider-modal-title").text(obj.name);
+        
+        //load form with values from json
+        $.each(obj, function (k, v) {
+            switch (k) {
+                case 'created_at':
+                    var d = new Date(v);
+                    $("#provider-created_span").text(d.getMonth()+"/"+d.getDay()+"/"+d.getFullYear()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds());
+                    break;
+                case 'updated_at':
+                    var d = new Date(v);
+                    $("#provider-updated_span").text(d.getMonth()+"/"+d.getDay()+"/"+d.getFullYear()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds());
+                    break;
+                case 'id':
+					$('#provider-id').val(v);
+					$('#provider-save').data('id',v);
+                    $("#provider-guid").text(v);                    
+                    $('#provider-guid').OneClickSelect();
+                    $("#provider-" + k).val(v);
+                    break;
+                case 'image':
+                    if(v == '') {
+                        var file = globals.MEDIA_URL+"/img/noimage.jpg";
+                    } else {
+                        var file = globals.MEDIA_URL+"/img/provider/"+v;
+                    }     
+                    $("#provider-" + k).val(v);
+                    $("#provider-img").attr('src',file);
+                    break;
+                case 'services':
+                    //remove all the "old" options to be replaced with the "new"
+                    $("#serviceplan-service_id option[value!='']").each(function() {
+                       $(this).remove(); 
+                    });
+                    $.each(v, function (ks, vs) {
+                        $("#serviceplan-service_id").append("<option value='"+ks+"'>" + vs + "</option>");
+                    });                                         
+                    break;
+                default:
+                    $("#provider-" + k).val(v);
+                    break;
+            }
+        });
+        $('#provider-guid').OneClickSelect();
+        $("#providerModal").modal('show');
+    },
+    providerView : function(event, id) {
+        switch(event) {
+            case "add":                
+                provider.clearForm();  
+                api.clearForm();
+                api.clearTable();
+                contact.clearForm();
+                contact.clearTable();
+                service.clearForm();
+                service.clearTable();
+                plan.clearForm();
+                plan.clearTable();
+                webhook.clearForm();
+                webhook.clearTable();
+                
+                //move to the details tab
+                $("#provider-details").trigger('click');
+                
+                //disable the tab options so the user can't move around
+                $("#provider_tabs li").each(function(k,v) {
+                    $(this).addClass('disabled');
+                });
+                                
+                $("#provider-save").show();                
+                $("#providerModal").modal('show');
+                break;
+            case "cancel":
+                provider.clearForm();
+                $("#provider-save").hide();
+                break;
+            case "delete":
+                provider.delete(id);
+                break;
+            case "edit":
+                //move to the details tab
+                $("#provider-details").trigger('click');
+                //enalbe all the tabs
+                $("#provider_tabs li").each(function(k,v) {
+                    $(this).removeClass('disabled');
+                });                
+                provider.edit(id);
+                $("#provider-save").hide();
+                $("#providerModal").modal('show');
+                break;
+            case "save":
+                if(provider.save(id)) {
+                    $("#provider-add").show();
+                    $("#provider-cancel").hide();
+                    $("#provider-save").hide();
+                    //enable the tab options so the user can move around
+                    $("#provider_tabs li").each(function(k,v) {
+                        $(this).removeClass('disabled');
+                    });
+                }
+                break;
+            default:
+                break;
+        }
+    },
+    save : function(id) {
+
+        if(entrypoint.form.validate('.form-provider')) {
+            notify.errorBox(entrypoint.form.message);
+            return false;
+        }   
+		
+        var status = true;
+        $.ajax({
+            url: '/provider/save',
+            type: 'POST',
+            dataType: 'json',
+            data: entrypoint.form.fields,
+        }).done(function(resp) {
+            if(resp.error) {
+                notify.errorBox(resp.message, resp.code);
+                status = false;
+                return false;
+            }
+
+            //update values on the page
+            var data = resp.data;
+            if (id === "" || id === undefined) {
+                provider.addRow(data);
+                $('#header-search-input').val(data.name);
+            } else {                
+                provider.updateRow(data);
+            }
+            if(resp.message) {
+                notify.successBox(resp.message);
+            }
+            return true;
+        }).fail(function(json, error) {
+            if(json.message) {
+                message = json.message;;
+            } else {
+                message = 'An unknown issue occurred. ' + error;
+            }
+            notify.errorBox(message, json.code);
+            status = false;
+            return false;
+        }).always(function() {
+        });
+        return status
+    },
+    updateRow : function(obj) {
+        var id = obj.id;
+        $("#provider-name-" + id).text(obj.name);
+        $("#provider-json-" + id).text(JSON.stringify(obj));
+        
+        var status = $('#provider-id-'+ id).find('.status-indicator');
+        status.attr('alt', obj.status);
+        status.attr('title', obj.status);
+        status.attr('class', 'status-indicator');
+        status.addClass('status-' + obj.status);
+    },
+};    var review = class {    
+    static addRow(data) {
+        //get table row, clone it, add values, append it
+        var id = data.id;
+        var tr_template = $($("#review-table-row").html());
+        var tr = tr_template.clone();
+
+        tr.attr('id','review-'+id);
+        tr.attr('style','');
+        tr.addClass('review-container');
+        $.each(data, function(key,val) {
+            $.each(tr.find('td'), function(k,v) {
+                var elem = $(v);
+                if(elem.attr('class') === 'review-'+key) {
+                    switch (key) {  
+                        case 'comment':
+                            elem.find('i').data('content',val);
+                            elem.find('i').attr('id','review-comment-i-'+id);
+                            elem.attr('id','review-comment-'+id);
+                            elem.addClass('text-center');
+                            break;
+                        case 'rating':
+                            if(data.status == 'ACTIVE') {
+                                tr.find(".review-unpublish").show();
+                                tr.find(".review-publish").hide();
+                            } else {
+                                tr.find(".review-unpublish").hide();
+                                tr.find(".review-publish").show();
+                            }
+                            elem.text(val);
+                            elem.attr('id','review-'+key+'-'+id);
+                            break;
+                        case 'comment':
+                        case 'created_at':
+                            elem.addClass('text-center');
+                        default:
+                            elem.text(val);
+                            elem.attr('id','review-'+key+'-'+id);
+                            break;
+                    }
+                }
+            });
+        });              
+        
+        var user = data.User;
+        
+        tr.find(".review-publish").attr('id','review-publish-'+id);
+        tr.find(".review-publish").data('id',id);
+        tr.find(".review-unpublish").attr('id','review-unpublish-'+id);
+        tr.find(".review-unpublish").data('id',id);
+        
+        tr.find('.review-user').attr('id','review-user-'+id);
+        tr.find('.review-user').text(user.Contact.first_name + " " + user.Contact.last_name);
+        
+        tr.find('.review-json').attr('id','review-json-'+id);
+        tr.find('.review-json').text(JSON.stringify(data));
+        
+        tr.find('.review-delete').data('id',id);
+        tr.find('.review-delete').data('service_id',service.id);        
+        tr.show();
+        $('.review-body').append(tr);
+        $('.review-no-record').remove();        
+    }
+    static clearForm() {
+        entrypoint.form.clear(".form-review");
+    }
+    static clearTable() {
+        $('.review-body .review-container').remove();
+        $('.review-no-record').remove();        
+    }
+    static delete(id) {
+        
+        $.ajax({
+            url: '/review/delete',
+            type: 'POST',
+            data: {
+                'id': id
+            }
+        }).done(function(response) {
+            if(response.error) {
+                notify.errorBox(response.message, response.code);
+            } else {
+                $("#review-" + id).remove();
+                if($(".review-body tr").length == 0) {
+                    var tr = $($("#review-table-empty").html());
+                    $('.review-body').append(tr);
+                }
+                notify.successBox(response.message);
+            }
+        }).fail(function(json, error) {
+            if(json.message) {
+                message = json.message;
+            } else {
+                message = 'An unknown issue occurred. '+error;
+            }
+            notify.errorBox(message, json.code);
+        }).always(function() {
+            entrypoint.deleteModal.hide();
+        });
+    }
+	static displayRating(selector, readOnly, size){
+		var r = $(selector);
+		r.html('');
+		var color = 'grey';
+		r.each(function(){
+			var rating = $(this).data('rating');
+			$(this).jRate({ 
+				height: size,
+				endColor: color,
+				minSelected: 1, 
+				rating: rating,
+				precision: 1,
+				readOnly: readOnly, 
+				startColor: color,
+				strokeWidth: '12px',
+				width: size
+			});	
+		});
+	}	
+	static displayRatingsBarChart(selector, numFivStars, numFourStars, numThreeStars, numTwoStars, numOneStar){
+	    $(selector).simpleChart({ 
+		    item: { 
+			    label: ['5 Stars', '4 Stars','3 Stars', '2 Stars', '1 Star'], 
+			    value: [numFivStars, numFourStars, numThreeStars, numTwoStars, numOneStar], 
+			    outputValue: [], 
+			    color: ['green','greenyellow','yellow','orange','red'], 
+			    prefix: '', 
+			    suffix:'', 
+			    decimals: 2, 
+			    height: null, 
+			    render: { 
+				    size: 'relative', 
+				    margin: 0, 
+				    radius: null} 
+		    }, 
+		    type: 'bar', 
+		    layout: {
+			    width: '100%', 
+			    height: '100%'
+		    }
+	    });		
+	}
+    static edit(id) {
+        review.clearForm();
+        var r = jQuery.parseJSON($('#review-json-' + id).text());
+        
+        //load form with values from json
+        $.each(r, function (k, v) {
+            switch (k) {
+                case 'service_id':
+                    //build drop down based on services for the selected provider.
+                    $("#review-service_id").val(v);
+                    break;
+                default:
+                    $("#review-" + k).val(v);
+                    break;
+            }
+        });
+    }  
+    static load() {
+        entrypoint.wait.show('Loading...');
+        review.clearTable();
+		$('.plan_rating_section').hide();
+		$('.plan_rating_statistics_section').hide();
+        
+        var fields = new Object;
+        fields['id'] = $("#serviceplan-id").val();
+        
+        $.ajax({
+            url: '/serviceplan/reviews',
+            type: 'POST',
+            dataType: 'json',
+            data: fields
+        }).done(function(resp) {
+            if (resp.error) {
+                notify.errorBox(resp.message, resp.code);
+                return;
+            }
+
+            $.each(resp.reviews, function(key,row) {
+                review.addRow(row);
+            });
+			var planRating = $('.plan_rating');
+			if(resp.summary.total_reviews > 0){
+				var rating = resp.summary.average_rating;
+				planRating.removeClass('plan_no_reviews');
+				planRating.data('rating', rating);
+				planRating.html(rating);	
+				$('.plan_rating_stars').data('rating', rating);
+				$('.plan_total_reviews').html(resp.summary.total_reviews + ' Total');
+				$(document).ready(function(){
+					review.displayRating('.plan_rating_stars',true,35);
+				});   
+			} else {
+//				planRating.addClass('plan_no_reviews');
+				planRating.html('No Reviews');
+				$('.plan_rating_stars').html('');
+				$('.plan_total_reviews').html('');
+			}
+				$(document).ready(function(){
+					review.displayRatingsBarChart('.plan_rating_chart_container',resp.summary.five_star_total, resp.summary.four_star_total, resp.summary.three_star_total, resp.summary.two_star_total, resp.summary.one_star_total);
+				}); 
+			$('.plan_rating_section').show();
+			$('.plan_rating_statistics_section').show();
+            //apply datatable logic to table for sorting
+//            $('#review-table').DataTable({
+//                "order":    [4, 'desc' ],
+//                "info":     false
+//            });
+            //toggle popover
+            $('[data-toggle="popover"]').popover();
+			$('[data-toggle="tooltip"]').tooltip({
+				trigger: 'hover'
+			});
+            $('[data-toggle="tooltip"]').click(function() {
+                $('.tooltip').fadeOut('fast', function() {
+                    $('.tooltip').remove();
+                });
+            });            
+            return;
+        }).fail(function(json, error) {
+            var message = '';
+            if (json.code) {
+                message = json.message;;
+            } else {
+                message =  'An unknown issue occurred. ' + error;
+            }
+            notify.errorBox(message, json.code);
+        }).always(function() {
+            entrypoint.wait.hide();
+        });
+    }
+    static providerView(event, id) {
+        try {
+            switch(event) {
+                case "add":
+                    review.clearForm();
+                    break;
+                case "edit":
+                    review.edit(id);
+                    break;
+                case "cancel":
+                    review.clearForm();
+                    break;
+                case "delete":
+                    review.delete(id);
+                    review.clearForm();
+                    break;
+                case "publish":
+                case "unpublish":
+                    review.publish(id,event);
+                    break;                 
+                case "save":
+                    if(review.save()) {
+                        
+                    }
+                    break;
+                default:
+                    break;
+            }
+        } catch (err) {
+            notify.errorBox('An error occured while executing the ' + event + ' action.'  + err.message);
+        }
+    }
+    static publish(id, event) {
+        var fields = new Object;
+        fields.review = new Object;
+        fields.review.id = id;
+        
+        switch(event) {
+            case "unpublish":
+                fields.review.status = 'PENDING';
+                break;
+            case "publish":
+                fields.review.status = 'ACTIVE';
+                break;
+            default:
+                notify.errorBox('Invalid publish event '+event+' provided.', 1000);
+                return false;                                
+        }        
+        
+        $.ajax({
+            url: '/review/save',
+            type: 'POST',
+            dataType: 'json',
+            data: fields
+        }).done(function(resp) {
+            if(resp.error) {
+                notify.errorBox(resp.message, resp.code);
+                return false;
+            }
+            //update values on the page
+            var data = resp.data;
+            
+            review.updateRow(data);
+            
+            if(resp.message) {
+                notify.successBox(resp.message);
+            }
+        }).fail(function(json, error) {
+            if(json.message) {
+                message = json.message;;
+            } else {
+                message = 'An unknown issue occurred. ' + error;
+            }
+            notify.errorBox(message, json.code);
+        }).always(function() {
+        });                
+    }
+    static save(id) {
+        if(entrypoint.form.validate('.form-plan')) {
+            notify.errorBox(entrypoint.form.message);
+            return false;
+        }
+        
+        var status = true;
+        $.ajax({
+            url: '/review/save',
+            type: 'POST',
+            dataType: 'json',
+            data: entrypoint.form.fields,
+        }).done(function(resp) {
+            if(resp.error) {
+                notify.errorBox(resp.message, resp.code);
+                return false;
+            }
+            //update values on the page
+            var data = resp.data;
+            
+            if (id === '' || id === undefined) {
+                $("#serviceplan_id").val(data.id);
+                review.addRow(data);
+            } else {
+                review.updateRow(data);
+            }
+            if(resp.message) {
+                notify.successBox(resp.message);
+            }
+        }).fail(function(json, error) {
+            if(json.message) {
+                message = json.message;;
+            } else {
+                message = 'An unknown issue occurred. ' + error;
+            }
+            notify.errorBox(message, json.code);
+            status = false;
+        }).always(function() {
+        });        
+        return status;
+    }
+    static updateRow(obj) {
+        var id = obj.id
+        $("#review-rating-"+id).text(obj.rating);
+        $("#review-comment-i-"+id).data('content',obj.comment);
+        
+        var user = obj.User;
+        $("#review-user-"+id).text(user.Contact.first_name + " " + user.Contact.last_name);
+        
+        if(obj.status === 'ACTIVE') {
+            $("#review-unpublish-"+id).show();
+            $("#review-publish-"+id).hide();
+        } else if(obj.status === 'PENDING') {
+            $("#review-unpublish-"+id).hide();
+            $("#review-publish-"+id).show();
+        } else {
+            $("#review-unpublish-"+id).show();
+            $("#review-publish-"+id).show();
+        }
+        $("#review-json-"+id).text(JSON.stringify(obj));
+    }
+};    var service = {
+    addRow: function (data) {
+        //get table row, clone it, add values, append it
+        var id = data.id;
+        var tr = $('#service-0').clone();
+
+        tr.attr('id', 'service-' + id);
+        tr.attr('style', '');
+        tr.addClass('service-container');
+        $.each(data, function (key, val) {
+            switch (key) {
+                case 'name':
+                    var status = $(tr.find('.status-indicator'));
+                    status.attr('title', data.status);
+                    status.attr('alt', data.status);
+                    status.attr('title', data.status);
+                    status.removeClass();
+                    status.addClass('status-indicator')
+                    status.addClass('status-' + data.status);
+                    tr.find('.service-name-span').text(val);
+                    break;
+                case 'account_types':
+                    val = data.account_type_string;
+                default:
+                    tr.find(".service-" + key).attr("id", "service-" + key + "-" + id);
+                    tr.find(".service-" + key).text(val);
+                    break;
+            }
+        });
+
+        var button = $(tr.find('button.clipboard'));
+        button.data('clipboard-text', id);
+
+        tr.find('.service-servicetype_name').text(data.Servicetype.name);
+        tr.find('.service-servicetype_name').attr('id', 'service-servicetype_name-' + id);
+        tr.find('.service-json').attr('id', 'service-json-' + id);
+        tr.find('.service-json').text(JSON.stringify(data));
+
+        tr.find('.service-delete').data('id', id);
+        tr.find('.service-edit').data('id', id);
+        tr.show();
+        $('.service-body').append(tr);
+        $('.service-no-record').hide();
+    },
+    clearForm: function () {
+        var skip_fields = ['service-provider_id'];
+        entrypoint.form.clear(".form-service", skip_fields);
+        $('#service-img').attr('src', '');
+    },
+    clearTable: function () {
+        $('.service-body .service-container').remove();
+        $('.service-no-record').show();
+    },
+    delete: function (id) {
+        var provider_id = $("#provider-id").val();
+        $.ajax({
+            url: '/service/delete',
+            type: 'POST',
+            data: {
+                'id': id,
+                'provider_id': provider_id
+            }
+        }).done(function (response) {
+            if (response.error) {
+                notify.errorBox(response.message, response.code);
+            } else {
+                $("#service-" + id).remove();
+                if ($(".service-body tr").length <= 2) {
+                    $(".service-no-record").show();
+                }
+                notify.successBox(response.message);
+            }
+        }).fail(function (json, error) {
+            if (json.message) {
+                message = json.message;
+            } else {
+                message = 'An unknown issue occurred. ' + error;
+            }
+            notify.errorBox(message, json.code);
+        }).always(function () {
+            entrypoint.deleteModal.hide();
+        });
+        service.clearForm();
+    },
+    edit: function (id) {
+        service.clearForm();
+        //get the data from the json and push it into the form.
+        var s = jQuery.parseJSON($('#service-json-' + id).text());
+
+        $("#service-details").trigger('click');
+        $("#service-name-title").text(s.name);
+
+        //load form with values from json
+        $.each(s, function (k, v) {
+            switch (k) {
+                case 'access_code':
+                    $("#service-access_code").val(v);
+                    $("#service-generate-access").data('id', id);
+                    break;
+                case 'account_types':
+                    $("#service-account_types").selectpicker('render');
+                    if (v !== '') {
+                        try {
+                            var resp = jQuery.parseJSON(v);
+                            $("#service-account_types").selectpicker('val', resp);
+                        } catch (err) {
+                            var arr = [];
+                            arr[0] = v;
+                            $("#service-account_types").selectpicker('val', arr);
+                        }
+                    }
+                    break;
+                case 'created_at':
+                    $("#service-created_at").text(v);
+                    break;
+                case 'id':
+                    $("#service-guid").text(v);
+                    $('#service-guid').OneClickSelect();
+                    $("#service-" + k).val(v);
+                    break;
+                case 'image':
+                    if (v == '') {
+                        var file = globals.MEDIA_URL + "/img/noimage.jpg";
+                    } else {
+                        var file = globals.MEDIA_URL + "/img/service/" + v;
+                    }
+                    $("#service-" + k).val(v);
+                    $("#service-img").attr('src', file);
+                    break;
+                case 'updated_at':
+                    $("#service-updated_at").text(v);
+                    break;
+                case 'standby_settings':
+                    if (v !== null) {
+                        $.each(v, function (k1, v1) {
+                            $("#service-standby-" + k1).val(v1);
+                        });
+                    }
+                    break;
+                default:
+                    $("#service-" + k).val(v);
+                    break;
+            }
+        });
+    },
+    getCode: function () {
+        $("#service-access_code").val('Getting Code...');
+
+        //get new guid 
+        $.ajax({
+            url: '/service/GetAccessCode',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                'service_id': $("#service-id").val()
+            }
+        }).done(function (resp) {
+            if (resp.error) {
+                notify.errorBox(resp.message, resp.code);
+                return;
+            }
+            $("#service-access_code").val(resp.access_code);
+        }).fail(function (json, error) {
+            if (json.code) {
+                message = json.message;
+            } else {
+                message = 'An unknown issue occurred. ' + error;
+            }
+            notify.errorBox(message, json.code);
+            $("#service-access_code").val('');
+        }).always(function () {
+        });
+    },
+    load: function () {
+        entrypoint.wait.show('Loading...');
+        service.clearTable();
+
+        var fields = new Object;
+        var id = $("#provider-id").val();
+
+        fields['id'] = id;
+
+        $.ajax({
+            url: '/provider/services',
+            type: 'POST',
+            dataType: 'json',
+            data: fields
+        }).done(function (resp) {
+            if (resp.error) {
+                notify.errorBox(resp.message, resp.code);
+                return;
+            }
+
+            $('.service-no-record').show();
+
+            $.each(resp, function (key, row) {
+                service.addRow(row);
+            });
+            $('.clipboard').OneClickSelect();
+            $('[data-toggle="tooltip"]').tooltip({
+                trigger: 'hover'
+            });
+            $('[data-toggle="tooltip"]').click(function () {
+                $('.tooltip').fadeOut('fast', function () {
+                    $('.tooltip').remove();
+                });
+            });
+            return;
+        }).fail(function (json, error) {
+            var message = '';
+            if (json.code) {
+                message = json.message;
+                ;
+            } else {
+                message = 'An unknown issue occurred. ' + error;
+            }
+            notify.errorBox(message, json.code);
+        }).always(function () {
+            entrypoint.wait.hide();
+        });
+        return false;
+    },
+    providerView: function (event, id) {
+        switch (event) {
+            case "add":
+                service.clearForm();
+                $("#service-name-title").text('New');
+                //render the account types drop down
+                $("#service-provider_id").val($("#provider-id").val());
+                $("#service-account_types").selectpicker('render');
+                $("#provider-service-add").hide();
+                $("#provider-service-cancel").show();
+                $("#provider-service-edit").show();
+                $("#provider-service-save").show();
+                break;
+            case "cancel":
+                service.clearForm();
+                $("#provider-service-add").show();
+                $("#provider-service-cancel").hide();
+                $("#provider-service-edit").hide();
+                $("#provider-service-save").hide();
+                break;
+            case "delete":
+                service.delete(id);
+                service.clearForm();
+                $("#provider-service-add").show();
+                $("#provider-service-cancel").hide();
+                $("#provider-service-edit").hide();
+                $("#provider-service-save").hide();
+                break;
+            case "edit":
+                service.edit(id);
+                $("#provider-service-add").hide();
+                $("#provider-service-cancel").show();
+                $("#provider-service-edit").show();
+                $("#provider-service-save").hide();
+                break;
+            case "save":
+                if (service.save()) {
+                    $("#provider-service-add").hide();
+                    $("#provider-service-cancel").show();
+                    $("#provider-service-save").hide();
+                    entrypoint.provider.enableAutoSave();
+                }
+                break;
+            default:
+                break;
+        }
+    },
+    save: function (id) {
+        if (entrypoint.form.validate('.form-service')) {
+            notify.errorBox(entrypoint.form.message);
+            return false;
+        }
+        var status = true;
+        $.ajax({
+            url: '/service/save',
+            type: 'POST',
+            dataType: 'json',
+            data: entrypoint.form.fields,
+        }).done(function (resp) {
+            if (resp.error) {
+                notify.errorBox(resp.message, resp.code);
+                status = false;
+                return false;
+            }
+            //update values on the page
+            var data = resp.data;
+
+            if (id === '' || id === undefined) {
+                service.addRow(data);
+                service.clearForm();
+            } else {
+                service.updateRow(data);
+            }
+            if (resp.message) {
+                notify.successBox(resp.message);
+            }
+            return true
+        }).fail(function (json, error) {
+            if (json.message) {
+                message = json.message;
+                ;
+            } else {
+                message = 'An unknown issue occurred. ' + error;
+            }
+            notify.errorBox(message, json.code);
+            status = false;
+            return false
+        }).always(function () {
+        });
+        return status;
+    },
+    updateRow: function (service) {
+        var id = service.id
+        $("#service-" + id).find('.service-name-span').text(service.name);
+        $('#service-servicetype_name-' + id).text(service.Servicetype.name);
+        $('#service-display_type-' + id).text(service.display_type);
+        $('#service-account_types-' + id).text(service.account_type_string);
+        $("#service-json-" + id).text(JSON.stringify(service));
+
+        var status = $("#service-" + id).find('.status-indicator');
+        status.attr('title', service.status);
+        status.attr('alt', service.status);
+        status.removeClass();
+        status.addClass('status-indicator')
+        status.addClass('status-' + service.status);
+    },
+};    var webhook = {
+    addRow: function (data) {
+        //get table row, clone it, add values, append it
+
+        var id = data.id;
+        var tr = $('#webhook-0').clone();
+
+        tr.attr('id', 'webhook-' + id);
+        tr.attr('style', '');
+        tr.addClass('webhook-container');
+
+        $.each(data, function (key, val) {
+            $.each(tr.find('td'), function (k, v) {
+                var elem = $(v);
+                if (elem.attr('class') === 'webhook-' + key) {
+                    switch (key) {
+                        case 'name':
+                            var status = $(tr.find('.status-indicator'));
+                            status.attr('title', data.status);
+                            status.attr('alt', data.status);
+                            status.attr('title', data.status);
+                            status.removeClass();
+                            status.addClass('status-indicator')
+                            status.addClass('status-' + data.status);
+                            tr.find('.webhook-name-span').text(val);
+                            break;
+                        default:
+                            elem.text(val);
+                            elem.attr('id', 'webhook-' + key + '-' + id);
+                            break;
+                    }
+                }
+            });
+        });
+
+        var button = $(tr.find('button.clipboard'));
+        button.data('clipboard-text', id);
+
+        tr.find('.webhook-json').attr('id', 'webhook-json-' + id);
+        tr.find('.webhook-json').text(JSON.stringify(data));
+
+        tr.find('.webhook-delete').data('id', id);
+        tr.find('.webhook-edit').data('id', id);
+        tr.show();
+        $('.webhook-body').append(tr);
+        $('.webhook-no-record').hide();
+        $('[data-toggle="tooltip"]').tooltip({
+            trigger: 'hover'
+        });
+    },
+    clearForm: function () {
+        var skip_fields = ['webhook-provider_id'];
+        entrypoint.form.clear(".form-webhook", skip_fields);
+    },
+    clearTable: function () {
+        $('.webhook-body .webhook-container').remove();
+        $('.webhook-no-record').show();
+    },
+    delete: function (id) {
+        $.ajax({
+            url: '/webhook/delete',
+            type: 'POST',
+            data: {
+                'id': id
+            }
+        }).done(function (response) {
+            if (response.error) {
+                notify.errorBox(response.message, response.code);
+            } else {
+                $("#webhook-" + id).remove();
+                if ($(".webhook-body tr").length <= 2) {
+                    $(".webhook-no-record").show();
+                }
+                notify.successBox(response.message);
+            }
+        }).fail(function (json, error) {
+            if (json.message) {
+                message = json.message;
+            } else {
+                message = 'An unknown issue occurred. ' + error;
+            }
+            notify.errorBox(message, json.code);
+        }).always(function () {
+            entrypoint.deleteModal.hide();
+        });
+        webhook.clearForm();
+    },
+    edit: function (id) {
+        webhook.clearForm();
+        var r = jQuery.parseJSON($('#webhook-json-' + id).text());
+
+        if (r.Service != null) {
+            $("#webhook-service_id").val(r.Service.id);
+            $("#webhook-service_id").trigger('change');
+        }
+        if (r.Serviceplan != null) {
+            $("#webhook-serviceplan_id").val(r.Serviceplan.id);
+            $("#webhook-serviceplan_id").trigger('change');
+        }
+
+        $("#webhook-name-title").text(r.name);
+
+        //load form with values from json
+        $.each(r, function (k, v) {
+            switch (k) {
+                case 'created_at':
+                    $("#webhook-created_at").text(v);
+                    break;
+//                case 'id':
+//                    $("#webhook-guid").text(v);                    
+//                    $('#webhook-guid').OneClickSelect();
+//                    $("#webhook-" + k).val(v);
+//                    break;                    
+                case 'method':
+                    $("#webhook-method").val(r.method.toLowerCase());
+                    break;
+                case 'type':
+                    $("#webhook-type").val(r.type.toLowerCase());
+                    break;
+                case 'updated_at':
+                    $("#webhook-updated_at").text(v);
+                    break;
+                default:
+                    $("#webhook-" + k).val(v);
+                    break;
+            }
+        });
+    },
+    load: function () {
+        entrypoint.wait.show('Loading...');
+        webhook.clearTable();
+
+        var fields = new Object;
+        fields['id'] = $("#provider-id").val();
+
+        $.ajax({
+            url: '/provider/webhooks',
+            type: 'POST',
+            dataType: 'json',
+            data: fields
+        }).done(function (resp) {
+            if (resp.error) {
+                notify.errorBox(resp.message, resp.code);
+                return;
+            }
+
+            $('.webhook-no-record').show();
+            $.each(resp, function (key, row) {
+                webhook.addRow(row);
+            });
+            $('.clipboard').OneClickSelect();
+            $('[data-toggle="tooltip"]').tooltip({
+                trigger: 'hover'
+            });
+            $('[data-toggle="tooltip"]').click(function () {
+                $('.tooltip').fadeOut('fast', function () {
+                    $('.tooltip').remove();
+                });
+            });
+            return;
+        }).fail(function (json, error) {
+            var message = '';
+            if (json.code) {
+                message = json.message;
+            } else {
+                message = 'An unknown issue occurred. ' + error;
+            }
+            notify.errorBox(message, json.code);
+        }).always(function () {
+            entrypoint.wait.hide();
+        });
+
+        fields['list'] = 1;
+        $.ajax({
+            url: '/provider/services',
+            type: 'POST',
+            dataType: 'json',
+            data: fields
+        }).done(function (resp) {
+            if (resp.error) {
+                notify.errorBox(resp.message, resp.code);
+                return;
+            }
+            var services = resp.services;
+
+            //remove all the "old" options to be replaced with the "new"
+            $("#webhook-service_id option[value!='']").each(function () {
+                $(this).remove();
+            });
+            $.each(services, function (i, el) {
+                $("#webhook-service_id").append("<option value='" + i + "'>" + el.name + "</option>");
+            });
+
+            var serviceplans = resp.plans;
+            $("#webhook-serviceplan_id option[value!='']").each(function () {
+                $(this).remove();
+            });
+            $.each(serviceplans, function (s_id, plans) {
+                $.each(plans, function (p_id, plan) {
+                    $("#webhook-serviceplan_id").append("<option value='" + p_id + "' data-chained='" + s_id + "'>" + plan + "</option>");
+                });
+            });
+            //build drop down
+            return;
+        }).fail(function (json, error) {
+            var message = '';
+            if (json.code) {
+                message = json.message;
+            } else {
+                message = 'An unknown issue occurred. ' + error;
+            }
+            notify.errorBox(message, json.code);
+        }).always(function () {
+            entrypoint.wait.hide();
+        });
+        return false;
+    },
+    providerView: function (event, id) {
+        switch (event) {
+            case "add":
+                webhook.clearForm();
+                //render the account types drop down
+                $("#webhook-account_types").selectpicker('render');
+                $("#webhook-provider_id").val($("#provider-id").val());
+                $("#provider-webhook-add").hide();
+                $("#provider-webhook-cancel").show();
+                $("#provider-webhook-edit").show();
+                $("#provider-webhook-save").show();
+                $("#webhook-serviceplan_id").chained("#webhook-service_id");
+                break;
+            case "cancel":
+                webhook.clearForm();
+                $("#provider-webhook-add").show();
+                $("#provider-webhook-cancel").hide();
+                $("#provider-webhook-edit").hide();
+                $("#provider-webhook-save").hide();
+                break;
+            case "delete":
+                webhook.delete(id);
+                webhook.clearForm();
+                $("#provider-webhook-add").show();
+                $("#provider-webhook-cancel").hide();
+                $("#provider-webhook-edit").hide();
+                $("#provider-webhook-save").hide();
+            case "edit":
+                webhook.edit(id);
+                $("#provider-webhook-add").hide();
+                $("#provider-webhook-cancel").show();
+                $("#provider-webhook-edit").show();
+                $("#provider-webhook-save").hide();
+                $("#webhook-serviceplan_id").chained("#webhook-service_id");
+                break;
+            case "save":
+                if (webhook.save()) {
+                    $("#provider-webhook-add").hide();
+                    $("#provider-webhook-cancel").show();
+                    $("#provider-webhook-save").hide();
+                }
+                break;
+            default:
+                break;
+        }
+    },
+    save: function (id) {
+        if (entrypoint.form.validate('.form-webhook')) {
+            notify.errorBox(entrypoint.form.message);
+            return false;
+        }
+
+        var status = true;
+        $.ajax({
+            url: '/webhook/save',
+            type: 'POST',
+            dataType: 'json',
+            data: entrypoint.form.fields,
+        }).done(function (resp) {
+            if (resp.webhookde) {
+                notify.errorBox(resp.message, resp.webhookde);
+                return false;
+            }
+            //update values on the page
+            var data = resp.data;
+
+            if (id === '' || id === undefined) {
+                webhook.addRow(data);
+            } else {
+                webhook.updateRow(data);
+            }
+            if (resp.message) {
+                notify.successBox(resp.message);
+            }
+        }).fail(function (json, error) {
+            if (json.message) {
+                message = json.message;
+            } else {
+                message = 'An unknown issue occurred. ' + error;
+            }
+            notify.errorBox(message, json.webhookde);
+            status = false;
+        }).always(function () {
+        });
+        return status;
+    },
+    updateRow: function (webhook) {
+        var id = webhook.id
+        $("#webhook-" + id).find('.webhook-name-span').text(webhook.name);
+        var status = $("#webhook-" + id).find('.status-indicator');
+        status.attr('title', webhook.status);
+        status.attr('alt', webhook.status);
+        status.attr('title', webhook.status);
+        status.removeClass();
+        status.addClass('status-indicator')
+        status.addClass('status-' + webhook.status);
+        $('#webhook-type-' + id).text(webhook.type);
+        $('#webhook-method-' + id).text(webhook.method);
+        $("#webhook-json-" + id).text(JSON.stringify(webhook));
+    }
+};
+    $(document).ready(function () {
+        entrypoint.tool.setSearchTooltip();
+        contact_type_display = jQuery.parseJSON('{"BILLING":"Billing","SALES":"Sales","SHIPPING":"Shipping","SUPPORT":"Support"}');
+        access_types = jQuery.parseJSON('{"ALL":"all","READ_ONLY":"read_only","SERVICE":"service"}');
+        /** --- Shared functionality between tabs --- **/
+        $('a[data-toggle="tab"]').on('click', function (e) {
+            if ($(this).parent().hasClass('disabled')) {
+                //don't trigger the tab change if tab is disabled
+                return false;
+            }
+            autoSaveResetNotification();
+        });
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            var $tab = $(e.target);
+            var tab_id = $tab.attr('href');
+            switch (tab_id) {
+                case "#tab-plan-reviews":
+                    review.load();
+                    break;
+                case "#tab-provider-apis":
+                    $("#provider-api-add").show();
+                    $("#provider-api-edit").hide();
+                    $("#provider-api-cancel").hide();
+                    $("#provider-api-save").hide();
+                    api.load();
+                    break;
+                case "#tab-provider-contacts":
+                    $("#provider-contact-add").show();
+                    $("#provider-contact-edit").hide();
+                    $("#provider-contact-cancel").hide();
+                    $("#provider-contact-save").hide();
+                    contact.load();
+                    break;
+                case "#tab-provider-plans":
+                    $("#provider-plan-add").show();
+                    $("#provider-plan-cancel").hide();
+                    $("#provider-plan-edit").hide();
+                    $("#provider-plan-save").hide();
+                    plan.load();
+                    break;
+                case "#tab-provider-services":
+                    $("#provider-service-add").show();
+                    $("#provider-service-cancel").hide();
+                    $("#provider-service-edit").hide();
+                    $("#provider-service-save").hide();
+                    service.load();
+                    break;
+                case "#tab-provider-webhooks":
+                    $("#provider-webhook-add").show();
+                    $("#provider-webhook-cancel").hide();
+                    $("#provider-webhook-edit").hide();
+                    $("#provider-webhook-save").hide();
+                    webhook.load();
+                    break;
+                default:
+                    break;
+            }
+        });
+        $("body").off("click", ".provider-button");
+        $("body").on("click", ".provider-button", function () {
+            try {
+                var b = $(this);
+                var id = b.data('id');
+                var clss = b.data('class');
+                var event = b.data('event');
+
+                entrypoint.provider.disableAutoSave();
+                switch (event) {
+                    case 'modal':
+                        entrypoint.deleteModal.showDeleteOnly();
+                        entrypoint.deleteModal.show($(this).data('id'), 'provider');
+                        $(".modal-button-delete").data('class', clss);
+                        $(".modal-button-delete").data('event', 'delete');
+                        $(".modal-button-delete").addClass('provider-button');
+                        break;
+                    default:
+                    switch (clss) {
+                        case 'api':
+                            api.providerView(event, id);
+                            break;
+                        case 'contact':
+                            contact.providerView(event, id);
+                            break;
+                        case 'service':
+                            service.providerView(event, id);
+                            break;
+                        case 'plan':
+                            plan.providerView(event, id);
+                            break;
+                        case 'provider':
+                            provider.providerView(event, id);
+                            break;
+                        case 'review':
+                            review.providerView(event, id);
+                            break;
+                        case 'webhook':
+                            webhook.providerView(event, id);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
+                // don't turn auto-save back on if the user clicked add
+                // the user has to click the save button in this case
+                if (event != 'add' && event != 'save' && event != 'delete' && event != 'modal') {
+                    entrypoint.provider.enableAutoSave();
+                }
+            } catch (err) {
+                entrypoint.provider.disableAutoSave();
+                notify.errorBox('An error occured while processing your request.  ' + err.message + '  Contact your network provider if the issue continues.', err.code);
+            }
+            return false;
+        });
+
+        /** --- not yet reviewed / refactored **/
+        $('#header-search-input').keyup(function () {
+            processSearch(this, '/provider/search');
+        });
+    });
+</script>			
+			</div>
+        </div>        
+        <footer class="footer">
+    <div class="container">
+        <p class="text-muted credit">&copy; Entry Point Networks 2018 <span class="small">(v2.0.1.2018137.001)</span></p>
+    </div>
+</footer>
+<div id="dialog-delete" title="Delete Item" style="display:none;">
+  <p><i class="fa fa-warning"></i>  <span id="dialog-text">This item will be deleted. Are you sure you want to continue?</span></p>
+</div>            <div class="modal fade modal-delete" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" data-toggle="tooltip" data-placement="top" title="Close"><i class='fa fa-times'></i></button>
+                <h4 class="modal-title"><span class="modal-delete-text">Delete</span> Record</h4>
+            </div>
+            <div class="modal-body">
+                <p id='disable-dialog'><i class="fa fa-warning"></i>  <span id="disable-dialog-text">Selecting disable will disable the item.</span></p>
+                <p id='delete-dialog'><i class="fa fa-warning"></i>  <span id="delete-dialog-text">Selecting delete will permanently delete the item.</span></p>
+				<p>Are you sure you want to continue?</p>
+            </div>
+            <div class="modal-footer" style="text-align: right">
+                <button type="button" class="btn btn-default btn-xs" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary btn-xs modal-button-disable"><span class="modal-disable-text">Disable</span></button>
+                <button type="button" class="btn btn-primary btn-xs modal-button-delete"><span class="modal-delete-text">Delete</span></button>
+            </div>
+        </div>
+    </div>
+</div>        <script>
+	var notify = {
+		color: '#C46A69',
+		content: '',
+		icon: 'fa fa-warning',
+		number: 0,
+		timeout: '6000',
+		title: 'An Error Occurred',
+		smallBox: function () {
+			$.smallBox({
+				title: this.title,
+				content: this.content,
+				color: this.color,
+				timeout: this.timeout,
+				icon: this.icon,
+				number: this.number
+			});
+		},
+		errorBox: function (message, code) {
+			if (code !== undefined) {
+				message = message + '<br/>Code: ' + code;
+			}
+			$.smallBox({
+				content: message,
+				title: 'An Error Occurred',
+				color: '#C46A69',
+				timeout: '6000',
+				icon: 'fa fa-warning',
+				number: 1,
+			});
+		},
+		successBox: function (message) {
+			$.smallBox({
+				content: message,
+				title: 'Success',
+				color: '#739E73',
+				timeout: '3000',
+				icon: 'fa fa-check',
+				number: 1,
+			});
+		},
+		warningBox: function (message) {
+			$.smallBox({
+				content: message,
+				title: 'Warning',
+				color: '#f0ad4e',
+				timeout: '6000',
+				icon: 'fa fa-exclamation',
+				number: 1,
+			});
+		},
+		validateForm: function (form_reference) {
+			$(form_reference).validate();
+
+			var fields = new Object;
+			var error = false;
+			var message = '';
+
+			$(form_reference).find('input,textarea,select').each(function (k, v) {
+				var i = $(v);
+				if (i.attr('required') !== undefined && i.val() === '') {
+					name = i.attr('name').replace(/\[|\]|_/gi, " ");
+					message += name + ' not provided.</br>';
+					error = true;
+					i.parent().addClass('has-error');
+				} else {
+					i.parent().removeClass('has-error');
+				}
+				fields[i.attr('name')] = i.val();
+			});
+			if (error) {
+				notify.errorBox('Required field(s) not provided.</br>' + message);
+				return false;
+			}
+			return fields;
+		}
+	}
+	</script>               <div class="wait">
+    <div class="wait-overlay"></div>
+    <h1 class="wait-text">
+        <i class="fa fa-spinner fa-spin"></i> Searching...
+    </h1>    
+</div>    </body>
+</html>
+

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en-us" id="extr-page">
+    <head>
+        <meta charset="utf-8">
+<title>Subscriber Portal</title>
+<!-- FAVICONS -->
+<link rel="shortcut icon" href="favicon/favicon.ico" type="image/x-icon">
+<link rel="icon" href="favicon/favicon.ico" type="image/x-icon">
+
+
+  <!-- CSS LINKS -->
+      <link rel="stylesheet" href="css/bootstrap.min.css?x=1" type="text/css" media="all" charset="utf-8" />
+      <link rel="stylesheet" href="css/bootstrap-select.min.css?x=1" type="text/css" media="all" charset="utf-8" />
+      <link rel="stylesheet" href="css/jquery-ui.min.css?x=1" type="text/css" media="all" charset="utf-8" />
+      <link rel="stylesheet" href="css/jquery-ui.theme.min.css?x=1" type="text/css" media="all" charset="utf-8" />
+      <link rel="stylesheet" href="css/jquery-ui.structure.min.css?x=1" type="text/css" media="all" charset="utf-8" />
+      <link rel="stylesheet" href="css/font-awesome.min.css?x=1" type="text/css" media="all" charset="utf-8" />
+      <link rel="stylesheet" href="css/notification.css?x=1" type="text/css" media="all" charset="utf-8" />
+      <link rel="stylesheet" href="css/icons.css?x=1" type="text/css" media="all" charset="utf-8" />
+      <link rel="stylesheet" href="css/buttons.dataTables.min.css?x=1" type="text/css" media="all" charset="utf-8" />
+      <link rel="stylesheet" href="css/dataTables.bootstrap.min.css?x=1" type="text/css" media="all" charset="utf-8" />
+      <link rel="stylesheet" href="css/../theme/default/css/forms.css?x=1" type="text/css" media="all" charset="utf-8" />
+      <link rel="stylesheet" href="css/../theme/default/css/global.css?x=1" type="text/css" media="all" charset="utf-8" />
+      <link rel="stylesheet" href="css/../theme/default/css/login.css?x=1" type="text/css" media="all" charset="utf-8" />
+      <link rel="stylesheet" href="css/../theme/default/css/register.css?x=1" type="text/css" media="all" charset="utf-8" />
+      <link rel="stylesheet" href="css/modweb.css" type="text/css" media="all" charset="utf-8" />
+      <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+    <!-- JS SCRIPTS -->
+            <script type="text/javascript" charset="utf-8" src="js/jquery.min.js?x=1"></script>
+            <script type="text/javascript" charset="utf-8" src="js/jquery-ui.min.js?x=1"></script>
+            <script type="text/javascript" charset="utf-8" src="js/bootstrap.min.js?x=1"></script>
+            <script type="text/javascript" charset="utf-8" src="js/bootstrap-select.js?x=1"></script>
+            <script type="text/javascript" charset="utf-8" src="js/global_vars.js?x=1"></script>
+            <script type="text/javascript" charset="utf-8" src="js/notification.min.js?x=1"></script>
+            <script type="text/javascript" charset="utf-8" src="js/global.js?x=1"></script>
+            <script type="text/javascript" charset="utf-8" src="js/services.js?x=1"></script>
+            <script type="text/javascript" charset="utf-8" src="js/plugin/jquery-paginate/jquery.paginate.min.js?x=1"></script>
+            <script type="text/javascript" charset="utf-8" src="js/plugin/jquery-validate/jquery.validate.min.js?x=1"></script>
+            <script type="text/javascript" charset="utf-8" src="js/plugin/jquery-datatables/jquery.dataTables.min.js?x=1"></script>
+            <script type="text/javascript" charset="utf-8" src="js/plugin/jquery-datatables/dataTables.bootstrap.min.js?x=1"></script>
+            <script type="text/javascript" charset="utf-8" src="js/plugin/jquery-datatables/dataTables.buttons.min.js?x=1"></script>
+            <script type="text/javascript" charset="utf-8" src="js/plugin/jquery-datatables/buttons.bootstrap.min.js?x=1"></script>
+            <script type="text/javascript" charset="utf-8" src="js/redirect.js?x=1"></script>
+            <script type="text/javascript" charset="utf-8" src="js/../theme/default/js/global.js?x=1"></script>
+
+
+    </head>
+    <body class="freshFonts">
+        <div class="login-box">
+          <img src="logo.png" class="logo" alt="" />
+            <div class="row login-block">
+    <h2 class="center hide">Sign In</h2>
+    <h6 class="center buffer"><i>A Public Utility Provided by the City of Westerville</i></h6>
+    <form id="login-form">
+        <div class="form-group">
+            <label for="username">User Name</label>
+            <input type="username" name="user[username]" id="username" class="form-control noBorders" required placeholder="Enter Username">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" name="user[password]" id="password" class="form-control noBorders" required placeholder="Enter Password" >
+        </div>
+        <div class="form-group center" style="padding-top:15px;">
+            <button type="button" class="btn btn-success noBorders" id="sign-in">Sign In</button><br>
+            <button type="button" class="btn btn-link gray center" id="forgot-password">Forgot Password?</button>
+            <!-- <button type="button" class="btn btn-danger noBorders" id="forgot-password">Forgot password</button> -->
+        </div>
+    </form>
+</div>
+
+<div class="row forgot-block" style="padding-bottom:15px; display:none;">
+    <h2 class="center">Password Reset</h2>
+    <form id="forgot-form">
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label class="label" for="fusername">* User Name</label>
+                <input type="username" name="user[username]" id="fusername" class="form-control" required placeholder="User name">
+            </div>
+            <div class="form-group col-md-6">
+                <label class="label" for="password">* New Password</label>
+                <input id="user-password" class="form-control" type="password" placeholder="New Password" style="display: inline-block;" name="user[password]"  required/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="label" style="margin-bottom: 0px;" for="user_security_question1">* Security Question 1</label>
+            <select class="form-control" id="user-security_question1" name="user[security_question1]" placeholder="Security Question 1" required>
+                                    <option value="In what city or town was your mother born?">In what city or town was your mother born?</option>
+                                    <option value="What breed was your first dog?">What breed was your first dog?</option>
+                                    <option value="What was the model of your first car?">What was the model of your first car?</option>
+                                    <option value="In what city or town did you meet your spouse/significant other?">In what city or town did you meet your spouse/significant other?</option>
+                                    <option value="What is the first name of your oldest nephew?">What is the first name of your oldest nephew?</option>
+                                    <option value="What was your childhood phone number including area code?">What was your childhood phone number including area code?</option>
+                                    <option value="Where did you meet your spouse for the first time?">Where did you meet your spouse for the first time?</option>
+                                    <option value="What is the nickname you gave your favorite grandparent?">What is the nickname you gave your favorite grandparent?</option>
+                                    <option value="In what city or town was your father born?">In what city or town was your father born?</option>
+                                    <option value="What school did you attend for sixth grade?">What school did you attend for sixth grade?</option>
+                                    <option value="In what city or town were you born?">In what city or town were you born?</option>
+                                    <option value="What was your childhood nickname?">What was your childhood nickname?</option>
+                                    <option value="What is the first musical instrument you learned to play?">What is the first musical instrument you learned to play?</option>
+                                    <option value="What is the name of the place your wedding reception was held?">What is the name of the place your wedding reception was held?</option>
+                                    <option value="What street did you live on in third grade?">What street did you live on in third grade?</option>
+                                    <option value="What is the first name of the maid of honor at your wedding?">What is the first name of the maid of honor at your wedding?</option>
+                            </select>
+        </div>
+        <div class="form-group">
+            <label class="label" for="user_security_answer1">* Security Answer 1</label>
+            <input type="text" class="form-control" id="user-security_answer1" name="user[security_answer1]" placeholder="Security Answer 1" required>
+        </div>
+        <div class="form-group">
+            <label class="label" style="margin-bottom: 0px;" for="user_security_question2">* Security Question 2</label>
+            <select class="form-control" id="user-security_question2" name="user[security_question2]" placeholder="Security Question 2" required>
+                                    <option value="What was the last name of your third grade teacher?">What was the last name of your third grade teacher?</option>
+                                    <option value="In what city or town was your first job?">In what city or town was your first job?</option>
+                                    <option value="In what city or town does your nearest sibling live?">In what city or town does your nearest sibling live?</option>
+                                    <option value="What is the first name of your oldest niece?">What is the first name of your oldest niece?</option>
+                                    <option value="In what city or town does your nearest sibling live?">In what city or town does your nearest sibling live?</option>
+                                    <option value="In what city or town did your mother and father meet?">In what city or town did your mother and father meet?</option>
+                                    <option value="What is the first name of the best man at your wedding?">What is the first name of the best man at your wedding?</option>
+                                    <option value="What was the name of your High School?">What was the name of your High School?</option>
+                                    <option value="What was the name of your first stuffed animal?">What was the name of your first stuffed animal?</option>
+                                    <option value="Where were you when you had your first kiss?">Where were you when you had your first kiss?</option>
+                                    <option value="In what city or town was your high school?">In what city or town was your high school?</option>
+                                    <option value="What was the name of the city or town your grandmother lived in?">What was the name of the city or town your grandmother lived in?</option>
+                                    <option value="What is the middle name of your youngest child?">What is the middle name of your youngest child?</option>
+                                    <option value="In what city or town were you married?">In what city or town were you married?</option>
+                                    <option value="What is the first name of the boy or girl that you first kissed?">What is the first name of the boy or girl that you first kissed?</option>
+                                    <option value="What was the name of your first pet?">What was the name of your first pet?</option>
+                            </select>
+        </div>
+        <div class="form-group">
+            <label class="label" for="user_security_answer2">* Security Answer 2</label>
+            <input type="text" class="form-control" id="user-security_answer2" name="user[security_answer2]" placeholder="Security Answer 2" required>
+
+        </div>
+        <div class="small">* Represents a required field.</div>
+        <div class="form-group" style="padding-top:15px;">
+            <button type="button" class="btn btn-success" id="forgot-submit">Submit</button>
+            <button type="button" class="btn btn-danger" id="forgot-cancel">Cancel</button>
+        </div>
+    </form>
+</div>
+            <div class="login-footer">
+                <h5 class="centered">Powered by <a href="http://www.entpnt.com" target="_blank" rel="noopener noreferrer">Entry Point Networks</a></h5>
+            </div>
+            <div class="wait">
+                <div class="wait-overlay"></div>
+                <h1 class="wait-text">
+                    Loading...
+                </h1>
+            </div>
+        </div>
+        <script>
+    var notify = {
+        color: '#C46A69',
+        content: '',
+        icon : 'fa fa-warning',
+        number: 0,
+        timeout: '6000',
+        title: 'An Error Occurred',
+        smallBox: function() {
+            $.smallBox({
+                title : this.title,
+                content : this.content,
+                color : this.color,
+                timeout: this.timeout,
+                icon : this.icon,
+                number: this.number,
+            });
+        },
+        errorBox: function(message, code) {
+            if (code !== undefined) {
+                message = message + '<br/>Code: ' + code;
+            }
+            $.smallBox({
+                content : message,
+                title : 'An Error Occurred',
+                color : '#C46A69',
+                timeout : '6000',
+                icon : 'fa fa-warning',
+                number : 1,
+            });
+        },
+        successBox: function(message) {
+            $.smallBox({
+                content : message,
+                title : 'Success',
+                color : '#739E73',
+                timeout : '3000',
+                icon : 'fa fa-check',
+                number : 1,
+            });
+        },
+    }
+
+</script>
+        <style>
+            html {
+                position: relative;
+                min-height: 100%;
+            }
+            body {
+                margin: 0px;
+                padding:0px 20px;
+            }
+            .login-block {
+                max-width: 300px;
+                margin: 0 auto;
+            }
+            .forgot-block {
+                max-width: 500px;
+                margin: 0 auto;
+            }
+            .login-footer {
+                padding-top:10px;
+            }
+            .wait {
+                display: none;
+            }
+
+            .wait-overlay {
+                background: #e9e9e9;
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                opacity: 0.5;
+                z-index: 10000;
+            }
+
+            .wait-text {
+                text-align: center;
+                padding-top:100px;
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                z-index: 10000;
+            }
+        </style>
+        <script>
+            $(document).ready(function () {
+                $(document).keypress(function(e) {
+                    if(e.which == 13) {
+                        $("#sign-in").trigger('click');
+                    }
+                });
+                //sign-in
+                $("#sign-in").on("click", function () {
+                    if(entrypoint.form.validate('#login-form')) {
+                        notify.errorBox(entrypoint.form.message);
+                        return false;
+                    }
+
+                    entrypoint.wait.show('Verifying login....');
+                    var username = $("#username").val();
+                    var password = $("#password").val();
+
+                    $.ajax({
+                        url: '/user/login',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            username: username,
+                            password: password,
+                            json: ''
+                        }
+                    }).done(function (resp) {
+                        if (resp.message) {
+                            notify.errorBox(resp.message, resp.code);
+                            entrypoint.wait.hide();
+                            return;
+                        }
+                        window.top.location.href = resp.redirect_url;
+                    }).fail(function (json, error) {
+                        if (json.message) {
+                            message = json.message;
+                            notify.errorBox(message, json.code);
+                        }
+                    }).always(function () {
+                        entrypoint.wait.hide();
+                    });
+                    return;
+                });
+                $('#forgot-password').on('click', function () {
+
+                    $('.login-block').hide();
+                    $('#user-security_answer1').val('');
+                    $('#user-security_answer2').val('');
+                    $('.forgot-block').show();
+                                });
+
+                $('#forgot-cancel').on('click', function () {
+                    $('.login-block').show();
+                    $('.forgot-block').hide();
+                });
+                $('#forgot-submit').on('click', function () {
+                    if(entrypoint.form.validate('#forgot-form')) {
+                        notify.errorBox(entrypoint.form.message);
+                        return false;
+                    }
+                    var data = $('#forgot-form').serialize();
+                    // show processing
+
+                    entrypoint.wait.show('Processing request....');
+
+                    $.ajax({
+                        url: '/user/forgot',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: data
+                    }).done(function (resp) {
+                        if (resp.message) {
+                            notify.errorBox(resp.message, resp.code);
+                            entrypoint.wait.hide();
+                            return;
+                        }
+                        notify.successBox(resp.status);
+                        $('#forgot-cancel').trigger('click');
+                    }).fail(function (json, error) {
+                        if (json.message) {
+                            message = json.message;
+                        } else {
+                            message = 'An unknown issue occurred. ' + error;
+                        }
+                        notify.errorBox(message, json.code);
+                    }).always(function () {
+                        entrypoint.wait.hide();
+                    });
+                    return;
+                });
+                                if(!1) {
+                    $("#forgot-password").hide();
+                }
+            });
+        </script>
+    </body>
+</html>

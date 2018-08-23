@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<!-- saved from url=(0012)http://m.no/ -->
+<html lang="en-us" id="extr-page"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Management Portal</title>
+<!-- FAVICONS -->
+<link rel="shortcut icon" href="http://m.no/favicon/favicon.ico" type="image/x-icon">
+<link rel="icon" href="http://m.no/favicon/favicon.ico" type="image/x-icon">
+
+
+  <!-- CSS LINKS -->
+      <link rel="stylesheet" href="./index_files/bootstrap.min.css" type="text/css" media="all" charset="utf-8">
+      <link rel="stylesheet" href="./index_files/jquery-ui.min.css" type="text/css" media="all" charset="utf-8">
+      <link rel="stylesheet" href="./index_files/jquery-ui.theme.min.css" type="text/css" media="all" charset="utf-8">
+      <link rel="stylesheet" href="./index_files/jquery-ui.structure.min.css" type="text/css" media="all" charset="utf-8">
+      <link rel="stylesheet" href="./index_files/font-awesome.min.css" type="text/css" media="all" charset="utf-8">
+      <link rel="stylesheet" href="./index_files/notification.css" type="text/css" media="all" charset="utf-8">
+      <link rel="stylesheet" href="./index_files/icons.css" type="text/css" media="all" charset="utf-8">
+      <link rel="stylesheet" href="./index_files/bootstrap-toggle.min.css" type="text/css" media="all" charset="utf-8">
+      <link rel="stylesheet" href="./index_files/buttons.dataTables.min.css" type="text/css" media="all" charset="utf-8">
+      <link rel="stylesheet" href="./index_files/dataTables.bootstrap.min.css" type="text/css" media="all" charset="utf-8">
+      <link rel="stylesheet" href="./index_files/bootstrap-select.min.css" type="text/css" media="all" charset="utf-8">
+      <link rel="stylesheet" href="./index_files/jquery-ui-timepicker.css" type="text/css" media="all" charset="utf-8">
+      <link rel="stylesheet" href="./index_files/global.css" type="text/css" media="all" charset="utf-8">
+      <link rel="stylesheet" href="./index_files/forms.css" type="text/css" media="all" charset="utf-8">
+      <link rel="stylesheet" href="./index_files/widget.css" type="text/css" media="all" charset="utf-8">
+  
+    <!-- JS SCRIPTS -->
+            <script type="text/javascript" charset="utf-8" src="./index_files/jquery.min.js.download"></script>
+            <script type="text/javascript" charset="utf-8" src="./index_files/jquery-ui.min.js.download"></script>
+            <script type="text/javascript" charset="utf-8" src="./index_files/bootstrap.min.js.download"></script>
+            <script type="text/javascript" charset="utf-8" src="./index_files/global.js.download"></script>
+            <script type="text/javascript" charset="utf-8" src="./index_files/global_vars.js.download"></script>
+            <script type="text/javascript" charset="utf-8" src="./index_files/notification.min.js.download"></script>
+            <script type="text/javascript" charset="utf-8" src="./index_files/jquery.paginate.min.js.download"></script>
+            <script type="text/javascript" charset="utf-8" src="./index_files/jquery.validate.min.js.download"></script>
+            <script type="text/javascript" charset="utf-8" src="./index_files/jquery-ui-timepicker.js.download"></script>
+            <script type="text/javascript" charset="utf-8" src="./index_files/jquery.dataTables.min.js.download"></script>
+            <script type="text/javascript" charset="utf-8" src="./index_files/dataTables.bootstrap.min.js.download"></script>
+            <script type="text/javascript" charset="utf-8" src="./index_files/dataTables.buttons.min.js.download"></script>
+            <script type="text/javascript" charset="utf-8" src="./index_files/buttons.html5.min.js.download"></script>
+            <script type="text/javascript" charset="utf-8" src="./index_files/pdfmake.min.js.download"></script>
+            <script type="text/javascript" charset="utf-8" src="./index_files/vfs_fonts.js.download"></script>
+            <script type="text/javascript" charset="utf-8" src="./index_files/jszip.min.js.download"></script>
+            <script type="text/javascript" charset="utf-8" src="./index_files/buttons.bootstrap.min.js.download"></script>
+            <script type="text/javascript" charset="utf-8" src="./index_files/jquery.chained.min.js.download"></script>
+            <script type="text/javascript" charset="utf-8" src="./index_files/clipboard.js.download"></script>
+            <script type="text/javascript" charset="utf-8" src="./index_files/bootstrap-select.js.download"></script>
+            <script type="text/javascript" charset="utf-8" src="./index_files/prettyprint.js.download"></script>
+            <script type="text/javascript" charset="utf-8" src="./index_files/websockets.js.download"></script>
+            <script type="text/javascript" charset="utf-8" src="./index_files/bootstrap-toggle.min.js.download"></script>
+            <script type="text/javascript" charset="utf-8" src="./index_files/global.js(1).download"></script>
+      
+
+    </head>
+    <body class="animated fadeInDown login">        
+        <div class="container">
+            <div id="content" class="container-fluid"><div class="page-header">
+    <h2 class="center">Management Portal Sign In</h2>
+</div>
+<form class="form-signin state-success" id="login-form" method="post" action="http://m.no/user/login" novalidate="novalidate">
+    <label for="username" class="sr-only">User Name</label>
+    <input type="text" name="username" value="" id="username" class="form-control valid" placeholder="User Name" required="" autofocus="">
+    <span>&nbsp;</span>
+    <label for="password" class="sr-only">Password</label>
+    <input type="password" name="password" id="password" class="form-control valid" placeholder="Password" required="">
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" value="remember-me" name="remember"> Remember User Name
+        </label>
+    </div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+</form>
+<div id="error" class="invalid" style="text-align: center;"></div></div>
+        </div>
+        <script>
+	var notify = {
+		color: '#C46A69',
+		content: '',
+		icon: 'fa fa-warning',
+		number: 0,
+		timeout: '6000',
+		title: 'An Error Occurred',
+		smallBox: function () {
+			$.smallBox({
+				title: this.title,
+				content: this.content,
+				color: this.color,
+				timeout: this.timeout,
+				icon: this.icon,
+				number: this.number
+			});
+		},
+		errorBox: function (message, code) {
+			if (code !== undefined) {
+				message = message + '<br/>Code: ' + code;
+			}
+			$.smallBox({
+				content: message,
+				title: 'An Error Occurred',
+				color: '#C46A69',
+				timeout: '6000',
+				icon: 'fa fa-warning',
+				number: 1,
+			});
+		},
+		successBox: function (message) {
+			$.smallBox({
+				content: message,
+				title: 'Success',
+				color: '#739E73',
+				timeout: '3000',
+				icon: 'fa fa-check',
+				number: 1,
+			});
+		},
+		warningBox: function (message) {
+			$.smallBox({
+				content: message,
+				title: 'Warning',
+				color: '#f0ad4e',
+				timeout: '6000',
+				icon: 'fa fa-exclamation',
+				number: 1,
+			});
+		},
+		validateForm: function (form_reference) {
+			$(form_reference).validate();
+
+			var fields = new Object;
+			var error = false;
+			var message = '';
+
+			$(form_reference).find('input,textarea,select').each(function (k, v) {
+				var i = $(v);
+				if (i.attr('required') !== undefined && i.val() === '') {
+					name = i.attr('name').replace(/\[|\]|_/gi, " ");
+					message += name + ' not provided.</br>';
+					error = true;
+					i.parent().addClass('has-error');
+				} else {
+					i.parent().removeClass('has-error');
+				}
+				fields[i.attr('name')] = i.val();
+			});
+			if (error) {
+				notify.errorBox('Required field(s) not provided.</br>' + message);
+				return false;
+			}
+			return fields;
+		}
+	}
+	</script>               <style>
+            html {
+                position: relative;
+                min-height: 100%;
+            }
+            body {
+                /* Margin bottom by footer height */
+                margin-bottom: 60px;
+                padding-top: 40px;
+                background-color: #eee;
+            }
+            .footer {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                /* Set the fixed height of the footer here */
+                height: 60px;
+                text-align: center;
+            }
+            .page-header {
+                text-align: center;
+                padding-bottom: 0px;
+                margin-bottom: 0px;
+            }
+            .form-signin {
+                max-width: 330px;
+                padding: 15px;
+                margin: 0 auto;
+            }
+            .form-signin .form-signin-heading,
+            .form-signin .checkbox {
+                margin-bottom: 10px;
+            }
+            .form-signin .checkbox {
+                font-weight: normal;
+            }
+            .form-signin .form-control {
+                position: relative;
+                height: auto;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                padding: 10px;
+                font-size: 16px;
+            }
+            .form-signin .form-control:focus {
+                z-index: 2;
+            }
+            .form-signin input[type="text"] {
+                margin-bottom: -1px;
+                border-bottom-right-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+            .form-signin input[type="password"] {
+                margin-bottom: 10px;
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+            }            
+        </style>        
+        <script type="text/javascript">
+            $(function () {
+                // Validation
+                $("#login-form").validate({
+                    // Rules for form validation
+                    rules: {
+                        username: {
+                            required: true
+                        },
+                        password: {
+                            required: true,
+                            minlength: 3,
+                            maxlength: 20
+                        }
+                    },
+                    // Messages for form validation
+                    messages: {
+                        username: {
+                            required: 'Please enter your user name',
+                        },
+                        password: {
+                            required: 'Please enter your password'
+                        }
+                    },
+                    // Do not change code below
+                    errorPlacement: function (error, element) {
+                        $("#error").html('');
+                        $("#error").html(error[0].innerText);
+                    }
+                });
+            });
+        </script>
+    
+<div id="divSmallBoxes"></div><div id="divMiniIcons"></div><div id="divbigBoxes"></div></body></html>

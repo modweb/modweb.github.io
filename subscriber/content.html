@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>
+		Subscriber Portal
+</title>
+<link rel="shortcut icon" href="/theme/default/img/favicon/favicon.ico" type="image/x-icon">
+<link rel="icon" href="favicon/favicon.ico" type="image/x-icon">
+			<link rel="stylesheet" href="/css/bootstrap.min.css?x=1" type="text/css" media="all"/>
+			<link rel="stylesheet" href="/css/bootstrap-select.min.css?x=1" type="text/css" media="all"/>
+			<link rel="stylesheet" href="/css/jquery-ui.min.css?x=1" type="text/css" media="all"/>
+			<link rel="stylesheet" href="/css/jquery-ui.theme.min.css?x=1" type="text/css" media="all"/>
+			<link rel="stylesheet" href="/css/jquery-ui.structure.min.css?x=1" type="text/css" media="all"/>
+			<link rel="stylesheet" href="/css/font-awesome.min.css?x=1" type="text/css" media="all"/>
+			<link rel="stylesheet" href="/css/notification.css?x=1" type="text/css" media="all"/>
+			<link rel="stylesheet" href="/css/icons.css?x=1" type="text/css" media="all"/>
+			<link rel="stylesheet" href="/css/buttons.dataTables.min.css?x=1" type="text/css" media="all"/>
+			<link rel="stylesheet" href="/css/dataTables.bootstrap.min.css?x=1" type="text/css" media="all"/>
+			<link rel="stylesheet" href="/css/../theme/default/css/forms.css?x=1" type="text/css" media="all"/>
+			<link rel="stylesheet" href="/css/../theme/default/css/global.css?x=1" type="text/css" media="all"/>
+			<link rel="stylesheet" href="/css/../theme/default/css/login.css?x=1" type="text/css" media="all"/>
+			<link rel="stylesheet" href="/css/../theme/default/css/register.css?x=1" type="text/css" media="all"/>
+	<link rel="stylesheet" href="/addons/overhang/overhang.css?x=1" type="text/css" media="all"/>
+			<script type="text/javascript" charset="utf-8" src="/js/jquery.min.js?x=1"></script>
+			<script type="text/javascript" charset="utf-8" src="/js/jquery-ui.min.js?x=1"></script>
+			<script type="text/javascript" charset="utf-8" src="/js/bootstrap.min.js?x=1"></script>
+			<script type="text/javascript" charset="utf-8" src="/js/bootstrap-select.js?x=1"></script>
+			<script type="text/javascript" charset="utf-8" src="/js/global_vars.js?x=1"></script>
+			<script type="text/javascript" charset="utf-8" src="/js/notification.min.js?x=1"></script>
+			<script type="text/javascript" charset="utf-8" src="/js/global.js?x=1"></script>
+			<script type="text/javascript" charset="utf-8" src="/js/services.js?x=1"></script>
+			<script type="text/javascript" charset="utf-8" src="/js/plugin/jquery-paginate/jquery.paginate.min.js?x=1"></script>
+			<script type="text/javascript" charset="utf-8" src="/js/plugin/jquery-validate/jquery.validate.min.js?x=1"></script>
+			<script type="text/javascript" charset="utf-8" src="/js/plugin/jquery-datatables/jquery.dataTables.min.js?x=1"></script>
+			<script type="text/javascript" charset="utf-8" src="/js/plugin/jquery-datatables/dataTables.bootstrap.min.js?x=1"></script>
+			<script type="text/javascript" charset="utf-8" src="/js/plugin/jquery-datatables/dataTables.buttons.min.js?x=1"></script>
+			<script type="text/javascript" charset="utf-8" src="/js/plugin/jquery-datatables/buttons.bootstrap.min.js?x=1"></script>
+			<script type="text/javascript" charset="utf-8" src="/js/redirect.js?x=1"></script>
+			<script type="text/javascript" charset="utf-8" src="/js/../theme/default/js/global.js?x=1"></script>
+	<script type="text/javascript" charset="utf-8" src="/addons/websockets/websockets.js?x=1"></script>
+<script type="text/javascript" charset="utf-8" src="/addons/overhang/overhang.js?x=1"></script>
+    </head>
+    <body>
+        <script type="text/javascript">
+    var conn = null;
+    var id = 'a0b38ae0-8f5a-11e8-b952-503549444244';
+    
+            $(document).ready(function () {
+                //load menu
+                $('.dropdown-toggle').dropdown();
+
+                // Code to handle live communication with server to receive messages via pushes from server
+                var onopen_function = function (e) {
+                    socketfuncs.subscribe('subscription_' + id, function (data) {
+                        var $parent_selector = $('.info.messages-indicator');
+                        if ($parent_selector.length) {
+
+                            socketfuncs.log('subscribe function fired');
+                            socketfuncs.log(data);
+                            socketfuncs.log('Subscription channel recieved a message', true);
+
+                            // if removing subscription then 
+                            // if on the dashboard page remove the subscription but add alert that doesn't leave
+
+                            // if on the list page update the button but add alert that doesn't leave
+
+                            // if on the details page add the button but add alert that doesn't leave
+                            // else if change or add
+                            // if on the dashboard page add or update the subscritpion
+
+                            // if on the list page update the button but add alert that doesn't leave
+
+                            // if on the details page update the button but add alert that doesn't leave
+                            // end if
+
+                            // update the message indicator
+                            if (data.payload.Subscribers[0].read_status == 'unread') {
+
+                                var $number_holder = $parent_selector.find('a span');
+                                var value = $number_holder.html();
+                                var number = parseInt(value);
+
+                                // increase the current number by one
+                                $number_holder.html(++number + '*');
+                                entrypoint.tool.highlightElement($parent_selector, '#cc66ff');
+                            }
+                        }
+                    });
+                };
+                var onmessage_function = function (e) {
+                    if (entrypoint.tool.isJson(e.data)) {
+                        var data = JSON.parse(e.data);
+                        var channel = data.channel;
+                        if (socketfuncs.channels[channel] !== undefined && entrypoint.tool.isFunction(socketfuncs.channels[channel])) {
+                            socketfuncs.channels[channel](data);
+                        }
+                    } else {
+                        socketfuncs.log(e.data);
+                    }
+                };
+                socketfuncs.init(globals.BASE_URL.replace('http://', '').replace('https://', ''), '8888', onopen_function, onmessage_function);
+            });
+    
+</script>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+                    <a class="navbar-brand" id="home_link" href="/account/services">EntryPoint Networks Portal</a>
+            </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div class="pull-left service-access_code">
+            <input type="text" placeholder="Private Service Access Code" id="service-access_code" name="service-access_code" class="pull-left form-control" style="min-width:220px;">
+            <a href="STN444VLJZ3Y3YJ89TJ2" id="service-access_code_anchor"></a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+                        <li class="info" style="margin-right: 10px;">
+                <a href="/system/connectivity" class="status"><span class="fa fa-question-circle" style="color: #1021e5;" data-toggle="tooltip" data-placement="left" title="Check Network Connectivity"></span></a>
+            </li>
+            <li class="info" style="margin-right: 10px;">
+                <a href="/system/status" class="status"><span class="fa fa-heartbeat" style="color: #e02323;" data-toggle="tooltip" data-placement="left" title="Check System Status"></span></a>
+            </li>
+            <li class="info messages-indicator">
+                <a href="#" class="status"><span class="fa fa-envelope-square" style="color: #009900;" data-toggle="tooltip" data-placement="left" title="My Messages">12*</span></a>
+            </li>
+            <li class="dropdown">
+                                    <a href="#" id="user-option-dropdown" class="dropdown-toggle" data-toggle="dropdown">demo <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a class="nav" href="/user/profile" title="User Profile"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+                        <li><a id="logout" class="nav" href="/user/logout" title="Logout" target="_top"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                    </ul>
+                            </li>
+        </ul>
+        <!-- Sidebar -->
+<div class="nav nav-sidebar">
+						<div style='padding: 10px; border-bottom: solid 1px #d1d3d4; display: none;'>
+		<div style='margin-left: 2px;'>Account</div>
+		<select id='user_account_dropdown' class='form-control' style='width:90%;'>
+							<option value="a0917d80-8f5a-11e8-b5e1-41485a443539">
+					demo
+				</option>
+					</select>
+	</div>
+                                                                                <ul class="parent"><li class="link url "><a href="/account/services"><span class="fa fa-fw fa-home"></span><span class="menu-item-parent">Dashboard</span></a></li><li class="text "><span class="menu-item-parent">Categories</span></li><li class="link url "><a href="/service/listProviders/a02b2cb0-8f5a-11e8-aad1-37304e535947"><span class="fa fa-fw fa-cloud"></span><span class="menu-item-parent">Internet Service</span></a></li></ul></li></ul>
+                       
+        </div>
+<!-- /#sidebar-wrapper -->
+<script>
+	function getSelectedAccountId(){
+		return $('#user_account_dropdown').val();
+	}
+	
+	$(document).ready(function(){
+		$("#user_account_dropdown").val('a0917d80-8f5a-11e8-b5e1-41485a443539');
+		
+		$("#user_account_dropdown").change(function(){
+			$.ajax({
+			    data: {
+				account_id: getSelectedAccountId()
+			    },
+			    dataType: 'json',
+			    method: 'POST',
+			    url: '/account/switch'
+			}).success(function (resp) {
+			    if (resp.code) {
+				notify.errorBox(resp.message, resp.code);
+			    } else {
+				    window.location.reload();
+			    }
+			});
+			
+		});
+	});
+</script>    </div><!-- /.navbar-collapse -->
+</nav>
+<style>
+    .support {
+        color: #e02323;
+    }
+    .navbar-brand > img {
+        padding: 0px 0px 0px 15px;
+        height: 35px;
+    }
+    .service-access_code {
+        padding-left: 15px;
+        padding-top: 5px;
+    }
+    #bs-example-navbar-collapse-1 .info a.status {
+        background-color: transparent;
+        padding: 5px 0;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $("#service-access_code").keypress(function (e) {
+            if (e.which == 13) {
+                var code = $(this).val();
+                $("#service-access_code_anchor").attr('href', '/service/listProviders?access=' + code);
+                $("#service-access_code_anchor").trigger('click');
+            }
+        });
+        $('#home_link').on('click', function () {
+            document.location.href = $(this).attr('href');
+                return false;
+        });
+    });
+</script>
+        <!-- MAIN PANEL -->
+        <div class="container">
+            <div id="content"></div>
+        </div>    
+        <footer class="footer">
+    <div class="container">
+        <p class="text-muted credit">&copy; Entry Point Networks 2018 <span class="small">(v2.0.1.2018137.001)</span></p>
+    </div>
+</footer>    
+<div id="dialog-delete" title="Delete Item" style="display:none;">
+  <p><i class="fa fa-warning"></i>  <span id="dialog-text">This item will be deleted. Are you sure you want to continue?</span></p>
+</div>        <script>
+    var notify = {
+        color: '#C46A69',
+        content: '',
+        icon : 'fa fa-warning',
+        number: 0,
+        timeout: '6000',
+        title: 'An Error Occurred',    
+        smallBox: function() {
+            $.smallBox({
+                title : this.title,
+                content : this.content,
+                color : this.color,
+                timeout: this.timeout,
+                icon : this.icon,
+                number: this.number,
+            });
+        },
+        errorBox: function(message, code) {
+            if (code !== undefined) {
+                message = message + '<br/>Code: ' + code;
+            }            
+            $.smallBox({
+                content : message,
+                title : 'An Error Occurred',
+                color : '#C46A69',
+                timeout : '6000',
+                icon : 'fa fa-warning',
+                number : 1,
+            });
+        },    
+        successBox: function(message) {
+            $.smallBox({
+                content : message,
+                title : 'Success',
+                color : '#739E73',
+                timeout : '3000',
+                icon : 'fa fa-check',
+                number : 1,
+            });
+        },          
+    }
+    
+</script>       		<div class="wait">
+	<div class="wait-overlay"></div>
+	<h1 class="wait-text">
+		<i class="fa fa-spinner fa-spin"></i> Searching...
+	</h1>
+</div>
+<style>
+	.wait {
+		display: none;
+	}
+
+	.wait-overlay {
+		background: #e9e9e9;
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		opacity: 0.5;
+		z-index: 10000;
+	}
+
+	.wait-text {
+		text-align: center;
+		padding-top:200px;
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		z-index: 10000;
+	}
+</style>    </body>
+</html>
+
