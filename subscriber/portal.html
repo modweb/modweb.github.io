@@ -19,6 +19,7 @@
 			<link rel="stylesheet" href="css/icons.css?x=1" type="text/css" media="all"/>
       <link rel="stylesheet" href="css/modweb.css" type="text/css" media="all" charset="utf-8" />
       <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+      <link href="https://unpkg.com/ionicons@4.4.1/dist/css/ionicons.min.css" rel="stylesheet">
 			<link rel="stylesheet" href="css/buttons.dataTables.min.css?x=1" type="text/css" media="all"/>
 			<link rel="stylesheet" href="css/dataTables.bootstrap.min.css?x=1" type="text/css" media="all"/>
 			<link rel="stylesheet" href="css/../theme/default/css/forms.css?x=1" type="text/css" media="all"/>
@@ -109,14 +110,14 @@
 </script>
 <nav class="navbar navbar-default navbar-fixed-top">
     <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
+    <div class="navbar-header navRoom">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-                    <img src="logo.png" class="navbar-brand" width="50%" id="home_link" href="/account/services" alt="" />
+                    <img src="logo.png" class="navbar-brand portalLogo" height="auto" id="home_link" href="/account/services" alt="" />
             </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -126,22 +127,22 @@
             <a href="STN444VLJZ3Y3YJ89TJ2" id="service-access_code_anchor"></a>
         </div>
         <ul class="nav navbar-nav navbar-right">
-                        <li class="info" style="margin-right: 10px;">
-                <a href="/system/connectivity" class="status"><span class="fa fa-question-circle" style="color: #1021e5;" data-toggle="tooltip" data-placement="left" title="Check Network Connectivity"></span></a>
+                        <li class="info infoReadable" style="margin-right: 10px;">
+                <a href="/system/connectivity" class="status"><span data-toggle="tooltip" data-placement="left" title="Check Network Connectivity"><i class="icon ion-md-help"></i></span></a>
             </li>
-            <li class="info" style="margin-right: 10px;">
-                <a href="/system/status" class="status"><span class="fa fa-heartbeat" style="color: #e02323;" data-toggle="tooltip" data-placement="left" title="Check System Status"></span></a>
+            <li class="info infoReadable" style="margin-right: 10px;">
+                <a href="/system/status" class="status"><span data-toggle="tooltip" data-placement="left" title="Check System Status"><i class="icon ion-md-heart-half"></i></span></a>
             </li>
-            <li class="info messages-indicator">
-                <a href="#" class="status"><span class="fa fa-envelope-square" style="color: #009900;" data-toggle="tooltip" data-placement="left" title="My Messages">12*</span></a>
+            <li class="info messages-indicator infoReadable">
+                <a href="#" class="status"><span style="color: #009900;" data-toggle="tooltip" data-placement="left" title="My Messages"><i class="icon ion-md-notifications"></i>12*</span></a>
             </li>
-            <li class="dropdown">
-                                    <a href="#" id="user-option-dropdown" class="dropdown-toggle" data-toggle="dropdown">demo <b class="caret"></b></a>
+            <li class="dropdown infoReadable">
+                <a href="#" id="user-option-dropdown" class="dropdown-toggle" data-toggle="dropdown">Menu<b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a class="nav" href="/user/profile" title="User Profile"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
                         <li><a id="logout" class="nav" href="/user/logout" title="Logout" target="_top"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                     </ul>
-                            </li>
+            </li>
         </ul>
         <!-- Sidebar -->
 <div class="nav nav-sidebar">
@@ -149,12 +150,24 @@
 		<div style='margin-left: 2px;'>Account</div>
 		<select id='user_account_dropdown' class='form-control' style='width:90%;'>
 							<option value="a0917d80-8f5a-11e8-b5e1-41485a443539">
-					demo
+					Menu
 				</option>
 					</select>
 	</div>
-                                                                                <ul class="parent"><li class="link url "><a href="/account/services"><span class="fa fa-fw fa-home"></span><span class="menu-item-parent">Dashboard</span></a></li><li class="text "><span class="menu-item-parent">Categories</span></li><li class="link url "><a href="/service/listProviders/a02b2cb0-8f5a-11e8-aad1-37304e535947"><span class="fa fa-fw fa-cloud"></span><span class="menu-item-parent">Internet Service</span></a></li></ul></li></ul>
-
+          <ul class="parent listSpacing">
+            <li class="link url infoReadable listSpacing">
+              <a href="/account/services"><span><i class="icon ion-md-home"></i></span>
+                <span class="menu-item-parent infoReadable listSpacing"> Dashboard</span></a></li>
+                <li class="text">
+                  <!-- <span class="menu-item-parent listSpacing"><i>Categories</i></span></li> -->
+                  <li class="link url infoReadable listSpacing">
+                    <a href="/service/listProviders/a02b2cb0-8f5a-11e8-aad1-37304e535947">
+                      <span><i class="icon ion-md-cloud"></i></span><span class="menu-item-parent"> Internet Service</span>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
         </div>
 <!-- /#sidebar-wrapper -->
 <script>
@@ -229,10 +242,10 @@
     </div>
 </div>
     <div class="alert alert-blank alert-dismissible"><span style='font-size:14pt'>You are subscribed to the services listed below</span></div>
-            <div class="col-sm-6 col-md-4 col-xs-6 col-lg-3 service grid-item" data-id="11e49dd0-8f69-11e8-90c7-563641435945" data-service_id="04e99fe0-8f69-11e8-99eb-543856374e4c">
+            <div class="col-sm-12 col-md-6 col-xs-12 col-lg-6 service grid-item" data-id="11e49dd0-8f69-11e8-90c7-563641435945" data-service_id="04e99fe0-8f69-11e8-99eb-543856374e4c">
             <div class="service-top" style="text-align: center;vertical-align: middle;">
-                                                    				<div class="provider-image" style="background-image:url(http://media.no/img/plan/atc.png);"  alt="Service 100"></div>
-                <p class="text-align-left service-description">
+              <div class="provider-image providerCover" style="background-image:url(att.png);"  alt="Service 100"></div>
+                <p class="text-align-left service-description serviceBuffer">
                     <span class="sprite-red fa fa-cloud"></span>
                     <b>Service<br />
                         <i>100</i></b><br />

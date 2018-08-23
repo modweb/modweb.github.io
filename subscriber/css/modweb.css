@@ -37,3 +37,66 @@
 {
   padding-bottom:18px;
 }
+
+.portalLogo
+{
+  padding:2px;
+}
+
+.listSpacing
+{
+  padding-top:18px !important;
+  padding-bottom:18px !important;
+}
+
+.listSpacing
+{
+  margin-top:18px !important;
+  margin-bottom:18px !important;
+}
+
+.navRoom
+{
+  height: 56px !important;
+}
+
+.infoReadable
+{
+  font-size:18px !important;
+  padding-right:12px;
+}
+
+.providerCover
+{
+  background-size:contain !important;
+}
+
+.serviceBuffer
+{
+  padding-top:14px !important;
+}
+
+span.menu-item-parent.infoReadable.listSpacing
+{
+  color:#075d31 !important;
+}
+
+i.icon.ion-md-home
+{
+  color:#075d31 !important;
+}
+
+i.icon.ion-md-cloud
+{
+  color:#075d31 !important;
+}
+
+span.menu-item-parent
+{
+  color:#075d31 !important;
+}
+
+#bs-example-navbar-collapse-1 {
+    width: 100%;
+    max-height: unset;
+}
